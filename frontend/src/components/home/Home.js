@@ -3,9 +3,9 @@ require('./content.scss');
 import React from 'react';
 import config from 'config';
 import Translate from 'react-translate-component';
+import TranslateLogo from '../common/TranslateLogo.js';
 
 let hakaLoginImage = require('../../images/haka_landscape_large.gif');
-let logo = require('../../images/logo-fi.png');
 let vipunenImg = require('../../images/vipunen.png');
 
 export default class Content extends React.Component {
@@ -30,7 +30,7 @@ export default class Content extends React.Component {
               <div className="six columns">
                 <div className="u-full-width">
                   <div id="logo">
-                    <img src={logo} alt="Avop"/>
+                    <TranslateLogo />
                   </div>
                 </div>
               </div>
@@ -41,6 +41,8 @@ export default class Content extends React.Component {
                     <Translate component="h4" content="content.login.header"/>
                     <Translate component="p" content="content.login.description"/>
                     <div id="haka" onClick={this.login}>
+
+
                       <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
                         <img src={hakaLoginImage} alt="haka-login"/>
                       </a>

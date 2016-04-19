@@ -3,10 +3,8 @@ import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
-let logo = require('../../images/logo-fi.png');
+import TranslateLogo from '../common/TranslateLogo.js';
 var Promise = require('es6-promise');
-
-
 
 export default class Userprofile extends React.Component {
   constructor(props) {
@@ -75,7 +73,7 @@ export default class Userprofile extends React.Component {
               <div className="six columns">
                 <div className="u-full-width">
                   <div id="logo">
-                    <img src={logo} alt="Avop"/>
+                    <TranslateLogo />
                   </div>
                 </div>
               </div>
