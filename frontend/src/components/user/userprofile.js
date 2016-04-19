@@ -4,7 +4,6 @@ import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
 import TranslateLogo from '../common/TranslateLogo.js';
-var Promise = require('es6-promise');
 
 export default class Userprofile extends React.Component {
   constructor(props) {
