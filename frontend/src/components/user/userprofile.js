@@ -2,7 +2,11 @@ import React from 'react';
 import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
+import fetch from 'isomorphic-fetch';
 let logo = require('../../images/logo-fi.png');
+var Promise = require('es6-promise');
+
+
 
 export default class Userprofile extends React.Component {
   constructor(props) {
