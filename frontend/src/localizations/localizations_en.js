@@ -10,8 +10,8 @@ let localizations_en = {
       about3: 'The electronic AVOP - Graduand feedback questionnaire is part of national of the ARVO – education management information service that enables collection of nationally compatible data on the impact of education.'
     },
     login: {
-      header: 'Ammattikorkeakouluopiskelija',
-      description: 'Vastaa kyselyyn kirjautumalla oman korkeakoulusi tunnuksilla:'
+      header: 'UAS student',
+      description: 'Please sign in to the survey by using your own UAS credentials:'
     },
     tulokset: {
       header: 'The results',
@@ -20,7 +20,7 @@ let localizations_en = {
     }
   },
   footer: {
-    header: 'Yhteistyössä:',
+    header: 'In cooperation:',
     arene: {
       description: 'Rectors´Conference of Finnish Universities of Applied Sciences, Arene'
     },
@@ -28,27 +28,27 @@ let localizations_en = {
       description: 'Ministry for Education and Culture'
     },
     csc: {
-      description: 'Arvo-educational management information series, CSC'
+      description: 'Arvo-educational management information services, CSC'
     }
   },
   profiledata: {
-    header: 'Palautekyselyn taustatiedot',
-    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli ja koulutustyyppi. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
-    education: 'Koulutus',
-    school: 'Ammattikorkeakoulu',
-    municipality: 'Kunta',
-    language: 'Tutkinnon suorituskieli',
-    form_of_education: 'Koulutusmuoto',
-    reminder: 'Tarkistathan, että koulutuksesi tiedot ovat oikein. Siirtymällä palautekyselyyn hyväksyt tietojen käyttämisen palautekyselyn taustatietona.',
-    survey: 'Siirry palautekyselyyn',
+    header: 'Background information',
+    about: 'Information on education, university of applied sciences, municipality, language of learning and mode of teaching is used as survey background information. The collected personal information is not transferred to the feedback system.',
+    education: 'Education',
+    school: 'University of applied sciences',
+    municipality: 'Municipality',
+    language: 'Language of learning',
+    form_of_education: 'Mode of education',
+    reminder: 'Please confirm the education information is correct. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
+    survey: 'Go to the survey',
     type: {
-      day: 'Päiväopiskelu',
-      multi: 'Monimuoto-opiskelu'
+      day: 'Daytime studies',
+      multi: 'Multiform studies'
     },
-    submit: 'Siirry palautekyselyyn'
+    submit: 'Go to the survey'
   },
   errors: {
-    missing_rights: 'Opiskeluoikeuksia ei löydy.'
+    missing_rights: 'Rights to study not found.'
   }
 };
 
