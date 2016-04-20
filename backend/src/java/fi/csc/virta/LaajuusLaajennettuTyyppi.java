@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusTyyppi"/>
- *         &lt;element name="Opintoviikko" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusTyyppi" minOccurs="0"/>
+ *         &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusTyyppi"/>
+ *         &lt;element name="Opintoviikko" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

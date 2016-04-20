@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Henkilotunnus" type="{urn:mace:funet.fi:virta/2013/01/29}HenkilotunnusTyyppi" minOccurs="0"/>
- *         &lt;element name="Sukunimi" type="{urn:mace:funet.fi:virta/2013/01/29}SukunimiTyyppi" minOccurs="0"/>
- *         &lt;element name="Etunimet" type="{urn:mace:funet.fi:virta/2013/01/29}EtunimetTyyppi" minOccurs="0"/>
- *         &lt;element name="Sukupuoli" type="{urn:mace:funet.fi:virta/2013/01/29}SukupuoliKoodiTyyppi" minOccurs="0"/>
- *         &lt;element name="Kansalaisuus" type="{urn:mace:funet.fi:virta/2013/01/29}MaatunnusKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Aidinkieli" type="{urn:mace:funet.fi:virta/2013/01/29}KieliKoodiTyyppi" minOccurs="0"/>
- *         &lt;element name="Asuinkunta" type="{urn:mace:funet.fi:virta/2013/01/29}KuntaKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Henkilotunnus" type="{urn:mace:funet.fi:virta/2015/09/01}HenkilotunnusTyyppi" minOccurs="0"/>
+ *         &lt;element name="Sukunimi" type="{urn:mace:funet.fi:virta/2015/09/01}SukunimiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Etunimet" type="{urn:mace:funet.fi:virta/2015/09/01}EtunimetTyyppi" minOccurs="0"/>
+ *         &lt;element name="Sukupuoli" type="{urn:mace:funet.fi:virta/2015/09/01}SukupuoliKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Kansalaisuus" type="{urn:mace:funet.fi:virta/2015/09/01}MaatunnusKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Aidinkieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Asuinkunta" type="{urn:mace:funet.fi:virta/2015/09/01}KuntaKoodiTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

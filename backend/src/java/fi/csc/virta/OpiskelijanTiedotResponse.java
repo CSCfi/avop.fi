@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{urn:mace:funet.fi:virta/2013/01/29}Opiskelijat"/>
+ *         &lt;element ref="{urn:mace:funet.fi:virta/2015/09/01}Opiskelijat"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,17 +35,17 @@ import javax.xml.bind.annotation.XmlType;
 public class OpiskelijanTiedotResponse {
 
     @XmlElement(name = "Opiskelijat", required = true)
-    protected OpiskelijatLaajennettuTyyppi opiskelijat;
+    protected OpiskelijatTyyppi opiskelijat;
 
     /**
      * Gets the value of the opiskelijat property.
      * 
      * @return
      *     possible object is
-     *     {@link OpiskelijatLaajennettuTyyppi }
+     *     {@link OpiskelijatTyyppi }
      *     
      */
-    public OpiskelijatLaajennettuTyyppi getOpiskelijat() {
+    public OpiskelijatTyyppi getOpiskelijat() {
         return opiskelijat;
     }
 
@@ -54,10 +54,10 @@ public class OpiskelijanTiedotResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link OpiskelijatLaajennettuTyyppi }
+     *     {@link OpiskelijatTyyppi }
      *     
      */
-    public void setOpiskelijat(OpiskelijatLaajennettuTyyppi value) {
+    public void setOpiskelijat(OpiskelijatTyyppi value) {
         this.opiskelijat = value;
     }
 

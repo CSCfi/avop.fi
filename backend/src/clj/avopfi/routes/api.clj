@@ -25,7 +25,7 @@
         (db/get-mapping-by-domain {:domain domain})]
     (:code mapping)))
 
-(defn has-organization? [home-organization {{org-koodi :koodi} :myontaja}]
+(defn has-organization? [home-organization {org-koodi :myontaja}]
   (let
     [code (get-oppilaitos-code-by-domain home-organization)]
     (= code org-koodi)))
@@ -36,29 +36,30 @@
   [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
                       {oo-laajuus :opintopiste} :laajuus}]
   (let [pisteet
-        (->> virta-suoritukset
+        (->> virta-suoritukset             
              (filter #(and
                        (= (:opiskeluoikeusAvain %) oo-avain)
                        (= (:laji %) opintosuoritus-muu-laji)
                        (empty? (:sisaltyvyys %))))
              (reduce #(+ %1 (int (-> %2 :laajuus :opintopiste))) 0))]
-    (condp = oo-tyyppi
+    (condp = (str oo-tyyppi)
       amk-alempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus)) opintopisteet-amk-alempi-min-pct)
+      (>= (vals->pct pisteet (int oo-laajuus)) 
+          opintopisteet-amk-alempi-min-pct)
       amk-ylempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus)) opintopisteet-amk-ylempi-min-pct)
+      (>= (vals->pct pisteet (int oo-laajuus)) 
+          opintopisteet-amk-ylempi-min-pct)
       false)))
 
 (defn opiskeluoikeus->ui-map
-  [{:keys [avain jakso myontaja tyyppi aikuiskoulutus] {laajuus :opintopiste} :laajuus}]
+  [{:keys [avain jakso myontaja tyyppi] {laajuus :opintopiste} :laajuus}]
   (let [
         {kunta-id :koulutuskunta :keys [koulutuskoodi koulutuskieli]}
           (virta/select-active-timespan jakso)
-        org-id (:koodi myontaja)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
         koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
-        koulutustyyppi (virta/conclude-study-type tyyppi aikuiskoulutus)
-        oppilaitos (op/extract-metadata (op/get-oppilaitos-data org-id))]
+        koulutustyyppi (virta/conclude-study-type tyyppi (:luokittelu jakso))
+        oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
     {
      :id avain
      :kunta {:id kunta-id :nimi kunta}
@@ -67,7 +68,7 @@
      :koulutusmuoto koulutustyyppi
      :opiskeluoikeustyyppi tyyppi
      :laajuus laajuus
-     :oppilaitos {:id org-id :nimi oppilaitos}
+     :oppilaitos {:id myontaja :nimi oppilaitos}
      }))
 
 (defn filter-oikeudet [virta-oikeudet virta-suoritukset home-organization]
@@ -76,7 +77,8 @@
       virta-oikeudet
       (filter #(valid? opiskeluoikeus-validator %))
       (filter (partial has-organization? home-organization))
-      (filter (partial has-enough-opintosuoritus? virta-suoritukset)))
+      (filter (partial has-enough-opintosuoritus? virta-suoritukset))
+      )
     (catch Exception e
       (let [msg (.getMessage e)]
         (println "caught exception: " msg)
@@ -87,7 +89,9 @@
         virta-suoritukset 
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
-          (filter-oikeudet virta-oikeudet virta-suoritukset (shibbo-vals "home-organization"))]
+          (filter-oikeudet virta-oikeudet virta-suoritukset
+                           (shibbo-vals "home-organization"))]
+    (println valid-oikeudet)
     (map opiskeluoikeus->ui-map valid-oikeudet)))
 
 (defn debug-status [{:keys [session headers identity] :as request}]

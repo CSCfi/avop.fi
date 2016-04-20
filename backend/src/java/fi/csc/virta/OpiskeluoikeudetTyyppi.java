@@ -6,7 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Opiskeluoikeus" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusTyyppi" maxOccurs="unbounded"/>
+ *         &lt;element name="Opiskeluoikeus" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusTyyppi" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,9 +36,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OpiskeluoikeudetTyyppi", propOrder = {
     "opiskeluoikeus"
-})
-@XmlSeeAlso({
-    OpiskeluoikeudetLaajennettuTyyppi.class
 })
 public class OpiskeluoikeudetTyyppi {
 

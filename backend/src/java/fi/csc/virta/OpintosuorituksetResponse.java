@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{urn:mace:funet.fi:virta/2013/01/29}Opintosuoritukset"/>
+ *         &lt;element ref="{urn:mace:funet.fi:virta/2015/09/01}Opintosuoritukset"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,17 +35,17 @@ import javax.xml.bind.annotation.XmlType;
 public class OpintosuorituksetResponse {
 
     @XmlElement(name = "Opintosuoritukset", required = true)
-    protected OpintosuorituksetLaajennettuTyyppi opintosuoritukset;
+    protected OpintosuorituksetTyyppi opintosuoritukset;
 
     /**
      * Gets the value of the opintosuoritukset property.
      * 
      * @return
      *     possible object is
-     *     {@link OpintosuorituksetLaajennettuTyyppi }
+     *     {@link OpintosuorituksetTyyppi }
      *     
      */
-    public OpintosuorituksetLaajennettuTyyppi getOpintosuoritukset() {
+    public OpintosuorituksetTyyppi getOpintosuoritukset() {
         return opintosuoritukset;
     }
 
@@ -54,10 +54,10 @@ public class OpintosuorituksetResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link OpintosuorituksetLaajennettuTyyppi }
+     *     {@link OpintosuorituksetTyyppi }
      *     
      */
-    public void setOpintosuoritukset(OpintosuorituksetLaajennettuTyyppi value) {
+    public void setOpintosuoritukset(OpintosuorituksetTyyppi value) {
         this.opintosuoritukset = value;
     }
 

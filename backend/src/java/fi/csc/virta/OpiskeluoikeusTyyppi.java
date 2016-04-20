@@ -27,49 +27,48 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="AlkuPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
- *         &lt;element name="LoppuPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi" minOccurs="0"/>
+ *         &lt;element name="AlkuPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+ *         &lt;element name="LoppuPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi" minOccurs="0"/>
  *         &lt;element name="Tila" maxOccurs="unbounded">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}AikajaksoTyyppi">
+ *               &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}AikajaksoTyyppi">
  *                 &lt;sequence>
- *                   &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusTilaKoodiTyyppi"/>
+ *                   &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusTilaKoodiTyyppi"/>
  *                 &lt;/sequence>
  *               &lt;/extension>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Tyyppi" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusTyyppiKoodiTyyppi"/>
- *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliOsuusLaajennettu1Tyyppi"/>
- *         &lt;element name="Organisaatio" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliOsuusTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Tyyppi" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusTyyppiKoodiTyyppi"/>
+ *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioKoodiTyyppi"/>
+ *         &lt;element name="Organisaatio" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioRooliOsuusTyyppi" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Jakso" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
- *               &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}AikajaksoTyyppi">
+ *               &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}AikajaksoTyyppi">
  *                 &lt;sequence>
- *                   &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
- *                   &lt;element name="Koulutuskunta" type="{urn:mace:funet.fi:virta/2013/01/29}KuntaKoodiTyyppi"/>
- *                   &lt;element name="Koulutuskieli" type="{urn:mace:funet.fi:virta/2013/01/29}KieliKoodiTyyppi" minOccurs="0"/>
- *                   &lt;element name="Rahoituslahde" type="{urn:mace:funet.fi:virta/2013/01/29}RahoituslahdeKoodiTyyppi" minOccurs="0"/>
- *                   &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2013/01/29}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
+ *                   &lt;element name="Koulutuskunta" type="{urn:mace:funet.fi:virta/2015/09/01}KuntaKoodiTyyppi"/>
+ *                   &lt;element name="Koulutuskieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" minOccurs="0"/>
+ *                   &lt;element name="Rahoituslahde" type="{urn:mace:funet.fi:virta/2015/09/01}RahoituslahdeKoodiTyyppi" minOccurs="0"/>
+ *                   &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2015/09/01}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element name="Luokittelu" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusLuokitteluKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutusmoduulitunnisteTyyppi" />
- *                 &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2013/01/29}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
+ *                 &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusmoduulitunnisteTyyppi" />
+ *                 &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2015/09/01}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
  *               &lt;/extension>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="Ensisijaisuus" type="{urn:mace:funet.fi:virta/2013/01/29}AikajaksoTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element name="Koulutusala2002" type="{urn:mace:funet.fi:virta/2013/01/29}Koulutusala2002KoodiTyyppi" minOccurs="0"/>
- *           &lt;element name="Opintoala1995" type="{urn:mace:funet.fi:virta/2013/01/29}Opintoala1995KoodiTyyppi" minOccurs="0"/>
- *         &lt;/choice>
+ *         &lt;element name="Ensisijaisuus" type="{urn:mace:funet.fi:virta/2015/09/01}AikajaksoTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Koulutusala" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusalaVersioTyyppi" minOccurs="0"/>
+ *         &lt;element name="Erikoistumiskoulutus" type="{urn:mace:funet.fi:virta/2015/09/01}ErikoistumiskoulutusKoodiTyyppi" minOccurs="0"/>
  *         &lt;element name="Liittyvyys" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;attribute name="liittyvaOpiskeluoikeusAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+ *                 &lt;attribute name="liittyvaOpiskeluoikeusAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -79,22 +78,29 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="SiirtoPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
- *                   &lt;element name="LasnaPoissaoloLukukausiMaara" type="{urn:mace:funet.fi:virta/2013/01/29}LasnaPoissaoloLukukausiMaaraTyyppi"/>
+ *                   &lt;element name="SiirtoPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+ *                   &lt;element name="Lukukausikertyma" maxOccurs="unbounded">
+ *                     &lt;complexType>
+ *                       &lt;complexContent>
+ *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                           &lt;sequence>
+ *                             &lt;element name="IlmoittautuminenTila" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautuminenTilaKoodiTyyppi"/>
+ *                             &lt;element name="Maara" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiMaaraTyyppi"/>
+ *                           &lt;/sequence>
+ *                         &lt;/restriction>
+ *                       &lt;/complexContent>
+ *                     &lt;/complexType>
+ *                   &lt;/element>
  *                 &lt;/sequence>
- *                 &lt;attribute name="lahdeOpiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+ *                 &lt;attribute name="lahdeOpiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="KansainvalinenVaihto" type="{urn:mace:funet.fi:virta/2013/01/29}KansainvalinenVaihtoKoodiTyyppi" minOccurs="0"/>
- *         &lt;element name="Laajuus" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusLaajennettuTyyppi" minOccurs="0"/>
- *         &lt;element name="Aikuiskoulutus" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
- *         &lt;element name="AvoinVayla" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
- *         &lt;element name="AsetusMaisteriohjelma" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
+ *         &lt;element name="Laajuus" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusLaajennettuTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
- *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaAvainTyyppi" />
+ *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
+ *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -112,15 +118,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "organisaatio",
     "jakso",
     "ensisijaisuus",
-    "koulutusala2002",
-    "opintoala1995",
+    "koulutusala",
+    "erikoistumiskoulutus",
     "liittyvyys",
     "siirtoOpiskelija",
-    "kansainvalinenVaihto",
-    "laajuus",
-    "aikuiskoulutus",
-    "avoinVayla",
-    "asetusMaisteriohjelma"
+    "laajuus"
 })
 public class OpiskeluoikeusTyyppi {
 
@@ -135,31 +137,23 @@ public class OpiskeluoikeusTyyppi {
     @XmlElement(name = "Tyyppi", required = true)
     protected String tyyppi;
     @XmlElement(name = "Myontaja", required = true)
-    protected OrganisaatioRooliOsuusLaajennettu1Tyyppi myontaja;
+    protected String myontaja;
     @XmlElement(name = "Organisaatio")
     protected List<OrganisaatioRooliOsuusTyyppi> organisaatio;
     @XmlElement(name = "Jakso")
     protected List<OpiskeluoikeusTyyppi.Jakso> jakso;
     @XmlElement(name = "Ensisijaisuus")
     protected List<AikajaksoTyyppi> ensisijaisuus;
-    @XmlElement(name = "Koulutusala2002")
-    protected String koulutusala2002;
-    @XmlElement(name = "Opintoala1995")
-    protected String opintoala1995;
+    @XmlElement(name = "Koulutusala")
+    protected KoulutusalaVersioTyyppi koulutusala;
+    @XmlElement(name = "Erikoistumiskoulutus")
+    protected String erikoistumiskoulutus;
     @XmlElement(name = "Liittyvyys")
     protected List<OpiskeluoikeusTyyppi.Liittyvyys> liittyvyys;
     @XmlElement(name = "SiirtoOpiskelija")
     protected OpiskeluoikeusTyyppi.SiirtoOpiskelija siirtoOpiskelija;
-    @XmlElement(name = "KansainvalinenVaihto")
-    protected String kansainvalinenVaihto;
     @XmlElement(name = "Laajuus")
     protected LaajuusLaajennettuTyyppi laajuus;
-    @XmlElement(name = "Aikuiskoulutus")
-    protected Boolean aikuiskoulutus;
-    @XmlElement(name = "AvoinVayla")
-    protected Boolean avoinVayla;
-    @XmlElement(name = "AsetusMaisteriohjelma")
-    protected Boolean asetusMaisteriohjelma;
     @XmlAttribute(name = "avain", required = true)
     protected String avain;
     @XmlAttribute(name = "opiskelijaAvain", required = true)
@@ -271,10 +265,10 @@ public class OpiskeluoikeusTyyppi {
      * 
      * @return
      *     possible object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public OrganisaatioRooliOsuusLaajennettu1Tyyppi getMyontaja() {
+    public String getMyontaja() {
         return myontaja;
     }
 
@@ -283,10 +277,10 @@ public class OpiskeluoikeusTyyppi {
      * 
      * @param value
      *     allowed object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public void setMyontaja(OrganisaatioRooliOsuusLaajennettu1Tyyppi value) {
+    public void setMyontaja(String value) {
         this.myontaja = value;
     }
 
@@ -378,51 +372,51 @@ public class OpiskeluoikeusTyyppi {
     }
 
     /**
-     * Gets the value of the koulutusala2002 property.
+     * Gets the value of the koulutusala property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link KoulutusalaVersioTyyppi }
+     *     
+     */
+    public KoulutusalaVersioTyyppi getKoulutusala() {
+        return koulutusala;
+    }
+
+    /**
+     * Sets the value of the koulutusala property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link KoulutusalaVersioTyyppi }
+     *     
+     */
+    public void setKoulutusala(KoulutusalaVersioTyyppi value) {
+        this.koulutusala = value;
+    }
+
+    /**
+     * Gets the value of the erikoistumiskoulutus property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getKoulutusala2002() {
-        return koulutusala2002;
+    public String getErikoistumiskoulutus() {
+        return erikoistumiskoulutus;
     }
 
     /**
-     * Sets the value of the koulutusala2002 property.
+     * Sets the value of the erikoistumiskoulutus property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setKoulutusala2002(String value) {
-        this.koulutusala2002 = value;
-    }
-
-    /**
-     * Gets the value of the opintoala1995 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOpintoala1995() {
-        return opintoala1995;
-    }
-
-    /**
-     * Sets the value of the opintoala1995 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOpintoala1995(String value) {
-        this.opintoala1995 = value;
+    public void setErikoistumiskoulutus(String value) {
+        this.erikoistumiskoulutus = value;
     }
 
     /**
@@ -479,30 +473,6 @@ public class OpiskeluoikeusTyyppi {
     }
 
     /**
-     * Gets the value of the kansainvalinenVaihto property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getKansainvalinenVaihto() {
-        return kansainvalinenVaihto;
-    }
-
-    /**
-     * Sets the value of the kansainvalinenVaihto property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setKansainvalinenVaihto(String value) {
-        this.kansainvalinenVaihto = value;
-    }
-
-    /**
      * Gets the value of the laajuus property.
      * 
      * @return
@@ -524,85 +494,6 @@ public class OpiskeluoikeusTyyppi {
      */
     public void setLaajuus(LaajuusLaajennettuTyyppi value) {
         this.laajuus = value;
-    }
-
-    /**
-     * Gets the value of the aikuiskoulutus property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public Boolean isAikuiskoulutus() {
-        return aikuiskoulutus;
-    }
-
-    /**
-     * Hack to get this value working with clojure.java.data's from-java
-     */
-    public Boolean getAikuiskoulutus() {
-        return aikuiskoulutus;
-    }
-
-    /**
-     * Sets the value of the aikuiskoulutus property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setAikuiskoulutus(Boolean value) {
-        this.aikuiskoulutus = value;
-    }
-
-    /**
-     * Gets the value of the avoinVayla property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public Boolean isAvoinVayla() {
-        return avoinVayla;
-    }
-
-    /**
-     * Sets the value of the avoinVayla property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setAvoinVayla(Boolean value) {
-        this.avoinVayla = value;
-    }
-
-    /**
-     * Gets the value of the asetusMaisteriohjelma property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public Boolean isAsetusMaisteriohjelma() {
-        return asetusMaisteriohjelma;
-    }
-
-    /**
-     * Sets the value of the asetusMaisteriohjelma property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setAsetusMaisteriohjelma(Boolean value) {
-        this.asetusMaisteriohjelma = value;
     }
 
     /**
@@ -662,16 +553,17 @@ public class OpiskeluoikeusTyyppi {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}AikajaksoTyyppi">
+     *     &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}AikajaksoTyyppi">
      *       &lt;sequence>
-     *         &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
-     *         &lt;element name="Koulutuskunta" type="{urn:mace:funet.fi:virta/2013/01/29}KuntaKoodiTyyppi"/>
-     *         &lt;element name="Koulutuskieli" type="{urn:mace:funet.fi:virta/2013/01/29}KieliKoodiTyyppi" minOccurs="0"/>
-     *         &lt;element name="Rahoituslahde" type="{urn:mace:funet.fi:virta/2013/01/29}RahoituslahdeKoodiTyyppi" minOccurs="0"/>
-     *         &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2013/01/29}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
+     *         &lt;element name="Koulutuskunta" type="{urn:mace:funet.fi:virta/2015/09/01}KuntaKoodiTyyppi"/>
+     *         &lt;element name="Koulutuskieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" minOccurs="0"/>
+     *         &lt;element name="Rahoituslahde" type="{urn:mace:funet.fi:virta/2015/09/01}RahoituslahdeKoodiTyyppi" minOccurs="0"/>
+     *         &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2015/09/01}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element name="Luokittelu" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusLuokitteluKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
      *       &lt;/sequence>
-     *       &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutusmoduulitunnisteTyyppi" />
-     *       &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2013/01/29}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
+     *       &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusmoduulitunnisteTyyppi" />
+     *       &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2015/09/01}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
      *     &lt;/extension>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -685,7 +577,8 @@ public class OpiskeluoikeusTyyppi {
         "koulutuskunta",
         "koulutuskieli",
         "rahoituslahde",
-        "patevyys"
+        "patevyys",
+        "luokittelu"
     })
     public static class Jakso
         extends AikajaksoTyyppi
@@ -701,6 +594,8 @@ public class OpiskeluoikeusTyyppi {
         protected String rahoituslahde;
         @XmlElement(name = "Patevyys")
         protected List<String> patevyys;
+        @XmlElement(name = "Luokittelu")
+        protected List<String> luokittelu;
         @XmlAttribute(name = "koulutusmoduulitunniste", required = true)
         protected String koulutusmoduulitunniste;
         @XmlAttribute(name = "valtakunnallinenKoulutusmoduulitunniste")
@@ -832,6 +727,35 @@ public class OpiskeluoikeusTyyppi {
         }
 
         /**
+         * Gets the value of the luokittelu property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the luokittelu property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getLuokittelu().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link String }
+         * 
+         * 
+         */
+        public List<String> getLuokittelu() {
+            if (luokittelu == null) {
+                luokittelu = new ArrayList<String>();
+            }
+            return this.luokittelu;
+        }
+
+        /**
          * Gets the value of the koulutusmoduulitunniste property.
          * 
          * @return
@@ -891,7 +815,7 @@ public class OpiskeluoikeusTyyppi {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="liittyvaOpiskeluoikeusAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+     *       &lt;attribute name="liittyvaOpiskeluoikeusAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -943,10 +867,21 @@ public class OpiskeluoikeusTyyppi {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="SiirtoPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
-     *         &lt;element name="LasnaPoissaoloLukukausiMaara" type="{urn:mace:funet.fi:virta/2013/01/29}LasnaPoissaoloLukukausiMaaraTyyppi"/>
+     *         &lt;element name="SiirtoPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+     *         &lt;element name="Lukukausikertyma" maxOccurs="unbounded">
+     *           &lt;complexType>
+     *             &lt;complexContent>
+     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *                 &lt;sequence>
+     *                   &lt;element name="IlmoittautuminenTila" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautuminenTilaKoodiTyyppi"/>
+     *                   &lt;element name="Maara" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiMaaraTyyppi"/>
+     *                 &lt;/sequence>
+     *               &lt;/restriction>
+     *             &lt;/complexContent>
+     *           &lt;/complexType>
+     *         &lt;/element>
      *       &lt;/sequence>
-     *       &lt;attribute name="lahdeOpiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+     *       &lt;attribute name="lahdeOpiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -957,15 +892,15 @@ public class OpiskeluoikeusTyyppi {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "siirtoPvm",
-        "lasnaPoissaoloLukukausiMaara"
+        "lukukausikertyma"
     })
     public static class SiirtoOpiskelija {
 
         @XmlElement(name = "SiirtoPvm", required = true)
         @XmlSchemaType(name = "date")
         protected XMLGregorianCalendar siirtoPvm;
-        @XmlElement(name = "LasnaPoissaoloLukukausiMaara")
-        protected short lasnaPoissaoloLukukausiMaara;
+        @XmlElement(name = "Lukukausikertyma", required = true)
+        protected List<OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma> lukukausikertyma;
         @XmlAttribute(name = "lahdeOpiskeluoikeusAvain")
         protected String lahdeOpiskeluoikeusAvain;
 
@@ -994,19 +929,32 @@ public class OpiskeluoikeusTyyppi {
         }
 
         /**
-         * Gets the value of the lasnaPoissaoloLukukausiMaara property.
+         * Gets the value of the lukukausikertyma property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the lukukausikertyma property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getLukukausikertyma().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma }
+         * 
          * 
          */
-        public short getLasnaPoissaoloLukukausiMaara() {
-            return lasnaPoissaoloLukukausiMaara;
-        }
-
-        /**
-         * Sets the value of the lasnaPoissaoloLukukausiMaara property.
-         * 
-         */
-        public void setLasnaPoissaoloLukukausiMaara(short value) {
-            this.lasnaPoissaoloLukukausiMaara = value;
+        public List<OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma> getLukukausikertyma() {
+            if (lukukausikertyma == null) {
+                lukukausikertyma = new ArrayList<OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma>();
+            }
+            return this.lukukausikertyma;
         }
 
         /**
@@ -1033,6 +981,81 @@ public class OpiskeluoikeusTyyppi {
             this.lahdeOpiskeluoikeusAvain = value;
         }
 
+
+        /**
+         * <p>Java class for anonymous complex type.
+         * 
+         * <p>The following schema fragment specifies the expected content contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="IlmoittautuminenTila" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautuminenTilaKoodiTyyppi"/>
+         *         &lt;element name="Maara" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiMaaraTyyppi"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "ilmoittautuminenTila",
+            "maara"
+        })
+        public static class Lukukausikertyma {
+
+            @XmlElement(name = "IlmoittautuminenTila", required = true)
+            protected String ilmoittautuminenTila;
+            @XmlElement(name = "Maara")
+            protected short maara;
+
+            /**
+             * Gets the value of the ilmoittautuminenTila property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getIlmoittautuminenTila() {
+                return ilmoittautuminenTila;
+            }
+
+            /**
+             * Sets the value of the ilmoittautuminenTila property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setIlmoittautuminenTila(String value) {
+                this.ilmoittautuminenTila = value;
+            }
+
+            /**
+             * Gets the value of the maara property.
+             * 
+             */
+            public short getMaara() {
+                return maara;
+            }
+
+            /**
+             * Sets the value of the maara property.
+             * 
+             */
+            public void setMaara(short value) {
+                this.maara = value;
+            }
+
+        }
+
     }
 
 
@@ -1044,9 +1067,9 @@ public class OpiskeluoikeusTyyppi {
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
-     *     &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}AikajaksoTyyppi">
+     *     &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}AikajaksoTyyppi">
      *       &lt;sequence>
-     *         &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusTilaKoodiTyyppi"/>
+     *         &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeusTilaKoodiTyyppi"/>
      *       &lt;/sequence>
      *     &lt;/extension>
      *   &lt;/complexContent>

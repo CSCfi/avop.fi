@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice>
- *         &lt;element name="henkilotunnus" type="{urn:mace:funet.fi:virta/2013/01/29}HenkilotunnusTyyppi"/>
+ *         &lt;element name="henkilotunnus" type="{urn:mace:funet.fi:virta/2015/09/01}HenkilotunnusTyyppi"/>
  *         &lt;element name="kansallinenOppijanumero" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/choice>
  *     &lt;/restriction>

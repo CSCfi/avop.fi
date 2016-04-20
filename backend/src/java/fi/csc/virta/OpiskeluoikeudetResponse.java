@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{urn:mace:funet.fi:virta/2013/01/29}Opiskeluoikeudet"/>
+ *         &lt;element ref="{urn:mace:funet.fi:virta/2015/09/01}Opiskeluoikeudet"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,17 +35,17 @@ import javax.xml.bind.annotation.XmlType;
 public class OpiskeluoikeudetResponse {
 
     @XmlElement(name = "Opiskeluoikeudet", required = true)
-    protected OpiskeluoikeudetLaajennettuTyyppi opiskeluoikeudet;
+    protected OpiskeluoikeudetTyyppi opiskeluoikeudet;
 
     /**
      * Gets the value of the opiskeluoikeudet property.
      * 
      * @return
      *     possible object is
-     *     {@link OpiskeluoikeudetLaajennettuTyyppi }
+     *     {@link OpiskeluoikeudetTyyppi }
      *     
      */
-    public OpiskeluoikeudetLaajennettuTyyppi getOpiskeluoikeudet() {
+    public OpiskeluoikeudetTyyppi getOpiskeluoikeudet() {
         return opiskeluoikeudet;
     }
 
@@ -54,10 +54,10 @@ public class OpiskeluoikeudetResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link OpiskeluoikeudetLaajennettuTyyppi }
+     *     {@link OpiskeluoikeudetTyyppi }
      *     
      */
-    public void setOpiskeluoikeudet(OpiskeluoikeudetLaajennettuTyyppi value) {
+    public void setOpiskeluoikeudet(OpiskeluoikeudetTyyppi value) {
         this.opiskeluoikeudet = value;
     }
 

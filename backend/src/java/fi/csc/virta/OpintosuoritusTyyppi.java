@@ -28,47 +28,44 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="SuoritusPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
- *         &lt;element name="Laajuus" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusLaajennettuTyyppi"/>
- *         &lt;element name="Arvosana" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaTyyppi"/>
- *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliOsuusLaajennettu1Tyyppi"/>
- *         &lt;element name="Organisaatio" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliOsuusTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Laji" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusLajiKoodiTyyppi"/>
- *         &lt;element name="Nimi" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusNimiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Kieli" type="{urn:mace:funet.fi:virta/2013/01/29}KieliKoodiTyyppi" minOccurs="0"/>
- *         &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
- *         &lt;choice>
- *           &lt;element name="Koulutusala2002" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutusalaVersioOPMALATyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *           &lt;element name="Opintoala1995" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutusalaVersioOPM95OPATyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;/choice>
+ *         &lt;element name="SuoritusPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+ *         &lt;element name="Laajuus" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusLaajennettuTyyppi"/>
+ *         &lt;element name="Arvosana" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaTyyppi"/>
+ *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioKoodiTyyppi"/>
+ *         &lt;element name="Organisaatio" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioRooliOsuusTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Laji" type="{urn:mace:funet.fi:virta/2015/09/01}OpintosuoritusLajiKoodiTyyppi"/>
+ *         &lt;element name="Nimi" type="{urn:mace:funet.fi:virta/2015/09/01}OpintosuoritusNimiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Kieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Koulutuskoodi" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutuskoodiKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Koulutusala" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusalaVersioOsuusTyyppi" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="Sisaltyvyys" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusTyyppi" minOccurs="0"/>
+ *                   &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusTyyppi" minOccurs="0"/>
  *                 &lt;/sequence>
- *                 &lt;attribute name="sisaltyvaOpintosuoritusAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusAvainTyyppi" />
+ *                 &lt;attribute name="sisaltyvaOpintosuoritusAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="HyvaksilukuPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi" minOccurs="0"/>
- *         &lt;element name="TKILaajuus" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusLaajennettuTyyppi" minOccurs="0"/>
- *         &lt;element name="TKILaajuusHarjoittelu" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusLaajennettuTyyppi" minOccurs="0"/>
- *         &lt;element name="TKILaajuusMuu" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusLaajennettuTyyppi" minOccurs="0"/>
- *         &lt;element name="OpetusharjoitteluTyyppi" type="{urn:mace:funet.fi:virta/2013/01/29}OpetusharjoitteluTyyppiKoodiTyyppi" minOccurs="0"/>
- *         &lt;element name="Opinnaytetyo" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
- *         &lt;element name="Hankkeistettu" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
- *         &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2013/01/29}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="Luokittelu" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusLuokitteluKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="JulkinenLisatieto" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusJulkinenLisatietoTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="HyvaksilukuPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi" minOccurs="0"/>
+ *         &lt;element name="TKILaajuus" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusLaajennettuTyyppi" minOccurs="0"/>
+ *         &lt;element name="TKILaajuusHarjoittelu" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusLaajennettuTyyppi" minOccurs="0"/>
+ *         &lt;element name="TKILaajuusMuu" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusLaajennettuTyyppi" minOccurs="0"/>
+ *         &lt;element name="OpetusharjoitteluTyyppi" type="{urn:mace:funet.fi:virta/2015/09/01}OpetusharjoitteluTyyppiKoodiTyyppi" minOccurs="0"/>
+ *         &lt;element name="Opinnaytetyo" type="{urn:mace:funet.fi:virta/2015/09/01}KyllaEiKytkinTyyppi" minOccurs="0"/>
+ *         &lt;element name="Hankkeistettu" type="{urn:mace:funet.fi:virta/2015/09/01}KyllaEiKytkinTyyppi" minOccurs="0"/>
+ *         &lt;element name="Patevyys" type="{urn:mace:funet.fi:virta/2015/09/01}PatevyysKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Luokittelu" type="{urn:mace:funet.fi:virta/2015/09/01}OpintosuoritusLuokitteluKoodiTyyppi" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="JulkinenLisatieto" type="{urn:mace:funet.fi:virta/2015/09/01}OpintosuoritusJulkinenLisatietoTyyppi" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusAvainTyyppi" />
- *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaAvainTyyppi" />
- *       &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}KoulutusmoduulitunnisteTyyppi" />
- *       &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2013/01/29}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
- *       &lt;attribute name="opiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+ *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
+ *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
+ *       &lt;attribute name="koulutusmoduulitunniste" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusmoduulitunnisteTyyppi" />
+ *       &lt;attribute name="valtakunnallinenKoulutusmoduulitunniste" type="{urn:mace:funet.fi:virta/2015/09/01}ValtakunnallinenKoulutusmoduulitunnisteTyyppi" />
+ *       &lt;attribute name="opiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -87,8 +84,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "nimi",
     "kieli",
     "koulutuskoodi",
-    "koulutusala2002",
-    "opintoala1995",
+    "koulutusala",
     "sisaltyvyys",
     "hyvaksilukuPvm",
     "tkiLaajuus",
@@ -111,7 +107,7 @@ public class OpintosuoritusTyyppi {
     @XmlElement(name = "Arvosana", required = true)
     protected ArvosanaTyyppi arvosana;
     @XmlElement(name = "Myontaja", required = true)
-    protected OrganisaatioRooliOsuusLaajennettu1Tyyppi myontaja;
+    protected String myontaja;
     @XmlElement(name = "Organisaatio")
     protected List<OrganisaatioRooliOsuusTyyppi> organisaatio;
     @XmlElement(name = "Laji", required = true)
@@ -122,10 +118,8 @@ public class OpintosuoritusTyyppi {
     protected String kieli;
     @XmlElement(name = "Koulutuskoodi")
     protected String koulutuskoodi;
-    @XmlElement(name = "Koulutusala2002")
-    protected List<KoulutusalaVersioOPMALATyyppi> koulutusala2002;
-    @XmlElement(name = "Opintoala1995")
-    protected List<KoulutusalaVersioOPM95OPATyyppi> opintoala1995;
+    @XmlElement(name = "Koulutusala")
+    protected List<KoulutusalaVersioOsuusTyyppi> koulutusala;
     @XmlElement(name = "Sisaltyvyys")
     protected List<OpintosuoritusTyyppi.Sisaltyvyys> sisaltyvyys;
     @XmlElement(name = "HyvaksilukuPvm")
@@ -237,10 +231,10 @@ public class OpintosuoritusTyyppi {
      * 
      * @return
      *     possible object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public OrganisaatioRooliOsuusLaajennettu1Tyyppi getMyontaja() {
+    public String getMyontaja() {
         return myontaja;
     }
 
@@ -249,10 +243,10 @@ public class OpintosuoritusTyyppi {
      * 
      * @param value
      *     allowed object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public void setMyontaja(OrganisaatioRooliOsuusLaajennettu1Tyyppi value) {
+    public void setMyontaja(String value) {
         this.myontaja = value;
     }
 
@@ -387,61 +381,32 @@ public class OpintosuoritusTyyppi {
     }
 
     /**
-     * Gets the value of the koulutusala2002 property.
+     * Gets the value of the koulutusala property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the koulutusala2002 property.
+     * This is why there is not a <CODE>set</CODE> method for the koulutusala property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getKoulutusala2002().add(newItem);
+     *    getKoulutusala().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link KoulutusalaVersioOPMALATyyppi }
+     * {@link KoulutusalaVersioOsuusTyyppi }
      * 
      * 
      */
-    public List<KoulutusalaVersioOPMALATyyppi> getKoulutusala2002() {
-        if (koulutusala2002 == null) {
-            koulutusala2002 = new ArrayList<KoulutusalaVersioOPMALATyyppi>();
+    public List<KoulutusalaVersioOsuusTyyppi> getKoulutusala() {
+        if (koulutusala == null) {
+            koulutusala = new ArrayList<KoulutusalaVersioOsuusTyyppi>();
         }
-        return this.koulutusala2002;
-    }
-
-    /**
-     * Gets the value of the opintoala1995 property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the opintoala1995 property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getOpintoala1995().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link KoulutusalaVersioOPM95OPATyyppi }
-     * 
-     * 
-     */
-    public List<KoulutusalaVersioOPM95OPATyyppi> getOpintoala1995() {
-        if (opintoala1995 == null) {
-            opintoala1995 = new ArrayList<KoulutusalaVersioOPM95OPATyyppi>();
-        }
-        return this.opintoala1995;
+        return this.koulutusala;
     }
 
     /**
@@ -859,9 +824,9 @@ public class OpintosuoritusTyyppi {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2013/01/29}LaajuusTyyppi" minOccurs="0"/>
+     *         &lt;element name="Opintopiste" type="{urn:mace:funet.fi:virta/2015/09/01}LaajuusTyyppi" minOccurs="0"/>
      *       &lt;/sequence>
-     *       &lt;attribute name="sisaltyvaOpintosuoritusAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuoritusAvainTyyppi" />
+     *       &lt;attribute name="sisaltyvaOpintosuoritusAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>

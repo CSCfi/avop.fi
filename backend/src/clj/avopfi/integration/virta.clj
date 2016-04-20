@@ -51,9 +51,10 @@
       nonending)))
 
 (defn conclude-study-type
-  "Monimuoto-opiskelu 1, Päiväopiskelu 0"
-  [study-type adult-studies]
-  (if (and (= study-type "1") adult-studies) 1 0))
+  "If Study type 1 and luokittelu has value for aikuiskoulutus (3)
+  -> Monimuoto-opiskelu 1, else -> Päiväopiskelu 0"
+  [study-type luokittelu]
+  (if (and (= study-type "1") (some #(= "3" %) luokittelu)) 1 0))
 
 (defn get-caller-obj
   "Object to include VIRTA credentials in WS call"

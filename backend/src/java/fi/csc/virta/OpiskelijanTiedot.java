@@ -49,6 +49,18 @@ public interface OpiskelijanTiedot {
 
     /**
      * 
+     * @param tutkinnotRequest
+     * @return
+     *     returns fi.csc.virta.TutkinnotResponse
+     */
+    @WebMethod(operationName = "Tutkinnot")
+    @WebResult(name = "TutkinnotResponse", targetNamespace = "http://tietovaranto.csc.fi/luku", partName = "TutkinnotResponse")
+    public TutkinnotResponse tutkinnot(
+        @WebParam(name = "TutkinnotRequest", targetNamespace = "http://tietovaranto.csc.fi/luku", partName = "TutkinnotRequest")
+        TutkinnotRequest tutkinnotRequest);
+
+    /**
+     * 
      * @param opiskeluoikeudetRequest
      * @return
      *     returns fi.csc.virta.OpiskeluoikeudetResponse

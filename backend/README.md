@@ -48,7 +48,6 @@ $ java -Dis-dev="true" -Dvirta-tunnus="avopfi" \
     -jar avopfi.jar
 ```
 
-
 ## Testing
 
 Run unit tests
@@ -75,7 +74,12 @@ plugin.
 | shib-national-identification-number | 010280-123A |
 | shib-home-organization | yliopisto.fi |  
 
+## About generated VIRTA classes
 
+`wsimport` tools was used to generated Java files from VIRTA WS.
+
+    $ wsimport -s src/java/ -keep -Xnocompile -p fi.csc.virta src/java \
+      http://virtawstesti.csc.fi/luku106/opiskelijatiedot.wsdl
 
 ## License
 

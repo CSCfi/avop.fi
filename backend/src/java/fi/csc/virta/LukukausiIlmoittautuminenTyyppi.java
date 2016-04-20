@@ -25,16 +25,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliOsuusLaajennettu1Tyyppi"/>
- *         &lt;element name="Tila" type="{urn:mace:funet.fi:virta/2013/01/29}LukukausiIlmoittautuminenTilaKoodiTyyppi"/>
- *         &lt;element name="IlmoittautumisPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
- *         &lt;element name="AlkuPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi"/>
- *         &lt;element name="LoppuPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi" minOccurs="0"/>
- *         &lt;element name="YlioppilaskuntaJasen" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
- *         &lt;element name="YTHSMaksu" type="{urn:mace:funet.fi:virta/2013/01/29}KyllaEiKytkinTyyppi" minOccurs="0"/>
+ *         &lt;element name="Myontaja" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioKoodiTyyppi"/>
+ *         &lt;element name="Tila" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautuminenTilaKoodiTyyppi"/>
+ *         &lt;element name="IlmoittautumisPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+ *         &lt;element name="AlkuPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi"/>
+ *         &lt;element name="LoppuPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi" minOccurs="0"/>
+ *         &lt;element name="YlioppilaskuntaJasen" type="{urn:mace:funet.fi:virta/2015/09/01}KyllaEiKytkinTyyppi" minOccurs="0"/>
+ *         &lt;element name="YTHSMaksu" type="{urn:mace:funet.fi:virta/2015/09/01}KyllaEiKytkinTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaAvainTyyppi" />
- *       &lt;attribute name="opiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeusAvainTyyppi" />
+ *       &lt;attribute name="opiskelijaAvain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
+ *       &lt;attribute name="opiskeluoikeusAvain" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -55,7 +55,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class LukukausiIlmoittautuminenTyyppi {
 
     @XmlElement(name = "Myontaja", required = true)
-    protected OrganisaatioRooliOsuusLaajennettu1Tyyppi myontaja;
+    protected String myontaja;
     @XmlElement(name = "Tila", required = true)
     protected String tila;
     @XmlElement(name = "IlmoittautumisPvm", required = true)
@@ -81,10 +81,10 @@ public class LukukausiIlmoittautuminenTyyppi {
      * 
      * @return
      *     possible object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public OrganisaatioRooliOsuusLaajennettu1Tyyppi getMyontaja() {
+    public String getMyontaja() {
         return myontaja;
     }
 
@@ -93,10 +93,10 @@ public class LukukausiIlmoittautuminenTyyppi {
      * 
      * @param value
      *     allowed object is
-     *     {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
+     *     {@link String }
      *     
      */
-    public void setMyontaja(OrganisaatioRooliOsuusLaajennettu1Tyyppi value) {
+    public void setMyontaja(String value) {
         this.myontaja = value;
     }
 

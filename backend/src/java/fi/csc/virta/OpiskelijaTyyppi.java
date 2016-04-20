@@ -24,12 +24,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <pre>
  * &lt;complexType name="OpiskelijaTyyppi">
  *   &lt;complexContent>
- *     &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}HenkiloTyyppi">
+ *     &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}HenkiloTyyppi">
  *       &lt;sequence>
- *         &lt;element name="KirjoihintuloPvm" type="{urn:mace:funet.fi:virta/2013/01/29}PvmTyyppi" minOccurs="0"/>
- *         &lt;element name="KansallinenOppijanumero" type="{urn:mace:funet.fi:virta/2013/01/29}KansallinenOppijanumeroTyyppi" minOccurs="0"/>
+ *         &lt;element name="KirjoihintuloPvm" type="{urn:mace:funet.fi:virta/2015/09/01}PvmTyyppi" minOccurs="0"/>
+ *         &lt;element name="KansallinenOppijanumero" type="{urn:mace:funet.fi:virta/2015/09/01}KansallinenOppijanumeroTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaAvainTyyppi" />
+ *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>

@@ -11,8 +11,11 @@
             [avopfi.db.migrations :as migrations]))
 
 (def study-rights-fixture [{:avain "FOO"
-                            :myontaja {:koodi "123"}
+                            :myontaja "123"
                             :laajuus {:opintopiste 235}
+                            :jakso {
+                                    :luokittelu ["3"]
+                                    }
                             :tyyppi 1
                             }])
 (def attainments-fixture [
@@ -28,7 +31,13 @@
     (is (not (has-enough-opintosuoritus? (rest attainments-fixture) (first study-rights-fixture))))))
 
 (deftest filtering-rights
-  (testing "Filters rights and converts to json structure"
+  (testing "Filters rights"
+    (let [results (filter-oikeudet study-rights-fixture attainments-fixture "yliopisto.fi")]
+      (is (= (:id results) (-> study-rights-fixture :avain)))
+      (is (= (:type results) (-> study-rights-fixture :avain))))))
+
+(deftest opiskeluoikeudet-mapping
+  (testing "Converts raw opiskeluoikeus data to proper JSON structure"
     (with-redefs [has-organization? (fn [x y] (= "yliopisto.fi" x))
                   virta/select-active-timespan (constantly {:loppuPvm nil})
                   virta/conclude-study-type (constantly 0)
@@ -36,17 +45,15 @@
                   op/get-kunta-data (constantly nil)
                   op/get-koulutus-data (constantly nil)
                   op/get-oppilaitos-data (constantly nil)]
-      (let [results (filter-oikeudet study-rights-fixture attainments-fixture "yliopisto.fi")]
-        (is (= (:id results) (-> study-rights-fixture :avain)))
-        (is (= (:type results) (-> study-rights-fixture :avain)))
-        ))))
+      (let [json (opiskeluoikeus->ui-map (first study-rights-fixture))]
+        (is (= (json :opiskeluoikeustyyppi) 1))))))
 
 ;;(use-fixtures :once (fn [f] (migrations/migrate ["migrate"]) (f)))
 
 (deftest process-registrations 
   (testing "registration works"
     (with-redefs
-      ;;do not hit Arvo nor db atm
+      ;;does not hit Arvo nor db atm
       [
         arvo/generate-questionnaire-credentials! (constantly "FOO")
         db/get-visitor-by-srid (constantly nil)

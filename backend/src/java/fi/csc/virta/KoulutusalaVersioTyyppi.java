@@ -9,15 +9,19 @@ import javax.xml.bind.annotation.XmlValue;
 
 
 /**
- * <p>Java class for OpintosuoritusNimiTyyppi complex type.
+ * 
+ * 			Koulutusalat yhdistettynä, versio-attribuutilla.
+ * 		
+ * 
+ * <p>Java class for KoulutusalaVersioTyyppi complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="OpintosuoritusNimiTyyppi">
+ * &lt;complexType name="KoulutusalaVersioTyyppi">
  *   &lt;simpleContent>
- *     &lt;extension base="&lt;urn:mace:funet.fi:virta/2015/09/01>OpintosuoritusNimiTekstiTyyppi">
- *       &lt;attribute name="kieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" />
+ *     &lt;extension base="&lt;urn:mace:funet.fi:virta/2015/09/01>KoulutusalaKoodiTyyppi">
+ *       &lt;attribute name="versio" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}KoulutusalaVersioKoodiTyyppi" />
  *     &lt;/extension>
  *   &lt;/simpleContent>
  * &lt;/complexType>
@@ -26,18 +30,23 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "OpintosuoritusNimiTyyppi", propOrder = {
+@XmlType(name = "KoulutusalaVersioTyyppi", propOrder = {
     "value"
 })
-public class OpintosuoritusNimiTyyppi {
+public class KoulutusalaVersioTyyppi {
 
     @XmlValue
     protected String value;
-    @XmlAttribute(name = "kieli")
-    protected String kieli;
+    @XmlAttribute(name = "versio", required = true)
+    protected KoulutusalaVersioKoodiTyyppi versio;
 
     /**
-     * Gets the value of the value property.
+     * 
+     * 			Opetushallinnon koulutusalat yhdistettynä (koodisto).
+     * 			* Koulutusala 2002 (opmala)
+     * 			* Opintoala 1995 (opm95opa)
+     * 			* OKM:n ohjauksen ala ()
+     * 		
      * 
      * @return
      *     possible object is
@@ -61,27 +70,27 @@ public class OpintosuoritusNimiTyyppi {
     }
 
     /**
-     * Gets the value of the kieli property.
+     * Gets the value of the versio property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link KoulutusalaVersioKoodiTyyppi }
      *     
      */
-    public String getKieli() {
-        return kieli;
+    public KoulutusalaVersioKoodiTyyppi getVersio() {
+        return versio;
     }
 
     /**
-     * Sets the value of the kieli property.
+     * Sets the value of the versio property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link KoulutusalaVersioKoodiTyyppi }
      *     
      */
-    public void setKieli(String value) {
-        this.kieli = value;
+    public void setVersio(KoulutusalaVersioKoodiTyyppi value) {
+        this.versio = value;
     }
 
 }

@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "OpiskelijanTiedotService", targetNamespace = "http://tietovaranto.csc.fi/luku", wsdlLocation = "http://virtawstesti.csc.fi/luku/opiskelijatiedot.wsdl")
+@WebServiceClient(name = "OpiskelijanTiedotService", targetNamespace = "http://tietovaranto.csc.fi/luku", wsdlLocation = "http://virtawstesti.csc.fi/luku106/opiskelijatiedot.wsdl")
 public class OpiskelijanTiedotService
     extends Service
 {
@@ -30,7 +30,7 @@ public class OpiskelijanTiedotService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://virtawstesti.csc.fi/luku/opiskelijatiedot.wsdl");
+            url = new URL("http://virtawstesti.csc.fi/luku106/opiskelijatiedot.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

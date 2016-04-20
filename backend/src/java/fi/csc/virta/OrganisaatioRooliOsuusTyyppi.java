@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Rooli" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioRooliKoodiTyyppi"/>
- *         &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2013/01/29}OrganisaatioKoodiTyyppi"/>
- *         &lt;element name="Osuus" type="{urn:mace:funet.fi:virta/2013/01/29}OsuusTyyppi" minOccurs="0"/>
+ *         &lt;element name="Rooli" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioRooliKoodiTyyppi"/>
+ *         &lt;element name="Koodi" type="{urn:mace:funet.fi:virta/2015/09/01}OrganisaatioKoodiTyyppi"/>
+ *         &lt;element name="Osuus" type="{urn:mace:funet.fi:virta/2015/09/01}OsuusTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

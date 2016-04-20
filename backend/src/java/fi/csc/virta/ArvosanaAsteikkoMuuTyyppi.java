@@ -67,13 +67,13 @@ import javax.xml.bind.annotation.XmlType;
  *                               &lt;/simpleType>
  *                             &lt;/element>
  *                           &lt;/sequence>
- *                           &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}AvainTyyppi" />
+ *                           &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *                         &lt;/restriction>
  *                       &lt;/complexContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
  *                 &lt;/sequence>
- *                 &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}AvainTyyppi" />
+ *                 &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -199,13 +199,13 @@ public class ArvosanaAsteikkoMuuTyyppi {
      *                     &lt;/simpleType>
      *                   &lt;/element>
      *                 &lt;/sequence>
-     *                 &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}AvainTyyppi" />
+     *                 &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
      *               &lt;/restriction>
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
      *       &lt;/sequence>
-     *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}AvainTyyppi" />
+     *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -338,7 +338,7 @@ public class ArvosanaAsteikkoMuuTyyppi {
          *           &lt;/simpleType>
          *         &lt;/element>
          *       &lt;/sequence>
-         *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2013/01/29}AvainTyyppi" />
+         *       &lt;attribute name="avain" use="required" type="{urn:mace:funet.fi:virta/2015/09/01}AvainTyyppi" />
          *     &lt;/restriction>
          *   &lt;/complexContent>
          * &lt;/complexType>

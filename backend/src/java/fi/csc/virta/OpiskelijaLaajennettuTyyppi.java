@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="OpiskelijaLaajennettuTyyppi">
  *   &lt;complexContent>
- *     &lt;extension base="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaTyyppi">
+ *     &lt;extension base="{urn:mace:funet.fi:virta/2015/09/01}OpiskelijaTyyppi">
  *       &lt;sequence>
- *         &lt;element name="Opiskeluoikeudet" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskeluoikeudetTyyppi" minOccurs="0"/>
- *         &lt;element name="LukukausiIlmoittautumiset" type="{urn:mace:funet.fi:virta/2013/01/29}LukukausiIlmoittautumisetTyyppi" minOccurs="0"/>
- *         &lt;element name="Opintosuoritukset" type="{urn:mace:funet.fi:virta/2013/01/29}OpintosuorituksetTyyppi" minOccurs="0"/>
+ *         &lt;element name="Opiskeluoikeudet" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskeluoikeudetTyyppi" minOccurs="0"/>
+ *         &lt;element name="LukukausiIlmoittautumiset" type="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautumisetTyyppi" minOccurs="0"/>
+ *         &lt;element name="Opintosuoritukset" type="{urn:mace:funet.fi:virta/2015/09/01}OpintosuorituksetTyyppi" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>

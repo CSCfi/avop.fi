@@ -22,13 +22,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice>
- *         &lt;element name="Viisiportainen" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaViisiportainenKoodiTyyppi"/>
- *         &lt;element name="ToinenKotimainen" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaToinenKotimainenKoodiTyyppi"/>
- *         &lt;element name="Hyvaksytty" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaHyvaksyttyKoodiTyyppi"/>
- *         &lt;element name="Naytetyo" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaNaytetyoKoodiTyyppi"/>
- *         &lt;element name="Tutkielma" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaTutkielmaKoodiTyyppi"/>
- *         &lt;element name="EiKaytossa" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaEiKaytossaKoodiTyyppi"/>
- *         &lt;element name="Muu" type="{urn:mace:funet.fi:virta/2013/01/29}ArvosanaAsteikkoMuuTyyppi"/>
+ *         &lt;element name="Viisiportainen" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaViisiportainenKoodiTyyppi"/>
+ *         &lt;element name="ToinenKotimainen" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaToinenKotimainenKoodiTyyppi"/>
+ *         &lt;element name="Hyvaksytty" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaHyvaksyttyKoodiTyyppi"/>
+ *         &lt;element name="Naytetyo" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaNaytetyoKoodiTyyppi"/>
+ *         &lt;element name="Tutkielma" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaTutkielmaKoodiTyyppi"/>
+ *         &lt;element name="EiKaytossa" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaEiKaytossaKoodiTyyppi"/>
+ *         &lt;element name="Muu" type="{urn:mace:funet.fi:virta/2015/09/01}ArvosanaAsteikkoMuuTyyppi"/>
  *       &lt;/choice>
  *     &lt;/restriction>
  *   &lt;/complexContent>

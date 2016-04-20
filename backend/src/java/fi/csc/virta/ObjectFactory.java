@@ -24,11 +24,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Opiskelijat_QNAME = new QName("urn:mace:funet.fi:virta/2015/09/01", "Opiskelijat");
+    private final static QName _Opiskeluoikeudet_QNAME = new QName("urn:mace:funet.fi:virta/2015/09/01", "Opiskeluoikeudet");
     private final static QName _Organisaatio_QNAME = new QName("http://tietovaranto.csc.fi/luku", "organisaatio");
-    private final static QName _LukukausiIlmoittautumiset_QNAME = new QName("urn:mace:funet.fi:virta/2013/01/29", "LukukausiIlmoittautumiset");
-    private final static QName _Opintosuoritukset_QNAME = new QName("urn:mace:funet.fi:virta/2013/01/29", "Opintosuoritukset");
-    private final static QName _Opiskelijat_QNAME = new QName("urn:mace:funet.fi:virta/2013/01/29", "Opiskelijat");
-    private final static QName _Opiskeluoikeudet_QNAME = new QName("urn:mace:funet.fi:virta/2013/01/29", "Opiskeluoikeudet");
+    private final static QName _Opintosuoritukset_QNAME = new QName("urn:mace:funet.fi:virta/2015/09/01", "Opintosuoritukset");
+    private final static QName _LukukausiIlmoittautumiset_QNAME = new QName("urn:mace:funet.fi:virta/2015/09/01", "LukukausiIlmoittautumiset");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fi.csc.virta
@@ -59,6 +59,14 @@ public class ObjectFactory {
      */
     public OpiskeluoikeusTyyppi createOpiskeluoikeusTyyppi() {
         return new OpiskeluoikeusTyyppi();
+    }
+
+    /**
+     * Create an instance of {@link OpiskeluoikeusTyyppi.SiirtoOpiskelija }
+     * 
+     */
+    public OpiskeluoikeusTyyppi.SiirtoOpiskelija createOpiskeluoikeusTyyppiSiirtoOpiskelija() {
+        return new OpiskeluoikeusTyyppi.SiirtoOpiskelija();
     }
 
     /**
@@ -110,30 +118,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpiskelijanTiedotResponse }
-     * 
-     */
-    public OpiskelijanTiedotResponse createOpiskelijanTiedotResponse() {
-        return new OpiskelijanTiedotResponse();
-    }
-
-    /**
-     * Create an instance of {@link OpiskelijatLaajennettuTyyppi }
-     * 
-     */
-    public OpiskelijatLaajennettuTyyppi createOpiskelijatLaajennettuTyyppi() {
-        return new OpiskelijatLaajennettuTyyppi();
-    }
-
-    /**
-     * Create an instance of {@link OpintosuorituksetRequest }
-     * 
-     */
-    public OpintosuorituksetRequest createOpintosuorituksetRequest() {
-        return new OpintosuorituksetRequest();
-    }
-
-    /**
      * Create an instance of {@link LukukausiIlmoittautumisetResponse }
      * 
      */
@@ -142,11 +126,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LukukausiIlmoittautumisetLaajennettuTyyppi }
+     * Create an instance of {@link LukukausiIlmoittautumisetTyyppi }
      * 
      */
-    public LukukausiIlmoittautumisetLaajennettuTyyppi createLukukausiIlmoittautumisetLaajennettuTyyppi() {
-        return new LukukausiIlmoittautumisetLaajennettuTyyppi();
+    public LukukausiIlmoittautumisetTyyppi createLukukausiIlmoittautumisetTyyppi() {
+        return new LukukausiIlmoittautumisetTyyppi();
     }
 
     /**
@@ -158,11 +142,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpintosuorituksetLaajennettuTyyppi }
+     * Create an instance of {@link OpintosuorituksetTyyppi }
      * 
      */
-    public OpintosuorituksetLaajennettuTyyppi createOpintosuorituksetLaajennettuTyyppi() {
-        return new OpintosuorituksetLaajennettuTyyppi();
+    public OpintosuorituksetTyyppi createOpintosuorituksetTyyppi() {
+        return new OpintosuorituksetTyyppi();
+    }
+
+    /**
+     * Create an instance of {@link TutkinnotRequest }
+     * 
+     */
+    public TutkinnotRequest createTutkinnotRequest() {
+        return new TutkinnotRequest();
+    }
+
+    /**
+     * Create an instance of {@link OpiskelijanTiedotRequest.Hakuehdot }
+     * 
+     */
+    public OpiskelijanTiedotRequest.Hakuehdot createOpiskelijanTiedotRequestHakuehdot() {
+        return new OpiskelijanTiedotRequest.Hakuehdot();
+    }
+
+    /**
+     * Create an instance of {@link OpiskelijanTiedotResponse }
+     * 
+     */
+    public OpiskelijanTiedotResponse createOpiskelijanTiedotResponse() {
+        return new OpiskelijanTiedotResponse();
+    }
+
+    /**
+     * Create an instance of {@link OpiskelijatTyyppi }
+     * 
+     */
+    public OpiskelijatTyyppi createOpiskelijatTyyppi() {
+        return new OpiskelijatTyyppi();
+    }
+
+    /**
+     * Create an instance of {@link OpintosuorituksetRequest }
+     * 
+     */
+    public OpintosuorituksetRequest createOpintosuorituksetRequest() {
+        return new OpintosuorituksetRequest();
     }
 
     /**
@@ -190,19 +214,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpiskelijanTiedotRequest.Hakuehdot }
-     * 
-     */
-    public OpiskelijanTiedotRequest.Hakuehdot createOpiskelijanTiedotRequestHakuehdot() {
-        return new OpiskelijanTiedotRequest.Hakuehdot();
-    }
-
-    /**
      * Create an instance of {@link OpiskeluoikeudetRequest }
      * 
      */
     public OpiskeluoikeudetRequest createOpiskeluoikeudetRequest() {
         return new OpiskeluoikeudetRequest();
+    }
+
+    /**
+     * Create an instance of {@link TutkinnotResponse }
+     * 
+     */
+    public TutkinnotResponse createTutkinnotResponse() {
+        return new TutkinnotResponse();
     }
 
     /**
@@ -214,11 +238,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpiskeluoikeudetLaajennettuTyyppi }
+     * Create an instance of {@link OpiskeluoikeudetTyyppi }
      * 
      */
-    public OpiskeluoikeudetLaajennettuTyyppi createOpiskeluoikeudetLaajennettuTyyppi() {
-        return new OpiskeluoikeudetLaajennettuTyyppi();
+    public OpiskeluoikeudetTyyppi createOpiskeluoikeudetTyyppi() {
+        return new OpiskeluoikeudetTyyppi();
     }
 
     /**
@@ -254,27 +278,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpiskeluoikeudetTyyppi }
-     * 
-     */
-    public OpiskeluoikeudetTyyppi createOpiskeluoikeudetTyyppi() {
-        return new OpiskeluoikeudetTyyppi();
-    }
-
-    /**
-     * Create an instance of {@link OpintosuorituksetTyyppi }
-     * 
-     */
-    public OpintosuorituksetTyyppi createOpintosuorituksetTyyppi() {
-        return new OpintosuorituksetTyyppi();
-    }
-
-    /**
      * Create an instance of {@link AikajaksoTyyppi }
      * 
      */
     public AikajaksoTyyppi createAikajaksoTyyppi() {
         return new AikajaksoTyyppi();
+    }
+
+    /**
+     * Create an instance of {@link KoulutusalaVersioTyyppi }
+     * 
+     */
+    public KoulutusalaVersioTyyppi createKoulutusalaVersioTyyppi() {
+        return new KoulutusalaVersioTyyppi();
     }
 
     /**
@@ -286,27 +302,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link KoulutusalaVersioOsuusTyyppi }
+     * 
+     */
+    public KoulutusalaVersioOsuusTyyppi createKoulutusalaVersioOsuusTyyppi() {
+        return new KoulutusalaVersioOsuusTyyppi();
+    }
+
+    /**
      * Create an instance of {@link HenkiloTyyppi }
      * 
      */
     public HenkiloTyyppi createHenkiloTyyppi() {
         return new HenkiloTyyppi();
-    }
-
-    /**
-     * Create an instance of {@link LukukausiIlmoittautumisetTyyppi }
-     * 
-     */
-    public LukukausiIlmoittautumisetTyyppi createLukukausiIlmoittautumisetTyyppi() {
-        return new LukukausiIlmoittautumisetTyyppi();
-    }
-
-    /**
-     * Create an instance of {@link OpiskelijatTyyppi }
-     * 
-     */
-    public OpiskelijatTyyppi createOpiskelijatTyyppi() {
-        return new OpiskelijatTyyppi();
     }
 
     /**
@@ -331,30 +339,6 @@ public class ObjectFactory {
      */
     public LukukausiIlmoittautuminenTyyppi createLukukausiIlmoittautuminenTyyppi() {
         return new LukukausiIlmoittautuminenTyyppi();
-    }
-
-    /**
-     * Create an instance of {@link KoulutusalaVersioOPMALATyyppi }
-     * 
-     */
-    public KoulutusalaVersioOPMALATyyppi createKoulutusalaVersioOPMALATyyppi() {
-        return new KoulutusalaVersioOPMALATyyppi();
-    }
-
-    /**
-     * Create an instance of {@link KoulutusalaVersioOPM95OPATyyppi }
-     * 
-     */
-    public KoulutusalaVersioOPM95OPATyyppi createKoulutusalaVersioOPM95OPATyyppi() {
-        return new KoulutusalaVersioOPM95OPATyyppi();
-    }
-
-    /**
-     * Create an instance of {@link OrganisaatioRooliOsuusLaajennettu1Tyyppi }
-     * 
-     */
-    public OrganisaatioRooliOsuusLaajennettu1Tyyppi createOrganisaatioRooliOsuusLaajennettu1Tyyppi() {
-        return new OrganisaatioRooliOsuusLaajennettu1Tyyppi();
     }
 
     /**
@@ -390,11 +374,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link OpiskeluoikeusTyyppi.SiirtoOpiskelija }
+     * Create an instance of {@link OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma }
      * 
      */
-    public OpiskeluoikeusTyyppi.SiirtoOpiskelija createOpiskeluoikeusTyyppiSiirtoOpiskelija() {
-        return new OpiskeluoikeusTyyppi.SiirtoOpiskelija();
+    public OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma createOpiskeluoikeusTyyppiSiirtoOpiskelijaLukukausikertyma() {
+        return new OpiskeluoikeusTyyppi.SiirtoOpiskelija.Lukukausikertyma();
     }
 
     /**
@@ -403,6 +387,24 @@ public class ObjectFactory {
      */
     public ArvosanaAsteikkoMuuTyyppi.Asteikko.AsteikkoArvosana createArvosanaAsteikkoMuuTyyppiAsteikkoAsteikkoArvosana() {
         return new ArvosanaAsteikkoMuuTyyppi.Asteikko.AsteikkoArvosana();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OpiskelijatTyyppi }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2015/09/01", name = "Opiskelijat")
+    public JAXBElement<OpiskelijatTyyppi> createOpiskelijat(OpiskelijatTyyppi value) {
+        return new JAXBElement<OpiskelijatTyyppi>(_Opiskelijat_QNAME, OpiskelijatTyyppi.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OpiskeluoikeudetTyyppi }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2015/09/01", name = "Opiskeluoikeudet")
+    public JAXBElement<OpiskeluoikeudetTyyppi> createOpiskeluoikeudet(OpiskeluoikeudetTyyppi value) {
+        return new JAXBElement<OpiskeluoikeudetTyyppi>(_Opiskeluoikeudet_QNAME, OpiskeluoikeudetTyyppi.class, null, value);
     }
 
     /**
@@ -415,39 +417,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LukukausiIlmoittautumisetLaajennettuTyyppi }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link OpintosuorituksetTyyppi }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2013/01/29", name = "LukukausiIlmoittautumiset")
-    public JAXBElement<LukukausiIlmoittautumisetLaajennettuTyyppi> createLukukausiIlmoittautumiset(LukukausiIlmoittautumisetLaajennettuTyyppi value) {
-        return new JAXBElement<LukukausiIlmoittautumisetLaajennettuTyyppi>(_LukukausiIlmoittautumiset_QNAME, LukukausiIlmoittautumisetLaajennettuTyyppi.class, null, value);
+    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2015/09/01", name = "Opintosuoritukset")
+    public JAXBElement<OpintosuorituksetTyyppi> createOpintosuoritukset(OpintosuorituksetTyyppi value) {
+        return new JAXBElement<OpintosuorituksetTyyppi>(_Opintosuoritukset_QNAME, OpintosuorituksetTyyppi.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link OpintosuorituksetLaajennettuTyyppi }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LukukausiIlmoittautumisetTyyppi }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2013/01/29", name = "Opintosuoritukset")
-    public JAXBElement<OpintosuorituksetLaajennettuTyyppi> createOpintosuoritukset(OpintosuorituksetLaajennettuTyyppi value) {
-        return new JAXBElement<OpintosuorituksetLaajennettuTyyppi>(_Opintosuoritukset_QNAME, OpintosuorituksetLaajennettuTyyppi.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link OpiskelijatLaajennettuTyyppi }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2013/01/29", name = "Opiskelijat")
-    public JAXBElement<OpiskelijatLaajennettuTyyppi> createOpiskelijat(OpiskelijatLaajennettuTyyppi value) {
-        return new JAXBElement<OpiskelijatLaajennettuTyyppi>(_Opiskelijat_QNAME, OpiskelijatLaajennettuTyyppi.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link OpiskeluoikeudetLaajennettuTyyppi }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2013/01/29", name = "Opiskeluoikeudet")
-    public JAXBElement<OpiskeluoikeudetLaajennettuTyyppi> createOpiskeluoikeudet(OpiskeluoikeudetLaajennettuTyyppi value) {
-        return new JAXBElement<OpiskeluoikeudetLaajennettuTyyppi>(_Opiskeluoikeudet_QNAME, OpiskeluoikeudetLaajennettuTyyppi.class, null, value);
+    @XmlElementDecl(namespace = "urn:mace:funet.fi:virta/2015/09/01", name = "LukukausiIlmoittautumiset")
+    public JAXBElement<LukukausiIlmoittautumisetTyyppi> createLukukausiIlmoittautumiset(LukukausiIlmoittautumisetTyyppi value) {
+        return new JAXBElement<LukukausiIlmoittautumisetTyyppi>(_LukukausiIlmoittautumiset_QNAME, LukukausiIlmoittautumisetTyyppi.class, null, value);
     }
 
 }

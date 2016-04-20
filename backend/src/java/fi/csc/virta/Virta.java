@@ -20,9 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="Opiskelija" type="{urn:mace:funet.fi:virta/2013/01/29}OpiskelijaLaajennettuTyyppi" maxOccurs="unbounded"/>
+ *         &lt;element name="Opiskelija" type="{urn:mace:funet.fi:virta/2015/09/01}OpiskelijaLaajennettuTyyppi" maxOccurs="unbounded"/>
  *       &lt;/sequence>
- *       &lt;attGroup ref="{urn:mace:funet.fi:virta/2013/01/29}JuuriElementtiLaajennusTyyppi"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>

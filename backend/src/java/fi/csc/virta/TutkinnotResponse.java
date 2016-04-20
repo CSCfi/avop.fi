@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{urn:mace:funet.fi:virta/2015/09/01}LukukausiIlmoittautumiset"/>
+ *         &lt;element ref="{urn:mace:funet.fi:virta/2015/09/01}Opintosuoritukset"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +29,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "lukukausiIlmoittautumiset"
+    "opintosuoritukset"
 })
-@XmlRootElement(name = "LukukausiIlmoittautumisetResponse", namespace = "http://tietovaranto.csc.fi/luku")
-public class LukukausiIlmoittautumisetResponse {
+@XmlRootElement(name = "TutkinnotResponse", namespace = "http://tietovaranto.csc.fi/luku")
+public class TutkinnotResponse {
 
-    @XmlElement(name = "LukukausiIlmoittautumiset", required = true)
-    protected LukukausiIlmoittautumisetTyyppi lukukausiIlmoittautumiset;
+    @XmlElement(name = "Opintosuoritukset", required = true)
+    protected OpintosuorituksetTyyppi opintosuoritukset;
 
     /**
-     * Gets the value of the lukukausiIlmoittautumiset property.
+     * Gets the value of the opintosuoritukset property.
      * 
      * @return
      *     possible object is
-     *     {@link LukukausiIlmoittautumisetTyyppi }
+     *     {@link OpintosuorituksetTyyppi }
      *     
      */
-    public LukukausiIlmoittautumisetTyyppi getLukukausiIlmoittautumiset() {
-        return lukukausiIlmoittautumiset;
+    public OpintosuorituksetTyyppi getOpintosuoritukset() {
+        return opintosuoritukset;
     }
 
     /**
-     * Sets the value of the lukukausiIlmoittautumiset property.
+     * Sets the value of the opintosuoritukset property.
      * 
      * @param value
      *     allowed object is
-     *     {@link LukukausiIlmoittautumisetTyyppi }
+     *     {@link OpintosuorituksetTyyppi }
      *     
      */
-    public void setLukukausiIlmoittautumiset(LukukausiIlmoittautumisetTyyppi value) {
-        this.lukukausiIlmoittautumiset = value;
+    public void setOpintosuoritukset(OpintosuorituksetTyyppi value) {
+        this.opintosuoritukset = value;
     }
 
 }

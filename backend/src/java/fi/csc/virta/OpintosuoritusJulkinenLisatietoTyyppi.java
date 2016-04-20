@@ -16,8 +16,8 @@ import javax.xml.bind.annotation.XmlValue;
  * <pre>
  * &lt;complexType name="OpintosuoritusJulkinenLisatietoTyyppi">
  *   &lt;simpleContent>
- *     &lt;extension base="&lt;urn:mace:funet.fi:virta/2013/01/29>OpintosuoritusJulkinenLisatietoTekstiTyyppi">
- *       &lt;attribute name="kieli" type="{urn:mace:funet.fi:virta/2013/01/29}KieliKoodiTyyppi" />
+ *     &lt;extension base="&lt;urn:mace:funet.fi:virta/2015/09/01>OpintosuoritusJulkinenLisatietoTekstiTyyppi">
+ *       &lt;attribute name="kieli" type="{urn:mace:funet.fi:virta/2015/09/01}KieliKoodiTyyppi" />
  *     &lt;/extension>
  *   &lt;/simpleContent>
  * &lt;/complexType>
