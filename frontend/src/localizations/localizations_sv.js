@@ -4,31 +4,31 @@ let localizations_sv = {
   },
   content: {
     kysely: {
-      information: 'Tietoa kyselystä',
-      about1: 'AVOP on Ammattikorkeakoulujen valmistumisvaiheen opiskelijapalautekysely, jossa opiskelija arvioi ja antaa palautetta toteutuneesta koulutuksesta. Kyselyn tuloksia hyödynnetään sekä paikallisesti korkeakoulun oman toiminnan kehittämisessä että valtakunnallisesti koulutuksen ohjauksessa ja rahoituksessa. Kyselyn täyttävät kaikki ammattikorkeakouluista valmistuvat tutkinto-opiskelijat (paitsi Poliisiammattikorkeakoulu).',
-      about2: 'AVOP -kyselymittaristo on syntynyt Ammattikorkeakoulujen rehtorineuvosto Arene ry:n, Suomen opiskelijakuntien SAMOK ry:n, Opiskelun ja koulutuksen tutkimussäätiön (OTUS) ja opetus- ja kulttuuriministeriön (OKM) yhteisenä hankkeena. Kyselymittariston käyttöönotosta ja sen kehittämisestä vastaa Arene ry.',
-      about3: 'AVOP-valtakunnallinen sähköinen palautekysely on osa valtakunnallista Arvo-vaikuttavuustietopalvelua, jonka avulla voidaan kerätä valtakunnallisesti yhteismitallista tietoa koulutuksen vaikuttavuudesta.'
+      information: 'Enkäten i korthet',
+      about1: 'AVOP - Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna är ett utvärderingssystem som ger studenten möjlighet att utvärdera och ge respons på sin utbildning. Utvärderingsresultaten används lokalt vid högskolorna med syfte att förbättra de egna processerna och att prägla uppföljningen och finansieringen av den nationella utbildningen. Alla utexaminerade yrkesehögskolestuderanden ombeds fylla i enkäten (förutom Polishögskolan).',
+      about2: 'Enkäten utvecklades i samarbete med Rådet för yrkeshögskolornas rektorer (ARENE), Finlands studerandekårers förbund (SAMOK), Forskningsstiftelsen för studier och utbildning (OTUS) och undervisnings- och kulturministeriet (UKM). Arene ansvarar för utvecklandet och verkställandet av enkäten.',
+      about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.'
     },
     login: {
       header: 'Ammattikorkeakouluopiskelija',
       description: 'Vastaa kyselyyn kirjautumalla oman korkeakoulusi tunnuksilla:'
     },
     tulokset: {
-      header: 'Kyselyn tulokset',
-      results1: 'Ammattikorkeakoulujen henkilökunta voi tarkastella kyselyn tuloksia reaaliaikaisesti Arvo - opetushallinnon vaikuttavuustietopalvelun avulla. Katseluoikeudet (Arvo-katselija) voi anoa Opintopolun virkailijantyöpöydän kautta (Omat tiedot)',
-      results2: 'Kyselyn tuloksista johdettuja tilastoraportteja on avoimesti saatavilla opetushallinnon tilastopalvelu Vipusessa:'
+      header: 'Enkätens resultat',
+      results1: 'Personalen vid yrkeshögskolorna kommer åt enkätens resultat i realtid via Arvo-tjänsten.',
+      results2: 'Statistiken som stått som bakgrund för enkätresultaten är fritt tillgängliga via utbildningsförvaltningens statistiktjänst Vipunen:'
     }
   },
   footer: {
-    header: 'Yhteistyössä:',
+    header: 'I samarbete med:',
     arene: {
-      description: 'Ammattikorkeakoulujen rehtorineuvosto Arene ry'
+      description: 'Rådet för yrkeshögskolornas rektorer, Arene'
     },
     okm: {
-      description: 'Opetus- ja kulttuuriministeriö'
+      description: 'Undervisnings- och kulturministeriet'
     },
     csc: {
-      description: 'CSC - Tieteen tietotekniikan keskus Oy'
+      description: 'Arvo-informationstjänst för hantering av utbildningsärenden, CSC'
     }
   },
   profiledata: {
