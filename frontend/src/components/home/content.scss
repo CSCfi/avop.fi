@@ -1,6 +1,5 @@
 
 #theme {
-  height: 30.6rem;
   background: url("../../images/AVOP_teema.jpg");
   background-repeat: no-repeat;
   background-position: center center;
@@ -38,11 +37,12 @@
 
 }
 
-.vipunen img{
-  width: 200px;
-  margin-bottom: 20px;
-}
+#main_content {
 
-@media (max-width: 400px) {
+
+  .vipunen img{
+    width: 200px;
+    margin-bottom: 20px;
+  }
 
 }
