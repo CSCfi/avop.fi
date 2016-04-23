@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
-import TranslateLogo from '../common/TranslateLogo.js';
+import TranslateLogo from '../common/translatelogo.js';
 
 export default class Userprofile extends React.Component {
   constructor(props) {

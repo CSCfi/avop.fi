@@ -3,7 +3,7 @@ require('./content.scss');
 import React from 'react';
 import config from 'config';
 import Translate from 'react-translate-component';
-import TranslateLogo from '../common/TranslateLogo.js';
+import TranslateLogo from '../common/translatelogo.js';
 
 let hakaLoginImage = require('../../images/haka_landscape_large.gif');
 let vipunenImg = require('../../images/vipunen.png');
