@@ -11,7 +11,7 @@ export default class Header extends React.Component {
         <div className="container">
           <div className="row">
             <div className="u-full-width">
-              <LocaleSwitcher></LocaleSwitcher>
+              <LocaleSwitcher {...this.props}></LocaleSwitcher>
             </div>
           </div>
         </div>
