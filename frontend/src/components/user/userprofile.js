@@ -5,6 +5,8 @@ import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
 import TranslateLogo from '../common/translatelogo.js';
 
+require('es6-promise').polyfill();
+
 export default class Userprofile extends React.Component {
   constructor(props) {
     super(props);
