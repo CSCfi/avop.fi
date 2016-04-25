@@ -28,7 +28,7 @@
                  [luminus-nrepl "0.1.2"]
                  [migratus "0.8.13"]
                  [conman "0.4.5"]
-                 [buddy/buddy-auth "0.9.0"]
+                 [buddy/buddy-auth "0.13.0"]
                  [org.postgresql/postgresql "9.4-1206-jdbc4"]
                  [luminus-jetty "0.1.0"]
                  [luminus-log4j "0.1.2"]]
