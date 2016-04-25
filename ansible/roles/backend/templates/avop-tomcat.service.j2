@@ -7,7 +7,8 @@ After=syslog.target network.target
 Type=forking
 
 ExecStart=/home/{{ avop_service_user }}/tomcat/current/bin/startup.sh
-ExecStop=/bin/kill -15 $MAINPID
+ExecStop=/home/{{ avop_service_user }}/tomcat/current/bin/shutdown.sh
+PIDFile=/home/{{ avop_service_user }}/tomcat/current/tomcat.pid
 
 User={{ avop_service_user }}
 Group={{ avop_service_user }}

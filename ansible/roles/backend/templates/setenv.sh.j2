@@ -7,3 +7,5 @@ JAVA_OPTS="$JAVA_OPTS -Dvirta-tunnus=avopfi
 -Darvo-jwt-secret={{ arvo_jwt_secret }}
 {% if is_dev is defined %}-Dis-dev={{ is_dev }}{% endif %} 
 -Ddatabase-url='jdbc:postgresql://localhost/{{ postgresql_avop_database }}?user={{ postgresql_avop_user}}&password={{ postgresql_avop_password }}'"
+
+CATALINA_PID="/home/{{ avop_service_user }}/tomcat/current/tomcat.pid"
