@@ -1,6 +1,6 @@
 let localizations_sv = {
   header: {
-    logotext: 'Ammattikorkeakoulujen valmistumisvaiheen opiskelijapalaute'
+    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna'
   },
   content: {
     kysely: {
@@ -10,8 +10,8 @@ let localizations_sv = {
       about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.'
     },
     login: {
-      header: 'Ammattikorkeakouluopiskelija',
-      description: 'Vastaa kyselyyn kirjautumalla oman korkeakoulusi tunnuksilla:'
+      header: 'Yrkeshögskolestuderande',
+      description: 'Använd din personliga HAKA-kod för att logga in på enkäten:'
     },
     tulokset: {
       header: 'Enkätens resultat',
@@ -32,23 +32,23 @@ let localizations_sv = {
     }
   },
   profiledata: {
-    header: 'Palautekyselyn taustatiedot',
+    header: 'Bakgrundsinformation till enkäten',
     about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli ja koulutustyyppi. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
-    education: 'Koulutus',
-    school: 'Ammattikorkeakoulu',
-    municipality: 'Kunta',
-    language: 'Tutkinnon suorituskieli',
-    form_of_education: 'Koulutusmuoto',
+    education: 'Utbildning',
+    school: 'Yrkeshögskola',
+    municipality: 'Kommun',
+    language: 'Undervisningsspråk',
+    form_of_education: 'Undervisningsform',
     reminder: 'Tarkistathan, että koulutuksesi tiedot ovat oikein. Siirtymällä palautekyselyyn hyväksyt tietojen käyttämisen palautekyselyn taustatietona.',
-    survey: 'Siirry palautekyselyyn',
+    survey: 'Gå till enkäten',
     type: {
-      day: 'Päiväopiskelu',
-      multi: 'Monimuoto-opiskelu'
+      day: 'Dagundervisning',
+      multi: 'Flerformsundervisning'
     },
-    submit: 'Siirry palautekyselyyn'
+    submit: 'Gå till enkäten'
   },
   errors: {
-    missing_rights: 'Opiskeluoikeuksia ei löydy.'
+    missing_rights: 'Studierätt hittades inte.'
   }
 };
 
