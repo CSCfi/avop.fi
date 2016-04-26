@@ -33,13 +33,13 @@ let localizations_sv = {
   },
   profiledata: {
     header: 'Bakgrundsinformation till enkäten',
-    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli ja koulutustyyppi. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
+    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och undervisningsform. Personuppgifter förmedlas inte vidare till enkäten.',
     education: 'Utbildning',
     school: 'Yrkeshögskola',
     municipality: 'Kommun',
-    language: 'Undervisningsspråk',
+    language: 'Språket för examen',
     form_of_education: 'Undervisningsform',
-    reminder: 'Tarkistathan, että koulutuksesi tiedot ovat oikein. Siirtymällä palautekyselyyn hyväksyt tietojen käyttämisen palautekyselyn taustatietona.',
+    reminder: 'Var god och kontrollera att uppgifterna om din utbildning är korrekta. Genom att gå vidare till enkäten godkänner du att uppgifterna används som bakgrundsinformation för enkäten.',
     survey: 'Gå till enkäten',
     type: {
       day: 'Dagundervisning',
