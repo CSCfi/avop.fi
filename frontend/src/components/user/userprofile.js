@@ -14,18 +14,45 @@ export default class Userprofile extends React.Component {
   }
 
   static loadProps(params, cb) {
-    fetch('/api/opiskeluoikeudet',
-      {credentials: 'same-origin'})
-      .then(response => {
-        if (response.status >= 400 || response.status === 302) {
-          throw Error(response.status);
-        }
-        return response.json();
-      })
-      .then(study_rights => {
-        cb(null, {study_rights})
-      })
-      .catch(e => window.location = '/' + params.params.lang + '/error/' + e.message);
+    let hasStorage = 'sessionStorage' in window && window.sessionStorage;
+    let key = 'opiskeluoikeudet';
+    let data = hasStorage ?
+      sessionStorage.getItem(key) : null;
+
+    if (hasStorage && data) {
+      let now = new Date();
+      let expiration = new Date(data.timestamp);
+      expiration.setMinutes(expiration.getMinutes() + 15);
+      if (now.getTime() > expiration.getTime()) {
+        data = null;
+        sessionStorage.removeItem(key);
+      }
+    }
+
+    if (!data) {
+      fetch('/api/opiskeluoikeudet',
+        {credentials: 'same-origin'})
+        .then(response => {
+          if (response.status >= 400 || response.status === 302) {
+            throw Error(response.status);
+          }
+          try {
+            return response.json();
+          } catch (ex) {
+            throw Error(0);
+          }
+        })
+        .then(study_rights => {
+          if (hasStorage) {
+            sessionStorage.setItem(key, JSON.stringify({study_rights, timestamp: new Date()}))
+          }
+          cb(null, {study_rights})
+        })
+        .catch(e => window.location = '/' + params.params.lang + '/error/' + e.message);
+    } else {
+      cb(null, JSON.parse(data));
+    }
+
   }
 
   selectStudyRight(event) {
@@ -53,7 +80,11 @@ export default class Userprofile extends React.Component {
         if (response.status == 401) {
           throw Error(response.status);
         }
-        return response.json();
+        try {
+          return response.json();
+        } catch (ex) {
+          throw Error(0);
+        }
       })
       .then(registration => window.location = registration['kysely_url'])
       .catch(e => browserHistory.push(`/${this.props.params.lang}/error/` + e.message));

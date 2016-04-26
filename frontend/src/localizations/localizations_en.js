@@ -48,7 +48,8 @@ let localizations_en = {
     submit: 'Go to the survey'
   },
   errors: {
-    missing_rights: 'Rights to study not found.'
+    title: 'Error',
+    missing_rights: 'Rights to study not found. Contact your study office.'
   }
 };
 

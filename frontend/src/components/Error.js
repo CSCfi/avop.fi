@@ -1,11 +1,17 @@
 import React from 'react';
+import Translate from 'react-translate-component';
 
 export default class Error extends React.Component {
   render() {
     return (
-      <div>
-        <h2>Error {this.props.params.status}</h2>
-      </div>
+      <section>
+        <div className="container">
+          <div className="row">
+            <Translate component="h1" content="errors.title"/>
+            <Translate component="p" content="errors.missing_rights"/>
+          </div>
+        </div>
+      </section>
     )
   }
 }

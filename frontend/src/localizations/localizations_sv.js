@@ -48,6 +48,7 @@ let localizations_sv = {
     submit: 'Gå till enkäten'
   },
   errors: {
+    title: 'Ett fel',
     missing_rights: 'Studierätt hittades inte.'
   }
 };

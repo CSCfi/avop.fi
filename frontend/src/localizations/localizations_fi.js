@@ -48,7 +48,8 @@ let localizations_fi = {
     submit: 'Siirry palautekyselyyn'
   },
   errors: {
-    missing_rights: 'Opiskeluoikeuksia ei löydy.'
+    title: 'Virhetilanne',
+    missing_rights: 'Opiskeluoikeuksia ei löydy. Ota yhteyttä opintotoimistoon.'
   }
 };
 
