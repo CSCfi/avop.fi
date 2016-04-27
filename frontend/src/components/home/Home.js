@@ -61,6 +61,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="h4" content="content.kysely.information"/></div>
               <div className="u-full-width"><Translate component="p" content="content.kysely.about1"/></div>
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
+              <div className="u-full-width"><Translate component="p" content="content.kysely.about3"/></div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results2"/></div>

@@ -6,7 +6,7 @@ let localizations_sv = {
     kysely: {
       information: 'Enkäten i korthet',
       about1: 'AVOP - Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna är ett utvärderingssystem som ger studenten möjlighet att utvärdera och ge respons på sin utbildning. Utvärderingsresultaten används lokalt vid högskolorna med syfte att förbättra de egna processerna och att prägla uppföljningen och finansieringen av den nationella utbildningen. Alla utexaminerade yrkesehögskolestuderanden ombeds fylla i enkäten (förutom Polishögskolan).',
-      about2: 'Enkäten utvecklades i samarbete med Rådet för yrkeshögskolornas rektorer (ARENE), Finlands studerandekårers förbund (SAMOK), Forskningsstiftelsen för studier och utbildning (OTUS) och undervisnings- och kulturministeriet (UKM). Arene ansvarar för utvecklandet och verkställandet av enkäten.',
+      about2: '',
       about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.'
     },
     login: {
