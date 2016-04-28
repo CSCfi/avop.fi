@@ -19,7 +19,7 @@
                 discoveryURL="https://haka.funet.fi/shibboleth/WAYF">SAML2</SSO>
 {% else %}
                 discoveryURL="https://testsp.funet.fi/shibboleth/WAYF">SAML2</SSO>
-{% endif %}>
+{% endif %}
             <Logout>SAML2 Local</Logout>
             <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
             <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1"/>
