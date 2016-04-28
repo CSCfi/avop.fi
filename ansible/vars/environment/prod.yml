@@ -5,6 +5,12 @@ apache:
   certificate_key: "star_avop_fi.key"
   chain_certificate: "star_avop_fi-chain.pem"
   appserver: "localhost"
+# haka_cert_file: /etc/shibboleth/ path prefix will be appended, just the filename, please
+haka_cert_file: "haka-sign-v3.pem"
+haka_cert_url: "https://confluence.csc.fi/download/attachments/31195573/haka-sign-v3.pem?version=1&modificationDate=1428925492806&api=v2"
+# haka_metadata_file: /etc/shibboleth/ path prefix will be appended, just the filename, please
+haka_metadata_file: "haka-metadata.xml"
+haka_metadata_url: "https://haka.funet.fi/metadata/haka-metadata.xml"
 shibboleth_credentialresolver_key: "/etc/pki/tls/private/avop.fi.key"
 shibboleth_credentialresolver_certificate: "/etc/pki/tls/certs/avop.fi.cert"
 postgresql_avop_database: avop
