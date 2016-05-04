@@ -1,6 +1,7 @@
 (ns avopfi.integration.virta
   (:require
     [avopfi.consts :refer :all]
+    [avopfi.util :refer :all]
     [config.core :refer [env]]
     [clojure.string :refer [trim]]
     [clojure.java.data :refer [from-java]]
@@ -15,7 +16,7 @@
                   Kutsuja)))
 
 (defn extract-opintosuoritukset-data
-  "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance 
+  "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
   is returned with .getOpiskeluoikeudet and multiple OpiskeluoikeusTyyppis
   with getOpiskeluoikeus"
   [^OpintosuorituksetResponse opintosuoritukset-response]
@@ -34,17 +35,14 @@
                     (.getOpiskeluoikeus))]
     (map #(from-java %) results)))
 
-(defn ^:private to-local-date [date-map]
-  (local-date (:year date-map) (:month date-map) (:day date-map)))
-
 (defn ^:private compare-timespans [first-timespan second-timespan]
   (let [ld1 (to-local-date (:loppuPvm first-timespan)) ld2 (to-local-date (:loppuPvm second-timespan))]
     (if (> (.compareTo ld1 ld2) 0) first-timespan second-timespan)))
 
-(defn select-active-timespan 
+(defn select-active-timespan
   [timespans]
   (let [nonending
-        (reduce 
+        (reduce
          #(when (nil? (:loppuPvm %2)) (reduced %2)) nil timespans)]
     (if (nil? nonending)
       (reduce compare-timespans timespans)
@@ -95,7 +93,7 @@
   (log/debug "fetching VIRTA by oid: " oid)
   (virta-fetcher #(.setKansallinenOppijanumero % oid)))
 
-(defn extract-hetu-from-shibbo 
+(defn extract-hetu-from-shibbo
   "This format of personal id is prepended by
   somethig like 'urn:schac:personalUniqueID:fi:FIC:'.
   Rude way to extract hetu is find last colon."
@@ -117,4 +115,3 @@
 
 (defn get-virta-opiskeluoikeudet [user-data]
   (get-from-virta-with get-opiskeluoikeudet! user-data))
-

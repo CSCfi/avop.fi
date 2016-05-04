@@ -3,6 +3,7 @@
             [buddy.auth :refer [throw-unauthorized]]
             [clojure.java.data :refer :all]
             [avopfi.consts :refer :all]
+            [avopfi.util :refer :all]
             [avopfi.integration.virta :as virta]
             [avopfi.integration.opintopolku :as op]
             [avopfi.integration.arvo :as arvo]
@@ -36,7 +37,7 @@
   [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
                       {oo-laajuus :opintopiste} :laajuus}]
   (let [pisteet
-        (->> virta-suoritukset             
+        (->> virta-suoritukset
              (filter #(and
                        (= (:opiskeluoikeusAvain %) oo-avain)
                        (= (:laji %) opintosuoritus-muu-laji)
@@ -44,10 +45,10 @@
              (reduce #(+ %1 (int (-> %2 :laajuus :opintopiste))) 0))]
     (condp = (str oo-tyyppi)
       amk-alempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus)) 
+      (>= (vals->pct pisteet (int oo-laajuus))
           opintopisteet-amk-alempi-min-pct)
       amk-ylempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus)) 
+      (>= (vals->pct pisteet (int oo-laajuus))
           opintopisteet-amk-ylempi-min-pct)
       false)))
 
@@ -75,6 +76,7 @@
     (->>
       virta-oikeudet
       (filter #(valid? opiskeluoikeus-validator %))
+      (filter #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-expired? loppu))))
       (filter (partial has-organization? home-organization))
       (filter (partial has-enough-opintosuoritus? virta-suoritukset))
       )
@@ -85,17 +87,17 @@
 
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals]
   (let [virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
-        virta-suoritukset 
+        virta-suoritukset
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
           (filter-oikeudet virta-oikeudet virta-suoritukset
-                           (shibbo-vals "home-organization"))]    
+                           (shibbo-vals "home-organization"))]
     (map opiskeluoikeus->ui-map valid-oikeudet)))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
   (if (:is-dev env)
     (ok {
-         :headers headers 
+         :headers headers
          :shibbo identity
          :oo (:opiskeluoikeudet-data session)})
     (not-found {})))
@@ -109,13 +111,13 @@
     (if opiskeluoikeus
       (let [res (db/get-visitor-by-srid {:opiskeluoikeus_id current-srid})]
         (if (nil? res)
-          (let [arvo-hash 
+          (let [arvo-hash
                 (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]
-            (db/create-visitor! {                                 
+            (db/create-visitor! {
                                  :opiskeluoikeus_id current-srid
                                  :oppilaitos_id (-> opiskeluoikeus :oppilaitos :id)
                                  :arvo_answer_hash arvo-hash})
-            (ok {:kysely_url (str 
+            (ok {:kysely_url (str
                               (:arvo-answer-url env) arvo-hash)}))
           ;; No obviously obvious status code when entity is duplicate,
           ;; (mis)using 422 as some other application/frameworks here.
