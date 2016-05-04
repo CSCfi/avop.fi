@@ -21,7 +21,7 @@ Database config looks like this:
     :database-url "jdbc:postgresql://mydbhost/avopfi?user=avopfi&password=avopfi"
 }
 ```
-** Note!!! **
+**Note!!!**
 
 To be able to map HAKA user creds to schools, app needs one DB entry to it's `organization_mappings` table after DB tables are created in the first migration (see next section). Currently this row needs to be inserted by hand. **TODO:** create a script.
 
