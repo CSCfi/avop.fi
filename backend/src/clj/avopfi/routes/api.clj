@@ -52,13 +52,12 @@
       false)))
 
 (defn opiskeluoikeus->ui-map
-  [{:keys [avain jakso myontaja tyyppi] {laajuus :opintopiste} :laajuus}]
-  (let [
-        {kunta-id :koulutuskunta :keys [koulutuskoodi koulutuskieli]}
-          (virta/select-active-timespan jakso)
+  [{:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
+  (let [{kunta-id :koulutuskunta :keys [luokittelu koulutuskoodi koulutuskieli]}
+          (virta/select-active-timespan jaksot)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
         koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
-        koulutustyyppi (virta/conclude-study-type tyyppi (:luokittelu jakso))
+        koulutustyyppi (virta/conclude-study-type tyyppi luokittelu)
         oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
     {
      :id avain
@@ -90,8 +89,7 @@
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
           (filter-oikeudet virta-oikeudet virta-suoritukset
-                           (shibbo-vals "home-organization"))]
-    (println valid-oikeudet)
+                           (shibbo-vals "home-organization"))]    
     (map opiskeluoikeus->ui-map valid-oikeudet)))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
