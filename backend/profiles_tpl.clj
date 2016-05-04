@@ -3,7 +3,7 @@
    :virta-tunnus "avopfi"
    :virta-jarjestelma "avopfi"
    :virta-salaisuus "salaisuus"
-   :virta-url "http://virtawstesti.csc.fi/luku/opiskelijatiedot.wsdl"
+   :virta-url "http://virtawstesti.csc.fi/luku106/opiskelijatiedot.wsdl"
    :opintopolku-base-url "https://testi.virkailija.opintopolku.fi/"
    :arvo-api-url "http://avopsnap.csc.fi/api/public/luovastaajatunnus"
    :arvo-answer-url "http://avopvastaussnap.csc.fi/"
