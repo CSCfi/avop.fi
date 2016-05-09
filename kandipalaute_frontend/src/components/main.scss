@@ -1,0 +1,19 @@
+/* Base Application Styles */
+
+@import '../styles/globals';
+
+body {
+  line-height: 1.6;
+  color: #000;
+  font-family: $font-body;
+  font-size: $font-size-body;
+}
+
+a {
+  text-decoration: none;
+}
+
+.separator {
+  border-top: 1px solid #eee;
+}
+

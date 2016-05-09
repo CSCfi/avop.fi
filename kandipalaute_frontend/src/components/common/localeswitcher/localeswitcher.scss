@@ -1,0 +1,40 @@
+@import '../../../styles/globals';
+
+#languages {
+  float: right;
+  a {
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    color: #000;
+    animation-duration: 0.3s;
+    animation-name: slideout;
+    text-decoration: none;
+
+    @keyframes slideout {
+      from {
+        background-color: $theme-color;
+        color: white;
+      }
+      to {
+        background-color: white;
+        color: #000
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: $theme-color;
+      animation-duration: 0.3s;
+      animation-name: slidein;
+      color: white;
+
+      @keyframes slidein {
+        from { background-color: white; color: black; }
+        to { background-color: $theme-color; color: white; }
+      }
+    }
+  }
+}
+

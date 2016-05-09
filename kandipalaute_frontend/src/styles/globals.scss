@@ -1,0 +1,18 @@
+
+$theme-color: #00B5E2;
+$theme-color-hover: #023F4B;
+
+$font-body: "Azo Sans", Verdana, Arial, sans-serif;
+$font-heading:  "Azo Sans",Verdana, Arial, sans-serif;
+$font-heading-light:  "Azo Sans", Verdana, Arial, sans-serif;
+$font-size-body: 14px;
+
+h4 {
+  color: $theme-color;
+  font-size: 20px;
+}
+
+
+@media (max-width: 750px) {
+  font-size: 0.8em;
+}
