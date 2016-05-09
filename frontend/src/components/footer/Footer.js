@@ -2,9 +2,8 @@ require('./footer.scss');
 
 import React from 'react';
 import Translate from 'react-translate-component';
+import LocalizedImage from '../common/localizedimage/localizedimage';
 
-let okm_logo = require('../../images/OKM_logo.png');
-let csc_logo = require('../../images/csc-logo-teksti-fi.png');
 let arene_logo = require('../../images/arene.png');
 
 let Footer = () =>
@@ -22,12 +21,12 @@ let Footer = () =>
       </div>
 
       <div className="one-third column okm">
-        <img className="img-okm" src={okm_logo} alt="Opetus- ja kulttuuriministeriö"/>
+        <LocalizedImage image="OKM_logo" />
         <Translate component="p" content="footer.okm.description"/>
       </div>
 
       <div className="one-third column csc">
-        <img className="img-csc" src={csc_logo} alt="CSC - Tieteen tietotekniikan keskus Oy"/>
+        <LocalizedImage image="CSC" />
         <Translate component="div" content="footer.csc.description"/>
         <span>avop@postit.csc.fi</span>
       </div>

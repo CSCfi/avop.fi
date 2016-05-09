@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
-import TranslateLogo from '../common/translatelogo.js';
+import LocalizedImage from '../common/localizedimage/localizedimage';
 
 require('es6-promise').polyfill();
 
@@ -105,7 +105,7 @@ export default class Userprofile extends React.Component {
               <div className="six columns">
                 <div className="u-full-width">
                   <div id="logo">
-                    <TranslateLogo />
+                    <LocalizedImage image="logo" />
                   </div>
                 </div>
               </div>
