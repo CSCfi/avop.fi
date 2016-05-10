@@ -76,7 +76,7 @@
     (->>
       virta-oikeudet
       (filter #(valid? opiskeluoikeus-validator %))
-      (filter #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-expired? loppu))))
+      (filter #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu))))
       (filter (partial has-organization? home-organization))
       (filter (partial has-enough-opintosuoritus? virta-suoritukset))
       )
