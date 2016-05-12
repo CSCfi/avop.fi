@@ -1,37 +1,27 @@
 
 #theme {
-  background: url("../../images/AVOP_teema.jpg");
+  background: url("../../images/theme-fi.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   position: relative;
-  margin-bottom: 3rem;
+  height: 120px;
+}
 
-  #logo {
-    margin-top: 50px;
-
-    img {
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-  }
-
+#login {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   #haka-login {
-    margin-top: 30px;
-    margin-bottom: 30px;
     box-sizing: border-box;
-    h4 {
-      font-size: 2rem;
-      color: black;
-    }
-    background-color: rgba(255,255,255,0.8);
-    border: 1px solid #ccc;
-    padding: 15px;
     max-width: 100%;
     word-wrap: break-word;
-    img {
-      max-width: 100%;
-      box-sizing: border-box;
+
+    #haka {
+
+      img {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
     }
   }
 
@@ -39,8 +29,7 @@
 
 #main_content {
 
-
-  .vipunen img{
+  .vipunen img {
     width: 200px;
     margin-bottom: 20px;
   }

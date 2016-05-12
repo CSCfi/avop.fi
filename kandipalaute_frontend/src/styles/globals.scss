@@ -1,11 +1,19 @@
 
-$theme-color: #00B5E2;
-$theme-color-hover: #023F4B;
+$theme-color: #f7941d;
+$theme-color-hover: #B35D1D;
 
-$font-body: "Azo Sans", Verdana, Arial, sans-serif;
-$font-heading:  "Azo Sans",Verdana, Arial, sans-serif;
-$font-heading-light:  "Azo Sans", Verdana, Arial, sans-serif;
+$font-body: "Crimson Text", serif;
+$font-heading:  "Open Sans", serif;
+$font-heading-light:  "Open Sans", serif;
 $font-size-body: 14px;
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: $font-heading;
+}
+
+p {
+  font-size: 1.4rem;
+}
 
 h4 {
   color: $theme-color;

@@ -1,7 +1,7 @@
 require('./header.scss');
 
 import React from 'react';
-import LocaleSwitcher from './../common/localeswitcher/localeswitcher';
+import LocaleSwitcher from '../common/localeswitcher/localeswitcher';
 
 export default class Header extends React.Component {
 
