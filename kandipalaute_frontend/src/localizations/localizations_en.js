@@ -26,7 +26,7 @@ let localizations_en = {
       description: 'Rectors´Conference of Finnish Universities of Applied Sciences, Arene'
     },
     okm: {
-      description: 'Ministry for Education and Culture'
+      description: 'Ministry of Education and Culture'
     },
     csc: {
       description: 'Arvo-educational management information services, CSC'
