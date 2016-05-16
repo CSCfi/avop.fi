@@ -1,0 +1,16 @@
+---
+apache:
+  server_name: "avopfisnap.csc.fi"
+  certificate: "36652041-avopfisnap.csc.fi.cert"
+  certificate_key: "36652041-avopfisnap.csc.fi.key"
+  appserver: "localhost"
+postgresql_avop_database: avop
+postgresql_avop_user: "{{ vault_postgresql_avop_user }}"
+postgresql_avop_password: "{{ vault_postgresql_avop_password }}"
+postgresql_data_directory: "/data/pgsql/{{ postgresql_version }}/data"
+opintopolku_base_url: "https://testi.virkailija.opintopolku.fi/"
+virta_url: "http://virtawstesti.csc.fi/luku106/opiskelijatiedot.wsdl"
+virta_secret: "{{ vault_virta_secret }}"
+arvo_api_url: "http://avopsnap.csc.fi/api/public/luovastaajatunnus"
+arvo_answer_url: "http://avopvastaussnap.csc.fi/"
+arvo_jwt_secret: "{{ vault_arvo_jwt_secret }}"
