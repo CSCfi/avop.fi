@@ -13,3 +13,7 @@
 ;; VIRTA opintosuorituslaji
 ;; Refer to: https://goo.gl/EEnUxr
 (def opintosuoritus-muu-laji "2")
+
+;; VIRTA opiskeluouikeustyyppi -> laajuus
+(def tutkintoon-vaaditut-pisteet {amk-alempi-tyyppi 80
+                                  amk-ylempi-tyyppi 50})

@@ -22,8 +22,10 @@
   [^OpintosuorituksetResponse opintosuoritukset-response]
   (let [results (some-> opintosuoritukset-response
                     (.getOpintosuoritukset)
-                    (.getOpintosuoritus))]
-    (map #(from-java %) results)))
+                    (.getOpintosuoritus))
+        opintosuoritukset (map #(from-java %) results)]
+    (log/info "Saatiin Virrasta" (count opintosuoritukset) "opintosuoritusta")
+    opintosuoritukset))
 
 (defn extract-opiskeluoikeus-data
   "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
@@ -32,8 +34,10 @@
   [^OpiskeluoikeudetResponse opiskeluoikeudet-response]
   (let [results (some-> opiskeluoikeudet-response
                     (.getOpiskeluoikeudet)
-                    (.getOpiskeluoikeus))]
-    (map #(from-java %) results)))
+                    (.getOpiskeluoikeus))
+        opiskeluoikeudet (map #(from-java %) results)]
+    (log/info "Saatiin Virrasta" (count opiskeluoikeudet) "opiskeluoikeutta")
+    opiskeluoikeudet))
 
 (defn ^:private compare-timespans [first-timespan second-timespan]
   (let [ld1 (to-local-date (:loppuPvm first-timespan)) ld2 (to-local-date (:loppuPvm second-timespan))]
@@ -86,11 +90,11 @@
     (extract-opiskeluoikeus-data (.opiskeluoikeudet service request))))
 
 (defn get-from-virta-by-pid [person-id virta-fetcher]
-  (log/debug "fetching VIRTA by pid: " person-id)
+  (log/info "Haetaan Virrasta henkilötunnuksella: " person-id)
   (virta-fetcher #(.setHenkilotunnus % (trim person-id))))
 
 (defn get-from-virta-by-oid [oid virta-fetcher]
-  (log/debug "fetching VIRTA by oid: " oid)
+  (log/info "Haetaan Virrasta oppijanumerolla: " oid)
   (virta-fetcher #(.setKansallinenOppijanumero % oid)))
 
 (defn extract-hetu-from-shibbo

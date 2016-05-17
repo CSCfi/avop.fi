@@ -12,7 +12,8 @@
             [validateur.validation :refer :all]
             [compojure.core :refer :all]
             [ring.util.http-response :refer :all]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.tools.logging :as log]))
 
 (def opiskeluoikeus-validator (validation-set
                                (presence-of :laajuus)))
@@ -33,6 +34,9 @@
 
 (defn vals->pct [f s] (int (* (float (/ f s)) 100)))
 
+(defn check-opintosuoritukset [oo-tyyppi pisteet laajuus]
+  (>= (vals->pct pisteet laajuus) (get tutkintoon-vaaditut-pisteet oo-tyyppi)))
+
 (defn has-enough-opintosuoritus?
   [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
                       {oo-laajuus :opintopiste} :laajuus}]
@@ -43,14 +47,7 @@
                        (= (:laji %) opintosuoritus-muu-laji)
                        (empty? (:sisaltyvyys %))))
              (reduce #(+ %1 (int (-> %2 :laajuus :opintopiste))) 0))]
-    (condp = (str oo-tyyppi)
-      amk-alempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus))
-          opintopisteet-amk-alempi-min-pct)
-      amk-ylempi-tyyppi
-      (>= (vals->pct pisteet (int oo-laajuus))
-          opintopisteet-amk-ylempi-min-pct)
-      false)))
+    (check-opintosuoritukset oo-tyyppi pisteet (int oo-laajuus))))
 
 (defn opiskeluoikeus->ui-map
   [{:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
@@ -82,7 +79,7 @@
       )
     (catch Exception e
       (let [msg (.getMessage e)]
-        (println "caught exception: " msg)
+        (log/error "Virhe valideja opiskeluoikeuksia rajattaessa: " msg)
         (throw e)))))
 
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals]
@@ -91,8 +88,10 @@
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
           (filter-oikeudet virta-oikeudet virta-suoritukset
-                           (shibbo-vals "home-organization"))]
-    (map opiskeluoikeus->ui-map valid-oikeudet)))
+                           (shibbo-vals "home-organization"))
+        oikeudet (map opiskeluoikeus->ui-map valid-oikeudet)]
+    (log/info "Löytyi" (count oikeudet) "validia oikeutta")
+    oikeudet))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
   (if (:is-dev env)
