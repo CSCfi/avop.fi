@@ -3,7 +3,7 @@
     [avopfi.consts :refer :all]
     [avopfi.util :refer :all]
     [config.core :refer [env]]
-    [clojure.string :refer [trim]]
+    [clojure.string :refer [trim join]]
     [clojure.java.data :refer [from-java]]
     [clojure.core.match :refer [match]]
     [clojure.tools.logging :as log]
@@ -15,28 +15,45 @@
                   OpintosuorituksetResponse HakuEhdotOrganisaatioVapaa
                   Kutsuja)))
 
+
+(defn extract-hetu-from-shibbo
+  "This format of personal id is prepended by
+  somethig like 'urn:schac:personalUniqueID:fi:FIC:'.
+  Rude way to extract hetu is find last colon."
+  [shibbo-uid]
+  (subs shibbo-uid (+ (.lastIndexOf shibbo-uid (int \:)) 1)))
+
+
+(defn user-id [user-data]
+  (match [user-data]
+         [{"learner-id" lid}] lid
+         [{"national-identification-number" nin}] nin
+         [{"unique-id" uid}] (extract-hetu-from-shibbo uid)
+         :else nil))
+
 (defn extract-opintosuoritukset-data
   "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
   is returned with .getOpiskeluoikeudet and multiple OpiskeluoikeusTyyppis
   with getOpiskeluoikeus"
-  [^OpintosuorituksetResponse opintosuoritukset-response]
+  [^OpintosuorituksetResponse opintosuoritukset-response user-data]
   (let [results (some-> opintosuoritukset-response
                     (.getOpintosuoritukset)
                     (.getOpintosuoritus))
         opintosuoritukset (map #(from-java %) results)]
-    (log/info "Saatiin Virrasta" (count opintosuoritukset) "opintosuoritusta")
+    (log/info "Saatiin Virrasta" (count opintosuoritukset) "opintosuoritusta käyttäjälle" (user-id user-data))
     opintosuoritukset))
 
 (defn extract-opiskeluoikeus-data
   "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
   is returned with .getOpiskeluoikeudet and multiple OpiskeluoikeusTyyppis
   with getOpiskeluoikeus"
-  [^OpiskeluoikeudetResponse opiskeluoikeudet-response]
+  [^OpiskeluoikeudetResponse opiskeluoikeudet-response user-data]
   (let [results (some-> opiskeluoikeudet-response
                     (.getOpiskeluoikeudet)
                     (.getOpiskeluoikeus))
         opiskeluoikeudet (map #(from-java %) results)]
-    (log/info "Saatiin Virrasta" (count opiskeluoikeudet) "opiskeluoikeutta")
+    (log/info "Saatiin Virrasta" (count opiskeluoikeudet) "opiskeluoikeutta käyttäjälle" (user-id user-data))
+    (log/info "Opiskelu-oikeudet:" (join ", " (map #(:avain %) opiskeluoikeudet)))
     opiskeluoikeudet))
 
 (defn ^:private compare-timespans [first-timespan second-timespan]
@@ -78,31 +95,24 @@
         set-id-query))))
 
 (defn get-opintosuoritukset!
-  [set-id-query]
+  [user-data set-id-query]
   (let [service (get-ws-service)
         request (build-ws-request-from (OpintosuorituksetRequest.) set-id-query)]
-    (extract-opintosuoritukset-data (.opintosuoritukset service request))))
+    (extract-opintosuoritukset-data (.opintosuoritukset service request) user-data)))
 
 (defn get-opiskeluoikeudet!
-  [set-id-query]
+  [user-data set-id-query]
   (let [service (get-ws-service)
             request (build-ws-request-from (OpiskeluoikeudetRequest.) set-id-query)]
-    (extract-opiskeluoikeus-data (.opiskeluoikeudet service request))))
+    (extract-opiskeluoikeus-data (.opiskeluoikeudet service request) user-data)))
 
 (defn get-from-virta-by-pid [person-id virta-fetcher]
-  (log/info "Haetaan Virrasta henkilötunnuksella: " person-id)
+  (log/info "Haetaan Virrasta henkilötunnuksella:" person-id)
   (virta-fetcher #(.setHenkilotunnus % (trim person-id))))
 
 (defn get-from-virta-by-oid [oid virta-fetcher]
-  (log/info "Haetaan Virrasta oppijanumerolla: " oid)
+  (log/info "Haetaan Virrasta oppijanumerolla:" oid)
   (virta-fetcher #(.setKansallinenOppijanumero % oid)))
-
-(defn extract-hetu-from-shibbo
-  "This format of personal id is prepended by
-  somethig like 'urn:schac:personalUniqueID:fi:FIC:'.
-  Rude way to extract hetu is find last colon."
-  [shibbo-uid]
-  (subs shibbo-uid (+ (.lastIndexOf shibbo-uid (int \:)) 1)))
 
 (defn get-from-virta-with [virta-fetcher user-data]
   (match [user-data]
@@ -115,7 +125,7 @@
          :else nil))
 
 (defn get-virta-suoritukset [user-data]
-  (get-from-virta-with get-opintosuoritukset! user-data))
+  (get-from-virta-with (partial get-opintosuoritukset! user-data) user-data))
 
 (defn get-virta-opiskeluoikeudet [user-data]
-  (get-from-virta-with get-opiskeluoikeudet! user-data))
+  (get-from-virta-with  (partial get-opiskeluoikeudet! user-data) user-data))
