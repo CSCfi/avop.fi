@@ -5,7 +5,7 @@ JAVA_OPTS="$JAVA_OPTS -Dvirta-tunnus=avopfi
 -Darvo-api-url={{ arvo_api_url }}
 -Darvo-answer-url={{ arvo_answer_url }}
 -Darvo-jwt-secret={{ arvo_jwt_secret }}
--Davop_log_path:={{ avop_log_path }}
+-Davop_log_path={{ avop_log_path }}
 {% if is_dev is defined %}-Dis-dev={{ is_dev }}{% endif %} 
 -Ddatabase-url='jdbc:postgresql://localhost/{{ postgresql_avop_database }}?user={{ postgresql_avop_user}}&password={{ postgresql_avop_password }}'"
 
