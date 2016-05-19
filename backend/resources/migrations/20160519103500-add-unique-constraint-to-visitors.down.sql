@@ -1,0 +1,1 @@
+ALTER TABLE visitors DROP CONSTRAINT visitor_unique;

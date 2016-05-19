@@ -1,0 +1,1 @@
+ALTER TABLE visitors ADD CONSTRAINT visitor_unique UNIQUE (opiskeluoikeus_id, oppilaitos_id);
