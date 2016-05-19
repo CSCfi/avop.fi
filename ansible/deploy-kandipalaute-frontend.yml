@@ -5,4 +5,4 @@
   become: yes
   become_user: root
   roles:
-    - deploy-avopfi-frontend
+    - deploy-kandipalaute-frontend
