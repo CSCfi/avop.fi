@@ -1,7 +1,7 @@
 ---
-- name: copy frontend dist
+- name: copy avopfi frontend dist
   copy:
-    src: "../frontend/dist"
+    src: "../frontend/avopfi/dist"
     dest: "/var/www/html"
     owner: apache
     group: apache
