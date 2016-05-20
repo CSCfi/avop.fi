@@ -56,6 +56,6 @@
 
 # Redirect http to https
 <VirtualHost *:80>
-    ServerName {{ apache.server_name }}
-    Redirect / https://{{ apache.server_name }}/
+    ServerName {{ apache.kandipalaute_server_name }}
+    Redirect / https://{{ apache.kandipalaute_server_name }}/
 </VirtualHost>
