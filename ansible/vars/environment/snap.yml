@@ -1,6 +1,7 @@
 ---
 apache:
   server_name: "avopfisnap.csc.fi"
+  kandipalaute_server_name: "snapkandipalaute.csc.fi"
   certificate: "36652041-avopfisnap.csc.fi.cert"
   certificate_key: "36652041-avopfisnap.csc.fi.key"
   appserver: "localhost"

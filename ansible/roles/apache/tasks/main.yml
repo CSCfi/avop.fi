@@ -114,6 +114,16 @@
   notify:
     - restart httpd service
 
+- name: apache site configuration
+  template:
+    dest: "/etc/httpd/conf.d/kandipalaute.conf"
+    src: "apache/kandipalaute.conf.j2"
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - restart httpd service
+
 - name: httpd service
   service:
     name: httpd

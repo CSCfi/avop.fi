@@ -1,6 +1,7 @@
 ---
 apache:
   server_name: "avop.fi"
+  kandipalaute_server_name: "kandipalaute.fi"
   certificate: "star_avop_fi.pem"
   certificate_key: "star_avop_fi.key"
   chain_certificate: "star_avop_fi-chain.pem"
