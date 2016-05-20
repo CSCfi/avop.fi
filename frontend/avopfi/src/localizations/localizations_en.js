@@ -35,7 +35,7 @@ let localizations_en = {
   profiledata: {
     header: 'Background information',
     about: 'Information on education, university of applied sciences, municipality, language of learning and mode of teaching is used as survey background information. The collected personal information is not transferred to the feedback system.',
-    education: 'Education',
+    education: 'Degree title',
     school: 'University of applied sciences',
     municipality: 'Municipality',
     language: 'Language of learning',

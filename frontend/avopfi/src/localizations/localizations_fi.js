@@ -35,7 +35,7 @@ let localizations_fi = {
   profiledata: {
     header: 'Palautekyselyn taustatiedot',
     about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli ja koulutusmuoto. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
-    education: 'Koulutus',
+    education: 'Tutkintonimike',
     school: 'Ammattikorkeakoulu',
     municipality: 'Kunta',
     language: 'Tutkinnon suorituskieli',
