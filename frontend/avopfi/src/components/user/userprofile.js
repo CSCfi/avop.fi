@@ -159,7 +159,8 @@ export default class Userprofile extends React.Component {
                       <Translate component="td" content="profiledata.language"></Translate>
                       <td>{this.state.selectedStudyRight.kieli}</td>
                     </tr>
-                    <tr>
+
+                    <tr className={this.state.selectedStydeRight.opiskeluoikeustyyppi === 3 ? 'hidden' : ''}>
                       <Translate component="td" content="profiledata.form_of_education"></Translate>
                       <Translate component="td"
                                  content={this.state.selectedStudyRight.koulutusmuoto == 0 ? 'profiledata.type.day' : 'profiledata.type.multi'}></Translate>
