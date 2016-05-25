@@ -6,6 +6,7 @@ import fetch from 'isomorphic-fetch';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
 require('es6-promise').polyfill();
+require('array.prototype.find').shim();
 
 export default class Userprofile extends React.Component {
   constructor(props) {
