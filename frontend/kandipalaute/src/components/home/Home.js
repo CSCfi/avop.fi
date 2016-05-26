@@ -22,9 +22,7 @@ export default class Content extends React.Component {
   render() {
     return (
       <div>
-        <section>
-          <LocalizedThemeImage />
-        </section>
+        <LocalizedThemeImage />
 
         <section id="login">
           <div className="container">

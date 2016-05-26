@@ -100,9 +100,7 @@ export default class Userprofile extends React.Component {
     return (
       <div>
 
-        <section>
-          <LocalizedThemeImage />
-        </section>
+        <LocalizedThemeImage />
 
         <section id="userprofile">
           <div className="container">
