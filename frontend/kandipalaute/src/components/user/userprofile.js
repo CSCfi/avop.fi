@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
-import LocalizedImage from '../common/localizedimage/localizedimage';
 
 require('es6-promise').polyfill();
 require('array.prototype.find').shim();
@@ -99,21 +98,11 @@ export default class Userprofile extends React.Component {
     }
     return (
       <div>
-        <section id="theme">
-          <div className="container">
-            <div className="row">
 
-              <div className="six columns">
-                <div className="u-full-width">
-                  <div id="logo">
-                    <LocalizedImage image="logo" />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <section>
+          <LocalizedThemeImage />
         </section>
+
         <section id="userprofile">
           <div className="container">
             <div className="row">

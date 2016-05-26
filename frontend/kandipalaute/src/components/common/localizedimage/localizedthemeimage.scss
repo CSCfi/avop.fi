@@ -1,0 +1,20 @@
+#theme {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  height: 120px;
+
+  &.fi {
+    background-image: url('../../../images/theme-fi.jpg');
+  }
+
+  &.sv {
+    background-image: url('../../../images/theme-sv.jpg');
+  }
+
+  &.en {
+    background-image: url('../../../images/theme-en.jpg');
+  }
+}
+

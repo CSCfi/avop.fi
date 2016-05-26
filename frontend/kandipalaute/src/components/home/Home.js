@@ -3,7 +3,7 @@ require('./content.scss');
 import React from 'react';
 import config from 'config';
 import Translate from 'react-translate-component';
-
+import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 let hakaLoginImage = require('../../images/haka_landscape_large.gif');
 let vipunenImg = require('../../images/vipunen.png');
 
@@ -22,7 +22,9 @@ export default class Content extends React.Component {
   render() {
     return (
       <div>
-        <section id="theme"></section>
+        <section>
+          <LocalizedThemeImage />
+        </section>
 
         <section id="login">
           <div className="container">
