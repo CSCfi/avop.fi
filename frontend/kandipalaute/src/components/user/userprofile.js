@@ -3,6 +3,7 @@ import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import fetch from 'isomorphic-fetch';
+import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 
 require('es6-promise').polyfill();
 require('array.prototype.find').shim();
