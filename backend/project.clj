@@ -19,7 +19,6 @@
                  [clojure.java-time "0.2.0"]
                  [clj-http "2.0.1"]
                  [clj-http-fake "1.0.2"]
-                 [com.novemberain/validateur "2.5.0"]
                  [slingshot "0.12.2"]
                  [ring/ring-defaults "0.1.5"]
                  [ring-ttl-session "0.3.0"]

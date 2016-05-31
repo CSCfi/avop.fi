@@ -9,14 +9,10 @@
             [avopfi.integration.arvo :as arvo]
             [avopfi.db.core :as db]
             [config.core :refer [env]]
-            [validateur.validation :refer :all]
             [compojure.core :refer :all]
             [ring.util.http-response :refer :all]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]))
-
-(def opiskeluoikeus-validator (validation-set
-                               (presence-of :laajuus)))
 
 (defn home-page []
   (layout/render
@@ -26,6 +22,9 @@
   (let [mapping
         (db/get-mapping-by-domain {:domain domain})]
     (:code mapping)))
+
+(defn laaduus-valid? [opiskeluoikeus]
+  (< 0 (:laajuus opiskeluoikeus 0)))
 
 (defn has-organization? [home-organization {org-koodi :myontaja}]
   (let
@@ -72,7 +71,7 @@
   (try
     (->>
       virta-oikeudet
-      (filter #(valid? opiskeluoikeus-validator %))
+      (filter #(laaduus-valid? %))
       (filter #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu))))
       (filter (partial has-organization? home-organization))
       (filter (partial has-enough-opintosuoritus? virta-suoritukset))

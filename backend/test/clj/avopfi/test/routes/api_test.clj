@@ -36,6 +36,18 @@
       (is (= (:id results) (-> study-rights-fixture :avain)))
       (is (= (:type results) (-> study-rights-fixture :avain))))))
 
+(deftest filter-missing-laajuus
+  (testing "Checking that rights with missing laajuus are filtered"
+    (let [missing-laajuus-fixture (map #(dissoc % :laajuus )study-rights-fixture )
+          results (filter-oikeudet missing-laajuus-fixture attainments-fixture "yliopisto.fi")]
+         (is (empty? results)))))
+
+(deftest filter-zero-laajuus
+  (testing "Checking that rights with zero laajuus are filtered"
+    (let [zero-laajuus-fixture (map #(assoc % :laajuus 0) study-rights-fixture )
+          results (filter-oikeudet zero-laajuus-fixture attainments-fixture "yliopisto.fi")]
+      (is (empty? results)))))
+
 (deftest opiskeluoikeudet-mapping
   (testing "Converts raw opiskeluoikeus data to proper JSON structure"
     (with-redefs [has-organization? (fn [x y] (= "yliopisto.fi" x))
