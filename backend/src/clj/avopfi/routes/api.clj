@@ -24,7 +24,7 @@
     (:code mapping)))
 
 (defn laajuus-valid? [opiskeluoikeus]
-  (< 0 (:laajuus opiskeluoikeus 0)))
+  (< 0 (get-in opiskeluoikeus [:laajuus :opintopiste] 0)))
 
 (defn has-organization? [home-organization {org-koodi :myontaja}]
   (let

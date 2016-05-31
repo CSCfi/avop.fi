@@ -38,13 +38,13 @@
 
 (deftest filter-missing-laajuus
   (testing "Checking that rights with missing laajuus are filtered"
-    (let [missing-laajuus-fixture (map #(dissoc % :laajuus )study-rights-fixture )
+    (let [missing-laajuus-fixture (map #(dissoc % :laajuus) study-rights-fixture )
           results (filter-oikeudet missing-laajuus-fixture attainments-fixture "yliopisto.fi")]
          (is (empty? results)))))
 
 (deftest filter-zero-laajuus
   (testing "Checking that rights with zero laajuus are filtered"
-    (let [zero-laajuus-fixture (map #(assoc % :laajuus 0) study-rights-fixture )
+    (let [zero-laajuus-fixture (map #(assoc % :laajuus {:opintopiste 0}) study-rights-fixture )
           results (filter-oikeudet zero-laajuus-fixture attainments-fixture "yliopisto.fi")]
       (is (empty? results)))))
 
