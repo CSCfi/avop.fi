@@ -22,12 +22,12 @@ class AppComponent extends React.Component {
   }
 
   setLocale() {
-    if (this.props.params.lang.indexOf('fi') === 0 ) {
-      counterpart.setLocale('fi');
+    if (this.props.params.lang.indexOf('en') === 0 ) {
+      counterpart.setLocale('en');
     } else if (this.props.params.lang.indexOf('sv') === 0 ) {
       counterpart.setLocale('sv');
     } else {
-      counterpart.setLocale('en');
+      counterpart.setLocale('fi');
     }
   }
 
