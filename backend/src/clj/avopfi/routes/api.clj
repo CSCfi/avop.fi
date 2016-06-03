@@ -116,7 +116,7 @@
                                  :oppilaitos_id (-> opiskeluoikeus :oppilaitos :id)
                                  :arvo_answer_hash arvo-hash})
             (ok {:kysely_url (str
-                              (:arvo-answer-url env) arvo-hash)} "/" kieli))
+                              (:arvo-answer-url env) arvo-hash "/" kieli)}))
           ;; No obviously obvious status code when entity is duplicate,
           ;; (mis)using 422 as some other application/frameworks here.
           (unprocessable-entity
