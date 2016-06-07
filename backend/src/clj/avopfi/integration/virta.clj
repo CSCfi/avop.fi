@@ -124,8 +124,15 @@
          (get-from-virta-by-pid (extract-hetu-from-shibbo uid) virta-fetcher)
          :else nil))
 
+
+(defn get-from-virta-with-retry [virta-fetcher user-data]
+  (retry (partial get-from-virta-with virta-fetcher)
+         seq
+         (map #(select-keys user-data [%]) ["learner-id"
+                                            "national-identification-number"
+                                            "unique-id"])))
 (defn get-virta-suoritukset [user-data]
-  (get-from-virta-with (partial get-opintosuoritukset! user-data) user-data))
+  (get-from-virta-with-retry (partial get-opintosuoritukset! user-data) user-data))
 
 (defn get-virta-opiskeluoikeudet [user-data]
-  (get-from-virta-with  (partial get-opiskeluoikeudet! user-data) user-data))
+  (get-from-virta-with-retry (partial get-opiskeluoikeudet! user-data) user-data))

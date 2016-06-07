@@ -9,3 +9,10 @@
   (or
     (.isBefore (local-date) (to-local-date date-map))
     (.isEqual (local-date) (to-local-date date-map))))
+
+(defn retry [f cond args]
+  (when (seq args)
+    (let [res (f (first args))]
+      (if (cond res)
+        res
+        (retry f cond (rest args))))))
