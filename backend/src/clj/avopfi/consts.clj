@@ -9,6 +9,7 @@
 ;; Refer to: https://goo.gl/6mxppY
 (def amk-alempi-tyyppi "1")
 (def amk-ylempi-tyyppi "3")
+(def alempi-korkeakoulututkinto "2")
 
 ;; VIRTA opintosuorituslaji
 ;; Refer to: https://goo.gl/EEnUxr

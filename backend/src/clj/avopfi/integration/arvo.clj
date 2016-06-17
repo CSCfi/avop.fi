@@ -8,16 +8,15 @@
     [clojure.tools.logging :as log]
     [clj-http.client :as client]))
 
-(defn build-kyselykerran-nimi 
-  "For spec of this string, see 
-  https://goo.gl/GCsQN0"
+(defn build-kyselykerran-nimi
   [opiskeluoikeustyyppi vuosi]
   (if (nil? opiskeluoikeustyyppi)
       nil
-      (str "AUTOMAATTI AVOP-"
+      (str
         (condp = opiskeluoikeustyyppi
-          amk-alempi-tyyppi "AMK" 
-          amk-ylempi-tyyppi "YAMK"
+          amk-alempi-tyyppi "AUTOMAATTI AVOP-AMK"
+          amk-ylempi-tyyppi "AUTOMAATTI AVOP-YAMK"
+          alempi-korkeakoulututkinto "AUTOMAATTI KANDI"
           "") " " vuosi)))
 
 (defn clean-opiskeluoikeus-data

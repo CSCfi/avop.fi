@@ -16,7 +16,7 @@
                             :jakso {
                                     :luokittelu ["3"]
                                     }
-                            :tyyppi 1
+                            :tyyppi "1"
                             }])
 (def attainments-fixture [
                           {:opiskeluoikeusAvain "FOO" :laji "2" :sisaltyvyys [] :laajuus {:opintopiste 100}}
@@ -58,7 +58,7 @@
                   op/get-koulutus-data (constantly nil)
                   op/get-oppilaitos-data (constantly nil)]
       (let [json (opiskeluoikeus->ui-map (first study-rights-fixture))]
-        (is (= (json :opiskeluoikeustyyppi) 1))))))
+        (is (= (json :opiskeluoikeustyyppi) "1"))))))
 
 ;;(use-fixtures :once (fn [f] (migrations/migrate ["migrate"]) (f)))
 
@@ -73,7 +73,7 @@
       ]
       (let [attribs {:body-params {:opiskeluoikeus_id "avopOa1" :kieli "fi"}
         :session {:opiskeluoikeudet-data [opiskeluoikeus-data-fixture]}}]
-        (is (= (:kysely_url (:body (process-registration attribs))) (str (:arvo-answer-url env) "FOO")))))))
+        (is (= (str (:arvo-answer-url env) "FOO/fi") (:kysely_url (:body (process-registration attribs)))))))))
 
 
 

@@ -20,7 +20,11 @@
            :laajuus (:laajuus opiskeluoikeus-data-fixture)
            :opiskeluoikeustyyppi (:opiskeluoikeustyyppi opiskeluoikeus-data-fixture)
            :kyselykerran_nimi (str "AUTOMAATTI AVOP-AMK " (as (local-date) :year))
-           }))))
+           })))
+  (testing "cleaning of data should set kyselykerran_nimi to AUTOMAATTI KANDI for opiskeluoikeustyyppi 2"
+    (let [kandi-opiskeluoikeus-data (assoc opiskeluoikeus-data-fixture :opiskeluoikeustyyppi "2")]
+      (is (= (:kyselykerran_nimi (clean-opiskeluoikeus-data kandi-opiskeluoikeus-data))
+             (str "AUTOMAATTI KANDI " (as (local-date) :year)))))))
 
 (deftest cleanup-fail
   (testing "cleaning of empty data"
