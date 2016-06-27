@@ -6,7 +6,6 @@ import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
 let hakaLoginImage = require('../../images/haka_landscape_large.gif');
-let vipunenImg = require('../../images/vipunen.png');
 
 export default class Content extends React.Component {
 
@@ -67,7 +66,9 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results2"/></div>
               <div className="u-full-width">
-                <a href="https://vipunen.fi/" className="vipunen"><img src={vipunenImg} /></a>
+                <a href="https://vipunen.fi/" className="vipunen">
+                  <LocalizedImage image="vipunen"/>
+                </a>
               </div>
 
             </div>
