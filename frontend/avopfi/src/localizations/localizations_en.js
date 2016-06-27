@@ -29,7 +29,7 @@ let localizations_en = {
       description: 'Ministry of Education and Culture'
     },
     csc: {
-      description: 'Arvo - Education information management service, CSC'
+      description: 'Arvo - Education information management service'
     }
   },
   profiledata: {

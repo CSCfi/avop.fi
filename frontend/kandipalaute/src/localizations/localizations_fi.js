@@ -29,7 +29,7 @@ let localizations_fi = {
       description: 'Opetus- ja kulttuuriministeriö'
     },
     csc: {
-      description: 'CSC - Tieteen tietotekniikan keskus Oy'
+      description: 'Arvo - opetushallinnon vaikuttavuustietopalvelu'
     }
   },
   profiledata: {

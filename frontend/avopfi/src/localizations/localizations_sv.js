@@ -29,7 +29,7 @@ let localizations_sv = {
       description: 'Undervisnings- och kulturministeriet'
     },
     csc: {
-      description: 'Arvo-informationstjänst för hantering av utbildningsärenden, CSC'
+      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning'
     }
   },
   profiledata: {
