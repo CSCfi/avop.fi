@@ -31,7 +31,7 @@ export default class Userprofile extends React.Component {
     }
 
     if (!data) {
-      fetch('/api/opiskeluoikeudet',
+      fetch('/api/opiskeluoikeudet/avop',
         {credentials: 'same-origin'})
         .then(response => {
           if (response.status >= 400 || response.status === 302) {

@@ -67,27 +67,35 @@
      :oppilaitos {:id myontaja :nimi oppilaitos}
      }))
 
-(defn filter-oikeudet [virta-oikeudet virta-suoritukset home-organization]
+(defn amk-vaatimukset [virta-suoritukset home-organization]
+  [#(laajuus-valid? %)
+   #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu)))
+   (partial has-organization? home-organization)
+   (partial has-enough-opintosuoritus? virta-suoritukset)])
+
+(defn kandi-vaatimukset [virta-suoritukset home-organization]
+  [#(= (:tyyppi %) alempi-korkeakoulututkinto)])
+
+(defn vaatimukset [tyyppi]
+  (tyyppi {:avop amk-vaatimukset
+           :kandi kandi-vaatimukset}))
+
+(defn filter-oikeudet [virta-oikeudet virta-suoritukset home-organization tyyppi]
   (try
-    (->>
-      virta-oikeudet
-      (filter #(laajuus-valid? %))
-      (filter #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu))))
-      (filter (partial has-organization? home-organization))
-      (filter (partial has-enough-opintosuoritus? virta-suoritukset))
-      )
+    (filter (apply every-pred ((vaatimukset tyyppi) virta-suoritukset home-organization)) virta-oikeudet)
     (catch Exception e
       (let [msg (.getMessage e)]
         (log/error "Virhe valideja opiskeluoikeuksia rajattaessa: " msg)
         (throw e)))))
 
-(defn shibbo-vals->opiskeluoikeudet [shibbo-vals]
+(defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
   (let [virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
         virta-suoritukset
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
           (filter-oikeudet virta-oikeudet virta-suoritukset
-                           (shibbo-vals "home-organization"))
+                           (shibbo-vals "home-organization")
+                           tyyppi)
         oikeudet (map opiskeluoikeus->ui-map valid-oikeudet)]
     (log/info "Löytyi" (count oikeudet) "validia oikeutta")
     oikeudet))
@@ -125,12 +133,13 @@
       (throw-unauthorized))))
 
 (defn opiskeluoikeudet [request]
-  (let [shibbo-vals (:identity request)]
+  (let [shibbo-vals (:identity request)
+        tyyppi (-> request :route-params :tyyppi keyword)]
     (if (not (map? shibbo-vals))
       (throw-unauthorized)
       (let [session (:session request)
             resp-data
-            (shibbo-vals->opiskeluoikeudet shibbo-vals)]
+            (shibbo-vals->opiskeluoikeudet shibbo-vals tyyppi)]
         (-> (ok resp-data)
             (assoc :session
                    (assoc session :opiskeluoikeudet-data
@@ -140,7 +149,7 @@
   (context
       "/api" []
     (GET "/" [] (home-page))
-    (GET "/opiskeluoikeudet" request
+    (GET "/opiskeluoikeudet/:tyyppi" request
       (opiskeluoikeudet request))
     (POST "/rekisteroidy" request
       (process-registration request))
