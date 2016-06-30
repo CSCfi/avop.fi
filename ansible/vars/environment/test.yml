@@ -1,6 +1,6 @@
 ---
 apache:
-  server_name: "testavop.csc.fi"
+  server_name: "avopfitest.csc.fi"
   kandipalaute_server_name: "testkandipalaute.csc.fi"
   certificate: "63398491-avopfitest.csc.fi.cert"
   certificate_key: "63398491-avopfitest.csc.fi.key"
