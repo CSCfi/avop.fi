@@ -19,8 +19,8 @@
            :koulutusmuoto "paivaopiskelu"
            :laajuus (:laajuus opiskeluoikeus-data-fixture)
            :opiskeluoikeustyyppi (:opiskeluoikeustyyppi opiskeluoikeus-data-fixture)
-           :kyselykerran_nimi (str "AUTOMAATTI AVOP-AMK " (as (local-date) :year))
-           })))
+           :kyselykerran_nimi (str "AUTOMAATTI AVOP-AMK " (as (local-date) :year))})))
+
   (testing "cleaning of data should set kyselykerran_nimi to AUTOMAATTI KANDI for opiskeluoikeustyyppi 2"
     (let [kandi-opiskeluoikeus-data (assoc opiskeluoikeus-data-fixture :opiskeluoikeustyyppi "2")]
       (is (= (:kyselykerran_nimi (clean-opiskeluoikeus-data kandi-opiskeluoikeus-data))
@@ -41,12 +41,12 @@
        arvo-api-endpoint
        (fn [req]
         (do (is
-          (re-matches #"Bearer ([A-Za-z0-9-_=.]+)"
-            (-> req :headers :Authorization)))
-        {:status 200 :headers {} :body (str "{\"tunnus\": \"" arvo-hash "\"}")}))
-      }        
+             (re-matches #"Bearer ([A-Za-z0-9-_=.]+)"
+               (-> req :headers :Authorization)))
+         {:status 200 :headers {} :body (str "{\"tunnus\": \"" arvo-hash "\"}")}))}
+
       (is (= arvo-hash (generate-questionnaire-credentials!
-       opiskeluoikeus-data-fixture (:kieli opiskeluoikeus-data-fixture)))))))
+                        opiskeluoikeus-data-fixture (:kieli opiskeluoikeus-data-fixture)))))))
 
 (deftest erroneous-arvo-call
   (testing "Call to Arvo throws exception when wrong body"
@@ -54,8 +54,8 @@
       {
        arvo-api-endpoint
        (fn [req]
-        {:status 200 :headers {} :body "{}"})
-      }        
+        {:status 200 :headers {} :body "{}"})}
+
       (is (thrown? clojure.lang.ExceptionInfo (generate-questionnaire-credentials!
-       opiskeluoikeus-data-fixture (:kieli opiskeluoikeus-data-fixture)))))))
+                                               opiskeluoikeus-data-fixture (:kieli opiskeluoikeus-data-fixture)))))))
 

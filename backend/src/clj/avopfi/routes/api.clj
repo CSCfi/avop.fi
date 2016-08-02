@@ -12,46 +12,17 @@
             [compojure.core :refer :all]
             [ring.util.http-response :refer :all]
             [clojure.java.io :as io]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [avopfi.validator :refer [validate]]))
 
 (defn home-page []
   (layout/render
    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
-(defn get-oppilaitos-code-by-domain [domain]
-  (let [mapping
-        (db/get-mapping-by-domain {:domain domain})]
-    (:code mapping)))
-
-(defn laajuus-valid? [opiskeluoikeus]
-  (< 0 (get-in opiskeluoikeus [:laajuus :opintopiste] 0)))
-
-(defn has-organization? [home-organization {org-koodi :myontaja}]
-  (let
-    [code (get-oppilaitos-code-by-domain home-organization)]
-    (= code org-koodi)))
-
-(defn vals->pct [f s] (int (* (float (/ f s)) 100)))
-
-(defn check-opintosuoritukset [oo-tyyppi pisteet laajuus]
-  (>= (vals->pct pisteet laajuus) (get tutkintoon-vaaditut-pisteet oo-tyyppi)))
-
-(defn has-enough-opintosuoritus?
-  [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
-                      {oo-laajuus :opintopiste} :laajuus}]
-  (let [pisteet
-        (->> virta-suoritukset
-             (filter #(and
-                       (= (:opiskeluoikeusAvain %) oo-avain)
-                       (= (:laji %) opintosuoritus-muu-laji)
-                       (empty? (:sisaltyvyys %))))
-             (reduce #(+ %1 (int (-> %2 :laajuus :opintopiste))) 0))]
-    (check-opintosuoritukset oo-tyyppi pisteet (int oo-laajuus))))
-
 (defn opiskeluoikeus->ui-map
   [{:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
   (let [{kunta-id :koulutuskunta :keys [luokittelu koulutuskoodi koulutuskieli]}
-          (virta/select-active-timespan jaksot)
+        (virta/select-active-timespan jaksot)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
         koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
         koulutustyyppi (virta/conclude-study-type tyyppi luokittelu)
@@ -64,39 +35,16 @@
      :koulutusmuoto koulutustyyppi
      :opiskeluoikeustyyppi tyyppi
      :laajuus laajuus
-     :oppilaitos {:id myontaja :nimi oppilaitos}
-     }))
-
-(defn amk-vaatimukset [virta-suoritukset home-organization]
-  [#(laajuus-valid? %)
-   #(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu)))
-   (partial has-organization? home-organization)
-   (partial has-enough-opintosuoritus? virta-suoritukset)])
-
-(defn kandi-vaatimukset [virta-suoritukset home-organization]
-  [#(= (:tyyppi %) alempi-korkeakoulututkinto)])
-
-(defn vaatimukset [tyyppi]
-  (tyyppi {:avop amk-vaatimukset
-           :kandi kandi-vaatimukset}))
-
-(defn filter-oikeudet [virta-oikeudet virta-suoritukset home-organization tyyppi]
-  (try
-    (filter (apply every-pred ((vaatimukset tyyppi) virta-suoritukset home-organization)) virta-oikeudet)
-    (catch Exception e
-      (let [msg (.getMessage e)]
-        (log/error "Virhe valideja opiskeluoikeuksia rajattaessa: " msg)
-        (throw e)))))
+     :oppilaitos {:id myontaja :nimi oppilaitos}}))
 
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
   (let [virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
         virta-suoritukset
           (virta/get-virta-suoritukset shibbo-vals)
         valid-oikeudet
-          (filter-oikeudet virta-oikeudet virta-suoritukset
-                           (shibbo-vals "home-organization")
-                           tyyppi)
-        oikeudet (map opiskeluoikeus->ui-map valid-oikeudet)]
+          (->> (validate virta-oikeudet virta-suoritukset (shibbo-vals "home-organization") tyyppi)
+               (filter #(= :valid (:status %))))
+        oikeudet (map opiskeluoikeus->ui-map (map :oikeus valid-oikeudet))]
     (log/info "Löytyi" (count oikeudet) "validia oikeutta")
     oikeudet))
 

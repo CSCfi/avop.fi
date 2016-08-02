@@ -36,8 +36,8 @@
    :laajuus laajuus
    :kyselykerran_nimi 
    (build-kyselykerran-nimi opiskeluoikeustyyppi 
-                            (as (local-date) :year))
-   })
+                            (as (local-date) :year))})
+
 
 (defn generate-questionnaire-credentials!
   "Generate Arvo questionnaire credentials with given data"
