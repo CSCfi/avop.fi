@@ -25,7 +25,7 @@ let localizations_sv = {
     arene: {
       description: 'Rådet för yrkeshögskolornas rektorer, Arene'
     },
-    okm: {
+      okm: {
       description: 'Undervisnings- och kulturministeriet'
     },
     csc: {
