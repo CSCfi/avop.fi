@@ -10,11 +10,6 @@
 
 (defn invalid? [v] (complement valid?))
 
-(defn inv-reason [reason v]
-  (println "inv-reason " reason)
-  (and (invalid? v)
-       (some #(= reason %) (:messages v))))
-
 (defn mock-mapping [domain]
   (match [domain]
          ["yliopisto.fi"] "10065"
@@ -32,7 +27,6 @@
         (is (-> results :valid first valid?))))
     (testing "AMK opiskeluoikeus is invalid and not included when using Kandipalaute"
       (let [results (validate amk-opiskeluoikeus-fixture attainments-fixture "yliopisto.fi" :kandi)]
-        (println results)
         (is (empty? (:invalid results)))))))
 
 (deftest opiskeluoikeus-laajuus
@@ -55,7 +49,6 @@
   (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
     (testing "Opiskeluoikeus from non matching domain is invalid and not included"
       (let [results (validate amk-opiskeluoikeus-fixture attainments-fixture "otherdomain.fi" :avop)]
-        (println results)
         (is (empty? (:invalid results)))))))
 
 (deftest opiskeluoikeus-opintosuoritus
@@ -77,6 +70,10 @@
       (let [lastYear (t/plus (t/local-date) (t/years 1))
             expired-opiskeluoikeus-fixture (map #(assoc % :loppuPvm (pvm lastYear)) amk-opiskeluoikeus-fixture)
             results (validate expired-opiskeluoikeus-fixture attainments-fixture "yliopisto.fi" :avop)]
+        (is (-> results :valid first valid?))))
+    (testing "AMK opiskeluoikeus with missing loppuPvm is valid"
+      (let [no-loppupvm-fixture (map #(dissoc % :loppuPvm) amk-opiskeluoikeus-fixture)
+            results (validate no-loppupvm-fixture attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results :valid first valid?))))))
 
 (deftest opiskeluoikeus-kandi

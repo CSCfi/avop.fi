@@ -88,6 +88,14 @@
   (tyyppi {:avop amk-vaatimukset
            :kandi kandi-vaatimukset}))
 
+(defn format-errors [oikeus]
+  (str ((:messages oikeus))))
+
+(defn log-validation-results [results]
+  (let [format-oikeus (fn [oikeus] (str (-> oikeus :oikeus :myontaja ) " - " (-> oikeus :oikeus :avain)))]
+    (log/info "Löytyi" (-> results :valid count) "validia oikeutta: " (apply str (interpose "," (map format-oikeus (:valid results)))))
+    (log/info (-> results :invalid count) "oikeutta hylätty" (apply str (interpose "," (map #(str (format-oikeus %) " : " (:messages %))(:invalid results)))))))
+
 (defn merge-results [acc result]
   (match [(:status result) (:message result)]
          [:valid _] acc
@@ -107,4 +115,5 @@
                      (map process)
                      (group-by :status))
         final-results (remove-ignored results)]
+    (log-validation-results results)
     final-results))

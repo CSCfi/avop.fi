@@ -27,7 +27,6 @@
         koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
         koulutustyyppi (virta/conclude-study-type tyyppi luokittelu)
         oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
-    (log/info "Handling opiskeluoikeus" avain ", messages " messages)
     {
      :id avain
      :kunta {:id kunta-id :nimi kunta}
@@ -40,7 +39,6 @@
      :virheet (map #(clojure.string/replace (name %) "-" "_") messages)}))
 
 (defn to-ui [type oikeudet]
-  (log/debug "CALLED TO-UI")
   (let [oikeudet (get oikeudet type)]
     (map #(opiskeluoikeus->ui-map (:messages %) (:oikeus %)) oikeudet)))
 
@@ -53,9 +51,6 @@
           (->> (validate virta-oikeudet virta-suoritukset (shibbo-vals "home-organization") tyyppi))
         oikeudet {:valid (to-ui :valid validated-oikeudet)
                   :invalid (to-ui :invalid validated-oikeudet)}]
-    (log/debug "INVALID "(:invalid validated-oikeudet))
-    (log/info "Löytyi" (-> count :valid oikeudet) "validia oikeutta")
-    (log/debug "OIKAT:"oikeudet)
     oikeudet))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
