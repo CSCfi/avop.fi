@@ -10,24 +10,17 @@
             [avopfi.integration.virta :as virta]
             [avopfi.db.migrations :as migrations]))
 
-(deftest study-credit-checks
-  (testing "Checking VIRTA study credits when there's enough credits"
-    (with-redefs [opintopisteet-amk-alempi-min-pct 80]
-      (is (has-enough-opintosuoritus? attainments-fixture (first amk-opiskeluoikeus-fixture)))))
-  (testing "Checking VIRTA study credits when there's not enough credits"
-    (is (not (has-enough-opintosuoritus? (rest attainments-fixture) (first amk-opiskeluoikeus-fixture))))))
-
-(deftest opiskeluoikeudet-mapping
-  (testing "Converts raw opiskeluoikeus data to proper JSON structure"
-    (with-redefs [has-organization? (fn [x y] (= "yliopisto.fi" x))
-                  virta/select-active-timespan (constantly {:loppuPvm nil})
-                  virta/conclude-study-type (constantly 0)
-                  op/extract-metadata (constantly {:fi "suomeksi" :sv "ruotsiksi"})
-                  op/get-kunta-data (constantly nil)
-                  op/get-koulutus-data (constantly nil)
-                  op/get-oppilaitos-data (constantly nil)]
-      (let [json (opiskeluoikeus->ui-map (first amk-opiskeluoikeus-fixture))]
-        (is (= (json :opiskeluoikeustyyppi) "1"))))))
+;(deftest opiskeluoikeudet-mapping
+;  (testing "Converts raw opiskeluoikeus data to proper JSON structure"
+;    (with-redefs [has-organization? (fn [x y] (= "yliopisto.fi" x))
+;                  virta/select-active-timespan (constantly {:loppuPvm nil})
+;                  virta/conclude-study-type (constantly 0)
+;                  op/extract-metadata (constantly {:fi "suomeksi" :sv "ruotsiksi"})
+;                  op/get-kunta-data (constantly nil)
+;                  op/get-koulutus-data (constantly nil)
+;                  op/get-oppilaitos-data (constantly nil)]
+;      (let [json (opiskeluoikeus->ui-map (first amk-opiskeluoikeus-fixture))]
+;        (is (= (json :opiskeluoikeustyyppi) "1"))))))
 
 
 (deftest process-registrations

@@ -20,13 +20,14 @@
    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 (defn opiskeluoikeus->ui-map
-  [{:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
+  [messages {:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
   (let [{kunta-id :koulutuskunta :keys [luokittelu koulutuskoodi koulutuskieli]}
         (virta/select-active-timespan jaksot)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
         koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
         koulutustyyppi (virta/conclude-study-type tyyppi luokittelu)
         oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
+    (log/info "Handling opiskeluoikeus" avain ", messages " messages)
     {
      :id avain
      :kunta {:id kunta-id :nimi kunta}
@@ -35,17 +36,26 @@
      :koulutusmuoto koulutustyyppi
      :opiskeluoikeustyyppi tyyppi
      :laajuus laajuus
-     :oppilaitos {:id myontaja :nimi oppilaitos}}))
+     :oppilaitos {:id myontaja :nimi oppilaitos}
+     :virheet (map #(clojure.string/replace (name %) "-" "_") messages)}))
+
+(defn to-ui [type oikeudet]
+  (log/debug "CALLED TO-UI")
+  (let [oikeudet (get oikeudet type)]
+    (map #(opiskeluoikeus->ui-map (:messages %) (:oikeus %)) oikeudet)))
+
 
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
   (let [virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
         virta-suoritukset
           (virta/get-virta-suoritukset shibbo-vals)
-        valid-oikeudet
-          (->> (validate virta-oikeudet virta-suoritukset (shibbo-vals "home-organization") tyyppi)
-               (filter #(= :valid (:status %))))
-        oikeudet (map opiskeluoikeus->ui-map (map :oikeus valid-oikeudet))]
-    (log/info "Löytyi" (count oikeudet) "validia oikeutta")
+        validated-oikeudet
+          (->> (validate virta-oikeudet virta-suoritukset (shibbo-vals "home-organization") tyyppi))
+        oikeudet {:valid (to-ui :valid validated-oikeudet)
+                  :invalid (to-ui :invalid validated-oikeudet)}]
+    (log/debug "INVALID "(:invalid validated-oikeudet))
+    (log/info "Löytyi" (-> count :valid oikeudet) "validia oikeutta")
+    (log/debug "OIKAT:"oikeudet)
     oikeudet))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
@@ -86,8 +96,7 @@
     (if (not (map? shibbo-vals))
       (throw-unauthorized)
       (let [session (:session request)
-            resp-data
-            (shibbo-vals->opiskeluoikeudet shibbo-vals tyyppi)]
+            resp-data (shibbo-vals->opiskeluoikeudet shibbo-vals tyyppi)]
         (-> (ok resp-data)
             (assoc :session
                    (assoc session :opiskeluoikeudet-data

@@ -94,7 +94,8 @@
          [:invalid msg] {:status :invalid :messages (conj (:messages acc) msg)}))
 
 (defn ignore? [processed-oikeus] (not(some #(in? ignored-errors %) (:messages processed-oikeus))))
-
+(defn remove-ignored [grouped]
+  (update grouped :invalid #(filter ignore? %)))
 
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
   (let [vaatimukset ((vaatimukset tyyppi) virta-suoritukset home-organization)
@@ -103,5 +104,7 @@
                        (reduce merge-results {:status :valid :messages []})
                        (merge {:oikeus oikeus})))
         results (->> virta-oikeudet
-                     (map process))]
-    results))
+                     (map process)
+                     (group-by :status))
+        final-results (remove-ignored results)]
+    final-results))

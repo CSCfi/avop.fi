@@ -11,7 +11,7 @@ require('array.prototype.find').shim();
 export default class Userprofile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedStudyRight: this.props.study_rights[0]};
+    this.state = {selectedStudyRight: this.props.valid_rights[0]};
   }
 
   static loadProps(params, cb) {
@@ -44,16 +44,18 @@ export default class Userprofile extends React.Component {
           }
         })
         .then(study_rights => {
+          var valid_rights = study_rights['valid'];
+          var invalid_rights = study_rights['invalid'];
+
           if (hasStorage) {
-            sessionStorage.setItem(key, JSON.stringify({study_rights, timestamp: new Date()}))
+            sessionStorage.setItem(key, JSON.stringify({valid_rights, invalid_rights, timestamp: new Date()}))
           }
-          cb(null, {study_rights})
+          cb(null, {valid_rights, invalid_rights})
         })
         .catch(e => window.location = '/' + params.params.lang + '/error/' + e.message);
     } else {
       cb(null, JSON.parse(data));
     }
-
   }
 
   selectStudyRight(event) {
@@ -78,30 +80,48 @@ export default class Userprofile extends React.Component {
       },
       body: JSON.stringify(data)
     }).then(response => {
-        if (response.status == 401) {
-          throw Error(response.status);
-        }
-        try {
-          return response.json();
-        } catch (ex) {
-          throw Error(0);
-        }
-      })
+      if (response.status == 401) {
+        throw Error(response.status);
+      }
+      try {
+        return response.json();
+      } catch (ex) {
+        throw Error(0);
+      }
+    })
       .then(registration => window.location = registration['kysely_url'])
       .catch(e => browserHistory.push(`/${this.props.params.lang}/error/` + e.message));
   }
 
+
   render() {
-    if (this.props.study_rights.length === 0) {
-      return <div>
-        <Translate component="p" content="errors.missing_rights"/>
-      </div>;
+    if (this.props.valid_rights.length === 0) {
+      return(
+        <div>
+          <LocalizedThemeImage />
+          <section id="no-rights">
+            <div className="container">
+              <div className="row">
+                <div className="u-full-width"><Translate component="h4" content="opiskeluoikeus_errors.header"/></div>
+
+                {((this.props.invalid_rights.length > 0) ?
+                    <div>
+                      <Translate {...{rights_count: this.props.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
+
+                      {this.props.invalid_rights.map(r =>
+                        <div> {r.koulutus.nimi[this.props.params.lang]} - <Translate component="text" content={'opiskeluoikeus_errors.'+r.virheet[0]}/></div>
+                      )}
+                    </div> :
+                    <Translate component="p" content="opiskeluoikeus_errors.no_rights_contact_study_office" />
+                )}
+              </div>
+            </div>
+          </section>
+        </div>);
     }
     return (
       <div>
-
         <LocalizedThemeImage />
-
         <section id="userprofile">
           <div className="container">
             <div className="row">
@@ -109,11 +129,11 @@ export default class Userprofile extends React.Component {
               <div className="u-full-width"><Translate component="p" content="profiledata.about"/></div>
 
               <form onSubmit={this.onSubmit.bind(this)}>
-                {(this.props.study_rights.length > 1) ?
+                {(this.props.valid_rights.length > 1) ?
                   <select onChange={this.selectStudyRight.bind(this)}
                           value={this.state.selectedStudyRight.id}>
                     {
-                      this.props.study_rights.map(sr =>
+                      this.props.valid_rights.map(sr =>
                         <TranslateProperty component="option"
                                            value={sr.id}
                                            data={sr.koulutus.nimi}>
@@ -148,7 +168,8 @@ export default class Userprofile extends React.Component {
                       <Translate component="td" content="profiledata.language"></Translate>
                       <td>{this.state.selectedStudyRight.kieli}</td>
                     </tr>
-                    <tr>
+
+                    <tr className={this.state.selectedStudyRight.opiskeluoikeustyyppi === '3' ? 'hidden' : ''}>
                       <Translate component="td" content="profiledata.form_of_education"></Translate>
                       <Translate component="td"
                                  content={this.state.selectedStudyRight.koulutusmuoto == 0 ? 'profiledata.type.day' : 'profiledata.type.multi'}></Translate>
@@ -161,6 +182,12 @@ export default class Userprofile extends React.Component {
                   <button type="submit">
                     <Translate component="span" content="profiledata.submit"></Translate>
                   </button>
+                </div>
+                <div>
+                  {(this.props.invalid_rights.length > 0) ?
+                    <Translate {...{rights_count: this.props.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
+                    : ''
+                  }
                 </div>
               </form>
             </div>
