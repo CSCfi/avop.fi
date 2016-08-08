@@ -8,7 +8,7 @@ export default class Error extends React.Component {
         <div className="container">
           <div className="row">
             <Translate component="h1" content="errors.title"/>
-            <Translate component="p" content="errors.missing_rights"/>
+            <Translate component="p" content="errors.general_error"/>
           </div>
         </div>
       </section>
