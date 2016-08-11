@@ -95,7 +95,7 @@
         (-> (ok resp-data)
             (assoc :session
                    (assoc session :opiskeluoikeudet-data
-                                  resp-data)))))))
+                                  (:valid resp-data))))))))
 
 (defroutes api-routes
   (context
