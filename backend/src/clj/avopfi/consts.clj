@@ -10,6 +10,12 @@
 (def amk-alempi-tyyppi "1")
 (def amk-ylempi-tyyppi "3")
 (def alempi-korkeakoulututkinto "2")
+(def ylempi-korkeakoulututkinto "4")
+
+(def lisensiaatti-tutkinnot ["772101" "772201"])
+
+(def laaketieteen-lisensiaatti "ll4")
+(def hammaslaaketieteen-lisensiaatti "hl4")
 
 ;; VIRTA opintosuorituslaji
 ;; Refer to: https://goo.gl/EEnUxr

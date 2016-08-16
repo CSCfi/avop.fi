@@ -8,7 +8,11 @@
 (defn valid? [v]
   (= :valid (:status v)))
 
-(defn invalid? [v] (complement valid?))
+(defn invalid? [v]
+  (if (nil? v)
+    false
+    (complement valid?)))
+
 
 (defn mock-mapping [domain]
   (match [domain]
@@ -19,7 +23,11 @@
                   :month (t/as date :month-of-year)
                   :day (t/as date :day-of-month)})
 
-;TODO just check sized of valid/invalid lists
+(def lastYear (t/minus (t/local-date) (t/years 1)))
+
+(defn has-error [results message]
+  (some #(= message %) (-> results :invalid first :messages)))
+
 (deftest opiskeluoikeus-type
   (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
     (testing "Opiskeluoikeus with valid type is valid"
@@ -38,12 +46,12 @@
       (let [zero-laajuus-fixture (map #(assoc-in % [:laajuus :opintopiste] 0) amk-opiskeluoikeus-fixture)
             results (validate zero-laajuus-fixture attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results first invalid?))
-        (is (some #(= :invalid-laajuus %) (-> results :invalid first :messages)))))
+        (is (has-error results :invalid-laajuus))))
     (testing "AMK opiskeluoikeus with missing laajuus is invalid"
       (let [zero-laajuus-fixture (map #(dissoc % :laajuus) amk-opiskeluoikeus-fixture)
             results (validate zero-laajuus-fixture attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results first invalid?))
-        (is (some #(= :invalid-laajuus %) (-> results :invalid first :messages)))))))
+        (is (has-error results :invalid-laajuus))))))
 
 (deftest opiskeluoikeus-organization
   (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
@@ -56,19 +64,18 @@
     (testing "AMK opiskeluoikeus with not enough opintosuoritus is invalid"
       (let [results (validate amk-opiskeluoikeus-fixture limited-attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results :invalid first invalid?))
-        (is (some #(= :not-enough-opintosuoritus %) (-> results :invalid first :messages)))))))
+        (is (has-error results :not-enough-opintosuoritus))))))
 
 (deftest opiskeluoikeus-date
   (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
     (testing "AMK opiskeluoikeus with expired loppuPvm is invalid"
-      (let [lastYear (t/minus (t/local-date) (t/years 1))
-            expired-opiskeluoikeus-fixture (map #(assoc % :loppuPvm (pvm lastYear)) amk-opiskeluoikeus-fixture)
+      (let [expired-opiskeluoikeus-fixture (map #(assoc % :loppuPvm (pvm lastYear)) amk-opiskeluoikeus-fixture)
             results (validate expired-opiskeluoikeus-fixture attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results :invalid first invalid?))
-        (is (some #(= :invalid-date %) (-> results :invalid first :messages)))))
+        (is (has-error results :invalid-date))))
     (testing "AMK opiskeluoikeus with future loppuPvm is valid"
-      (let [lastYear (t/plus (t/local-date) (t/years 1))
-            expired-opiskeluoikeus-fixture (map #(assoc % :loppuPvm (pvm lastYear)) amk-opiskeluoikeus-fixture)
+      (let [nextYear (t/plus (t/local-date) (t/years 1))
+            expired-opiskeluoikeus-fixture (map #(assoc % :loppuPvm (pvm nextYear)) amk-opiskeluoikeus-fixture)
             results (validate expired-opiskeluoikeus-fixture attainments-fixture "yliopisto.fi" :avop)]
         (is (-> results :valid first valid?))))
     (testing "AMK opiskeluoikeus with missing loppuPvm is valid"
@@ -81,9 +88,41 @@
     (testing "Kandipalaute opiskeluoikeus is invalid if it doesn't have opintosuoritus for kandi"
       (let [results (validate kandi-opiskeluoikeus-fixture kandi-attainments-without-tutkinto "otherdomain.fi" :kandi)]
         (is (-> results :invalid first invalid?))
-        (is (some #(= :no-kandi %) (-> results :invalid first :messages)))))
+        (is (has-error results :no-kandi))))
     (testing "Kandipalaute opiskeluoikeus is valid if it has opintosuoritus for kandi"
       (let [results (validate kandi-opiskeluoikeus-fixture kandi-attainments-fixture "otherdomain.fi" :kandi)]
         (is (-> results :valid first valid?))))))
+
+(deftest opiskeluoikeus-active
+  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opiskeluoikeus is not active"
+      (let [expired-state-ll-fixture (map #(assoc-in % [:tila :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
+            results (validate expired-state-ll-fixture kandi-ll-attainments "otherdomain.fi" :kandi)]
+        (is (-> results :invalid first invalid?))
+        (is (has-error results :not-active))))))
+
+(deftest jakso-active
+  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate jakso is not active"
+      (let [expired-jakso-ll-fixture (map #(assoc-in % [:jakso :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
+            results (validate expired-jakso-ll-fixture kandi-ll-attainments "otherdomain.fi" :kandi)]
+        (is (-> results :invalid first invalid?))
+        (is (has-error results :jakso-invalid))))))
+
+(deftest has-patevyys
+  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+    (testing "Kandipalaute opiskeluoikeus is invalid if tavoite is licensiate and no patevyys is found"
+      (let [results (validate kandi-ll-opiskeluoikeus-fixture kandi-attainments-fixture "otherdomain.fi" :kandi)]
+        (is (-> results :invalid first invalid?))
+        (is (has-error results :no-patevyys))))))
+
+(deftest licensiate-target
+  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opintooikeus has no target or opintosuoritus for kandi"
+      (let [kandi-ll-opiskeluoikeus-without-target (map #(update-in % [:jakso] dissoc :koulutuskoodi) kandi-ll-opiskeluoikeus-fixture)
+            kandi-ll-attainments-without-kandi (filter #(not= "1" (:laji %)) kandi-ll-attainments)
+            results (validate kandi-ll-opiskeluoikeus-without-target kandi-ll-attainments-without-kandi "otherdomain.fi" :kandi)]
+        (is (-> results :invalid first invalid?))
+        (is (has-error results :no-kandi))))))
 
 

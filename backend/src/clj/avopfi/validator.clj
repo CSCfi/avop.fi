@@ -37,11 +37,29 @@
       valid
       (invalid :invalid-organization))))
 
-#(let [loppu (:loppuPvm %)] (or (nil? loppu) (is-date-valid? loppu)))
+(defn is-active? [{tila :tila}]
+  (let [active (= "1" (:koodi tila))
+        alku-valid (in-past? (:alkuPvm tila))
+        loppu-valid (or (nil? (:loppuPvm tila)) (in-future? (:loppuPvm tila)))]
+    (if (and active alku-valid loppu-valid)
+      valid
+      (invalid :not-active))))
+
+(defn jakso-active? [{jakso :jakso}]
+  (let [alku-valid (and (not-nil? (:alkuPvm jakso)) (in-past? (:alkuPvm jakso)))
+        loppu-valid (or (nil? (:loppuPvm jakso))(in-future? (:loppuPvm jakso)))]
+    (if( and alku-valid loppu-valid)
+      valid
+      (invalid :jakso-invalid))))
+
+(defn has-patevyys? [virta-suoritukset opiskeluoikeus]
+  (if (some #(in? [laaketieteen-lisensiaatti hammaslaaketieteen-lisensiaatti] (:patevyys %)) virta-suoritukset)
+    valid
+    (invalid :no-patevyys)))
 
 (defn date-valid? [opiskeluoikeus]
   (let [loppu (:loppuPvm opiskeluoikeus)]
-    (if (or (nil? loppu) (is-date-valid? loppu))
+    (if (or (nil? loppu) (in-future? loppu))
       valid
       (invalid :invalid-date))))
 
@@ -84,9 +102,22 @@
         (partial has-organization? home-org)
         (partial has-kandi? virta-suoritukset)))
 
-(defn vaatimukset [tyyppi]
+(defn valvira-vaatimukest [virta-suoritukset home-org]
+  (juxt
+    (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
+    (partial has-organization? home-org)
+    is-active?
+    jakso-active?
+    (partial has-patevyys? virta-suoritukset)))
+
+
+
+(defn vaatimukset [tyyppi opiskeluoikeus]
   (tyyppi {:avop amk-vaatimukset
-           :kandi kandi-vaatimukset}))
+           :kandi (let [tavoitetutkinto (-> opiskeluoikeus :jakso :koulutuskoodi)]
+                    (if (in? lisensiaatti-tutkinnot tavoitetutkinto)
+                      valvira-vaatimukest
+                      kandi-vaatimukset))}))
 
 (defn format-errors [oikeus]
   (str ((:messages oikeus))))
@@ -106,11 +137,11 @@
   (update grouped :invalid #(filter ignore? %)))
 
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
-  (let [vaatimukset ((vaatimukset tyyppi) virta-suoritukset home-organization)
-        process (fn [oikeus]
-                  (->> (vaatimukset oikeus)
-                       (reduce merge-results {:status :valid :messages []})
-                       (merge {:oikeus oikeus})))
+  (let [process (fn [oikeus]
+                  (let [vaatimukset ((vaatimukset tyyppi oikeus) virta-suoritukset home-organization)]
+                    (->> (vaatimukset oikeus)
+                      (reduce merge-results {:status :valid :messages []})
+                      (merge {:oikeus oikeus}))))
         results (->> virta-oikeudet
                      (map process)
                      (group-by :status))
