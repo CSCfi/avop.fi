@@ -203,7 +203,7 @@ export default class Userprofile extends React.Component {
                   </button>
                 </div>
                 <div>
-                  {(this.props.invalid_rights.length > 0) ?
+                  {(this.props.invalid_rights.length > 0 && this.props.valid_rights === 0) ?
                     <Translate {...{rights_count: this.props.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
                     : ''
                   }
