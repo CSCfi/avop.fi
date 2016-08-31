@@ -50,7 +50,8 @@ let localizations_sv = {
   },
   errors: {
     title: 'Ett fel',
-    general_error: 'The application has encountered an unknown error.'
+    general_error: 'The application has encountered an unknown error.',
+    haka_error: 'Haka did not return required information. Contact your study office'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',

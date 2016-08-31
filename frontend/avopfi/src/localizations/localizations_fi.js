@@ -50,7 +50,8 @@ let localizations_fi = {
   },
   errors: {
     title: 'Virhetilanne',
-    general_error: 'Järjestelmävirhe.'
+    general_error: 'Järjestelmävirhe.',
+    haka_error: 'Haka ei palauttanut tarvittavia tietoja. Ota yhteyttä opintotoimistoosi'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',

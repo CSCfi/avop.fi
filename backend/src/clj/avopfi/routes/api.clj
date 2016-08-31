@@ -88,14 +88,12 @@
 (defn opiskeluoikeudet [request]
   (let [shibbo-vals (:identity request)
         tyyppi (-> request :route-params :tyyppi keyword)]
-    (if (not (map? shibbo-vals))
-      (throw-unauthorized)
       (let [session (:session request)
             resp-data (shibbo-vals->opiskeluoikeudet shibbo-vals tyyppi)]
         (-> (ok resp-data)
             (assoc :session
                    (assoc session :opiskeluoikeudet-data
-                                  (:valid resp-data))))))))
+                                  (:valid resp-data)))))))
 
 (defroutes api-routes
   (context

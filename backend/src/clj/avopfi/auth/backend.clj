@@ -10,6 +10,15 @@
   {:status 401 :headers {"Content-Type" "application/json"}
    :body "{\"status\": 401, \"detail\": \"Unauthorized\"}"})
 
+;TODO: have shibbo-backend validate credentials for Virta integration compatibility
+
+(defn haka-login-valid? [shibbo-vals]
+  (let [user-ids #{"learner-id" "national-identification-number" "unique-id"}
+        ids-in-shibbo (clojure.set/intersection user-ids (set (keys shibbo-vals)))
+        has-id (not (empty? ids-in-shibbo))
+        has-org (contains? shibbo-vals "home-organization")]
+    (and has-org has-id)))
+
 (defn shibbo-backend
   "Create an instance of the Shibbo backend."
   []
@@ -19,7 +28,7 @@
       (shibbo/get-attributes request env))
     (-authenticate [_ request shib-attribs]
       (let [identity
-            (if (contains? shib-attribs "home-organization") shib-attribs nil)]
+            (if (haka-login-valid? shib-attribs) shib-attribs nil)]
         identity))))
 
 (defn authz-backend

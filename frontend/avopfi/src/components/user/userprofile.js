@@ -52,7 +52,12 @@ export default class Userprofile extends React.Component {
           }
           cb(null, {valid_rights, invalid_rights})
         })
-        .catch(e => window.location = '/' + params.params.lang + '/error/' + e.message);
+        .catch(e => {
+          if(e.message === '403'){
+            window.location = '/' + params.params.lang + '/error/haka_error'
+          } else {
+            window.location = '/' + params.params.lang + '/error'
+          }});
     } else {
       cb(null, JSON.parse(data));
     }
@@ -90,7 +95,7 @@ export default class Userprofile extends React.Component {
         }
       })
       .then(registration => window.location = registration['kysely_url'])
-      .catch(e => browserHistory.push(`/${this.props.params.lang}/error/` + e.message));
+      .catch(e => browserHistory.push(`/${this.props.params.lang}/error/`));
   }
 
   static headerImages() {
