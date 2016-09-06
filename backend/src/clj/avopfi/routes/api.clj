@@ -73,9 +73,9 @@
           (let [arvo-hash
                 (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]
             (db/create-visitor! {
-                                 :opiskeluoikeus_id current-srid
-                                 :oppilaitos_id (-> opiskeluoikeus :oppilaitos :id)
-                                 :arvo_answer_hash arvo-hash})
+                                 :taustatiedot {:opiskeluoikeus {:avain current-srid}
+                                                :oppilaitos {:id (-> opiskeluoikeus :oppilaitos :id)}}
+                                 :vastaajatunnus arvo-hash})
             (ok {:kysely_url (str
                               (:arvo-answer-url env) arvo-hash "/" kieli)}))
           ;; No obviously obvious status code when entity is duplicate,
