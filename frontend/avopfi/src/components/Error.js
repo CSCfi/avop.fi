@@ -1,14 +1,29 @@
 import React from 'react';
 import Translate from 'react-translate-component';
-import Footer from './footer/footer';
-import Header from './header/header';
+
+import LocalizedImage from './common/localizedimage/localizedimage';
 
 export default class Error extends React.Component {
+
   render() {
     var status = this.props.params.status;
     return (
       <div>
-        <Header></Header>
+        <section id="theme">
+          <div className="container">
+            <div className="row">
+
+              <div className="six columns">
+                <div className="u-full-width">
+                  <div id="logo">
+                    <LocalizedImage image="logo" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
 
         <section>
           <div className="container">
@@ -21,8 +36,7 @@ export default class Error extends React.Component {
           </div>
         </section>
 
-        <Footer></Footer>
       </div>
-  )
+    )
   }
 }
