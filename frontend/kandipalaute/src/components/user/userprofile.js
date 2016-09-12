@@ -95,7 +95,7 @@ export default class Userprofile extends React.Component {
       }
     })
       .then(registration => window.location = registration['kysely_url'])
-      .catch(e => browserHistory.push(`/${this.props.params.lang}/error/`));
+      .catch(() => browserHistory.push(`/${this.props.params.lang}/error/`));
   }
 
 

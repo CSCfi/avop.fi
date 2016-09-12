@@ -95,7 +95,7 @@ export default class Userprofile extends React.Component {
         }
       })
       .then(registration => window.location = registration['kysely_url'])
-      .catch(e => browserHistory.push(`/${this.props.params.lang}/error/`));
+      .catch(() => browserHistory.push(`/${this.props.params.lang}/error/`));
   }
 
   static headerImages() {
@@ -150,7 +150,11 @@ export default class Userprofile extends React.Component {
           <div className="container">
             <div className="row">
               <div className="u-full-width"><Translate component="h4" content="profiledata.header"/></div>
-              <div className="u-full-width"><Translate component="p" content="profiledata.about"/></div>
+              <div className="u-full-width">
+                {((this.state.selectedStudyRight.opiskeluoikeustyyppi === '3') ?
+                <Translate component="p" content="profiledata.about_yamk" />
+                : <Translate component="p" content="profiledata.about"/>)}
+              </div>
 
               <form onSubmit={this.onSubmit.bind(this)}>
                 {(this.props.valid_rights.length > 1) ?

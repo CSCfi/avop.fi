@@ -37,7 +37,7 @@ export default class Content extends React.Component {
               </div>
 
               <div className="six-columns">
-                <div id="haka" class="u-pull-right" onClick={this.login}>
+                <div id="haka" className="u-pull-right" onClick={this.login}>
                   <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
                     <img src={hakaLoginImage} alt="haka-login"/>
                   </a>
