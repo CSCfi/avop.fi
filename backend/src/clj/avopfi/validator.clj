@@ -64,7 +64,11 @@
       (invalid :invalid-date))))
 
 (defn check-opintosuoritukset [oo-tyyppi pisteet laajuus]
-  (>= (vals->pct pisteet (float laajuus)) (get tutkintoon-vaaditut-pisteet oo-tyyppi)))
+  (let [vaaditut-pisteet (get tutkintoon-vaaditut-pisteet oo-tyyppi)]
+    (if (and (not-nil? vaaditut-pisteet) (< 0 vaaditut-pisteet))
+      (>= (vals->pct pisteet (float laajuus)) vaaditut-pisteet)
+      false)))
+
 
 (defn has-enough-opintosuoritus? [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
                                                      {oo-laajuus :opintopiste} :laajuus}]
@@ -85,7 +89,7 @@
   (let [has-tutkinto (some #(and
                              (= (:opiskeluoikeusAvain %) oo-avain)
                              (= (:laji %) opintosuoritus-tutkinto)) virta-suoritukset)
-        is-kandi (= "2" oo-tyyppi)]
+        is-kandi (= alempi-korkeakoulututkinto oo-tyyppi)]
     (if (and is-kandi has-tutkinto)
       valid
       (invalid :no-kandi))))
@@ -102,7 +106,7 @@
         (partial has-organization? home-org)
         (partial has-kandi? virta-suoritukset)))
 
-(defn valvira-vaatimukest [virta-suoritukset home-org]
+(defn valvira-vaatimukset [virta-suoritukset home-org]
   (juxt
     (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
     (partial has-organization? home-org)
@@ -110,14 +114,20 @@
     jakso-active?
     (partial has-patevyys? virta-suoritukset)))
 
-
+(defn lisensiaatti? [opiskeluoikeus]
+  (let [tavoitetutkinto (-> opiskeluoikeus :jakso :koulutuskoodi)]
+    (in? lisensiaatti-tutkinnot tavoitetutkinto)))
 
 (defn vaatimukset [tyyppi opiskeluoikeus]
   (tyyppi {:avop amk-vaatimukset
-           :kandi (let [tavoitetutkinto (-> opiskeluoikeus :jakso :koulutuskoodi)]
-                    (if (in? lisensiaatti-tutkinnot tavoitetutkinto)
-                      valvira-vaatimukest
-                      kandi-vaatimukset))}))
+           :kandi (if (lisensiaatti? opiskeluoikeus)
+                    valvira-vaatimukset
+                    kandi-vaatimukset)}))
+
+
+(defn oo-tyypit [tyyppi]
+  (tyyppi {:avop  [amk-alempi-tyyppi amk-ylempi-tyyppi]
+           :kandi [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]}))
 
 (defn format-errors [oikeus]
   (str ((:messages oikeus))))
@@ -137,12 +147,13 @@
   (update grouped :invalid #(filter ignore? %)))
 
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
-  (let [process (fn [oikeus]
+  (let [oikeudet (filter (partial has-type? (oo-tyypit tyyppi))virta-oikeudet)
+        process (fn [oikeus]
                   (let [vaatimukset ((vaatimukset tyyppi oikeus) virta-suoritukset home-organization)]
                     (->> (vaatimukset oikeus)
                       (reduce merge-results {:status :valid :messages []})
                       (merge {:oikeus oikeus}))))
-        results (->> virta-oikeudet
+        results (->> oikeudet
                      (map process)
                      (group-by :status))
         final-results (remove-ignored results)]
