@@ -82,7 +82,7 @@
           ;; (mis)using 422 as some other application/frameworks here.
           (unprocessable-entity
            {:status 422 :detail "Entity already exists" :kysely_url
-            (str (:arvo-answer-url env) (:arvo_answer_hash res) "/" kieli)})))
+            (str (:arvo-answer-url env) (:vastaajatunnus res) "/" kieli)})))
       (throw-unauthorized))))
 
 (defn opiskeluoikeudet [request]
