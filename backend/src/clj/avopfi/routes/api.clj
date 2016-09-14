@@ -72,9 +72,8 @@
         (if (nil? res)
           (let [arvo-hash
                 (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]
-            (db/create-visitor! {
-                                 :taustatiedot {:opiskeluoikeus {:avain current-srid}
-                                                :oppilaitos {:id (-> opiskeluoikeus :oppilaitos :id)}}
+            (db/create-visitor! {:taustatiedot {:opiskeluoikeus current-srid
+                                                :oppilaitos (-> opiskeluoikeus :oppilaitos :id)}
                                  :vastaajatunnus arvo-hash})
             (ok {:kysely_url (str
                               (:arvo-answer-url env) arvo-hash "/" kieli)}))

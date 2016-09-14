@@ -23,5 +23,5 @@
                 {:study_right_id "foo" :arvo_answer_hash "XXX"})))
       (is (match
            (db/get-visitor-by-srid t-conn {:study_right_id "foo"})
-           {:study_right_id "foo" :arvo_answer_hash "XXX"} true
-           )))))
+           {:study_right_id "foo" :arvo_answer_hash "XXX"} true)))))
+
