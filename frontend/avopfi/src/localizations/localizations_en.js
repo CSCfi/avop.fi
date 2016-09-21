@@ -51,8 +51,8 @@ let localizations_en = {
   },
   errors: {
     title: 'Error',
-    general_error: 'The application has encountered an unknown error.',
-    haka_error: 'Haka did not return required information. Contact your study office'
+    general_error: 'The application has encountered an unspecified error. Please contact arvo@postit.csc.fi',
+    haka_error: 'Haka did not return required information. Please contact your study office'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',

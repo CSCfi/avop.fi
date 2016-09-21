@@ -51,7 +51,7 @@ let localizations_fi = {
   },
   errors: {
     title: 'Virhetilanne',
-    general_error: 'Järjestelmävirhe.',
+    general_error: 'Valitettavasti järjestelmän toiminnassa tapahtui virhe. Jos ongelma toistuu, ole hyvä ja ota yhteys ylläpitoon arvo@postit.csc.fi.',
     haka_error: 'Haka ei palauttanut tarvittavia tietoja. Ota yhteyttä opintotoimistoosi'
   },
   opiskeluoikeus_errors: {

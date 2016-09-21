@@ -51,7 +51,7 @@ let localizations_sv = {
   },
   errors: {
     title: 'Ett fel',
-    general_error: 'The application has encountered an unknown error.',
+    general_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
     haka_error: 'Haka did not return required information. Contact your study office'
   },
   opiskeluoikeus_errors: {
