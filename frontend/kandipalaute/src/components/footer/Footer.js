@@ -13,7 +13,7 @@ let Footer = () =>
 
     </div>
     <div className="row">
-      <div className="one-third column arene">
+      <div className="one-third column unifi">
         <LocalizedImage image="unifi_logo" />
       </div>
 
@@ -30,7 +30,7 @@ let Footer = () =>
       <div className="one-third column"><Translate component="p" content="footer.arene.description"/></div>
       <div className="one-third column"><Translate component="p" content="footer.okm.description"/></div>
       <div className="one-third column"><Translate component="div" content="footer.csc.description"/>
-        <span>avop@postit.csc.fi</span></div>
+        <span>arvo@postit.csc.fi</span></div>
     </div>
   </footer>;
 
