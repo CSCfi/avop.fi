@@ -17,20 +17,30 @@ let Footer = () =>
     <div className="row">
       <div className="one-third column arene">
         <img className="img-arene" src={arene_logo} alt="Arene Ry"/>
-        <Translate component="p" content="footer.arene.description"/>
       </div>
 
       <div className="one-third column okm">
         <LocalizedImage image="OKM_logo" />
-        <Translate component="p" content="footer.okm.description"/>
       </div>
 
       <div className="one-third column csc">
         <LocalizedImage image="CSC" />
-        <Translate component="div" content="footer.csc.description"/>
-        <span>avop@postit.csc.fi</span>
       </div>
     </div>
+
+    <div className="row">
+      <div className="one-third column">
+        <Translate component="p" content="footer.arene.description"/>
+      </div>
+      <div className="one-third column">
+        <Translate component="p" content="footer.okm.description"/>
+      </div>
+      <div className="one-third column">
+        <Translate component="div" content="footer.csc.description"/>
+        <span>arvo@postit.csc.fi</span>
+      </div>
+    </div>
+
   </footer>;
 
 export default Footer;
