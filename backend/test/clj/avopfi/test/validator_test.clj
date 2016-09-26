@@ -94,20 +94,20 @@
       (let [results (validate kandi-opiskeluoikeus-fixture kandi-attainments-fixture "otherdomain.fi" :kandi)]
         (is (-> results :valid first valid?))))))
 
-(deftest opiskeluoikeus-active
-  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
-    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opiskeluoikeus is not active"
-      (let [expired-state-ll-fixture (map #(assoc-in % [:tila :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
-            results (validate expired-state-ll-fixture attainments-fixture "otherdomain.fi" :kandi)]
-        (is (-> results :invalid first invalid?))))))
+;(deftest opiskeluoikeus-active
+;  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+;    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opiskeluoikeus is not active"
+;      (let [expired-state-ll-fixture (map #(assoc-in % [:tila :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
+;            results (validate expired-state-ll-fixture attainments-fixture "otherdomain.fi" :kandi)]
+;        (is (-> results :invalid first invalid?))))))
         ;(is (has-error results :not-active))))))
 
-(deftest jakso-active
-  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
-    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate jakso is not active"
-      (let [expired-jakso-ll-fixture (map #(assoc-in % [:jakso :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
-            results (validate expired-jakso-ll-fixture attainments-fixture "otherdomain.fi" :kandi)]
-        (is (-> results :invalid first invalid?))))))
+;(deftest jakso-active
+;  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+;    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate jakso is not active"
+;      (let [expired-jakso-ll-fixture (map #(assoc-in % [:jakso :loppuPvm] (pvm lastYear)) kandi-ll-opiskeluoikeus-fixture)
+;            results (validate expired-jakso-ll-fixture attainments-fixture "otherdomain.fi" :kandi)]
+;        (is (-> results :invalid first invalid?))))))
         ;(is (has-error results :jakso-invalid))))))
 
 (deftest has-patevyys
@@ -117,13 +117,13 @@
         (is (-> results :invalid first invalid?))))))
         ;(is (has-error results :no-patevyys))))))
 
-(deftest licensiate-target
-  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
-    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opintooikeus has no target or opintosuoritus for kandi"
-      (let [kandi-ll-opiskeluoikeus-without-target (map #(update-in % [:jakso] dissoc :koulutuskoodi) kandi-ll-opiskeluoikeus-fixture)
-            kandi-ll-attainments-without-kandi (filter #(not= "1" (:laji %)) kandi-ll-attainments)
-            results (validate kandi-ll-opiskeluoikeus-without-target kandi-ll-attainments-without-kandi "otherdomain.fi" :kandi)]
-        (is (-> results :invalid first invalid?))))))
+;(deftest licensiate-target
+;  (with-redefs [avopfi.validator/get-oppilaitos-code-by-domain mock-mapping]
+;    (testing "Kandipalaute opiskeluoikeus is invalid if licensiate opintooikeus has no target or opintosuoritus for kandi"
+;      (let [kandi-ll-opiskeluoikeus-without-target (map #(update-in % [:jakso] dissoc :koulutuskoodi) kandi-ll-opiskeluoikeus-fixture)
+;            kandi-ll-attainments-without-kandi (filter #(not= "1" (:laji %)) kandi-ll-attainments)
+;            results (validate kandi-ll-opiskeluoikeus-without-target kandi-ll-attainments-without-kandi "otherdomain.fi" :kandi)]
+;        (is (-> results :invalid first invalid?))))))
         ;(is (has-error results :no-kandi))))))
 
 

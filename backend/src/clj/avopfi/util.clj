@@ -19,7 +19,7 @@
 (defn earlier [date_a date_b]
   (let [a (to-local-date date_a)
         b (to-local-date date_b)]
-    (if (.isBefore (to-local-date a) (to-local-date b)) date_a date_b)))
+    (if (.isBefore a b) date_a date_b)))
 
 
 (defn in-future? [date-map]

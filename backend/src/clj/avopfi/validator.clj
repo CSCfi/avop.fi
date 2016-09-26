@@ -37,25 +37,21 @@
       valid
       (invalid :invalid-organization))))
 
-(defn is-active? [{tila :tila}]
+(defn tila-active? [tila]
   (let [active (= "1" (:koodi tila))
         alku-valid (in-past? (:alkuPvm tila))
         loppu-valid (or (nil? (:loppuPvm tila)) (in-future? (:loppuPvm tila)))]
-    (if (and active alku-valid loppu-valid)
-      valid
-      (invalid :not-active))))
+    (and active alku-valid loppu-valid)))
 
-(defn jakso-active? [{jakso :jakso}]
-  (let [alku-valid (and (not-nil? (:alkuPvm jakso)) (in-past? (:alkuPvm jakso)))
-        loppu-valid (or (nil? (:loppuPvm jakso))(in-future? (:loppuPvm jakso)))]
-    (if( and alku-valid loppu-valid)
-      valid
-      (invalid :jakso-invalid))))
-
-(defn has-patevyys? [virta-suoritukset opiskeluoikeus]
-  (if (some #(in? [laaketieteen-lisensiaatti hammaslaaketieteen-lisensiaatti] (:patevyys %)) virta-suoritukset)
+(defn is-active? [opiskeluoikeus]
+  (if (some tila-active? (:tila opiskeluoikeus))
     valid
-    (invalid :no-patevyys)))
+    (invalid :not-active)))
+
+(defn jakso-active? [jakso]
+  (let [alku-valid (and (not-nil? (:alkuPvm jakso)) (in-past? (:alkuPvm jakso)))
+        loppu-valid (or (nil? (:loppuPvm jakso)) (in-future? (:loppuPvm jakso)))]
+    (and alku-valid loppu-valid)))
 
 (defn date-valid? [opiskeluoikeus]
   (let [loppu (:loppuPvm opiskeluoikeus)]
@@ -169,19 +165,27 @@
         laajuus-valid?
         (partial has-enough-opintosuoritus? virta-suoritukset)))
 
+(defn has-patevyys? [virta-suoritukset opiskeluoikeus]
+  (let [aktiiviset-jaksot (filter jakso-active? (:jakso opiskeluoikeus))
+        koulutuskoodit (map :koulutuskoodi aktiiviset-jaksot)
+        hyvaksytyt-patevyydet (remove nil? (map #(get tutkinto-patevyys %) koulutuskoodit))
+        patevyydet (mapcat :patevyys virta-suoritukset)]
+    (if (some #(in? hyvaksytyt-patevyydet %) patevyydet)
+      valid
+      (invalid :no-patevyys))))
+
 (defn lisensiaatti? [opiskeluoikeus]
-  (let [tavoitetutkinto (-> opiskeluoikeus :jakso :koulutuskoodi)]
-    (if (in? lisensiaatti-tutkinnot tavoitetutkinto)
+  (let [aktiiviset-jaksot (filter jakso-active? (:jakso opiskeluoikeus))
+        koulutuskoodit (map :koulutuskoodi aktiiviset-jaksot)]
+    (if (some #(in? lisensiaatti-tutkinnot %) koulutuskoodit)
       valid
       (invalid :not-lisensiaatti))))
-
 
 (defn valvira-vaatimukset [virta-suoritukset home-org]
   (partial all-of [(partial lisensiaatti?)
                    (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
                    (partial has-organization? home-org)
                    is-active?
-                   jakso-active?
                    (partial has-patevyys? virta-suoritukset)]))
 
 

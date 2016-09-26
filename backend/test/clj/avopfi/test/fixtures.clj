@@ -36,25 +36,25 @@
 (def amk-opiskeluoikeus {:avain "FOO"
                          :myontaja "10065"
                          :laajuus {:opintopiste 235}
-                         :jakso {
-                                 :luokittelu ["3"]}
+                         :jakso [{:luokittelu ["3"]}]
 
                          :tyyppi "1"
-                         :tila {:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}})
+                         :tila [{:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}]})
 
 
 
 (def kandi-opiskeluoikeus {:avain "BAZ"
                            :myontaja "1234"
                            :laajuus {:opintopiste 235}
-                           :jakso {
-                                   :alkuPvm {:year 2010 :month 5 :day 1}
-                                   :luokittelu ["3"]}
+                           :jakso [{:alkuPvm {:year 2010 :month 5 :day 1}}
+                                   :luokittelu ["3"]]
 
                            :tyyppi "2"
-                           :tila {:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}})
+                           :tila [{:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}]})
 
-(def kandi-ll-opiskeluoikeus (assoc-in kandi-opiskeluoikeus [:jakso :koulutuskoodi] "772101"))
+(def kandi-ll-opiskeluoikeus (assoc-in kandi-opiskeluoikeus [:jakso] [{:alkuPvm {:year 2010 :month 5 :day 1}}
+                                                                      :luokittelu ["3"]
+                                                                      :koulutuskoodi "772101"]))
 (def kandi-ll-opiskeluoikeus-fixture [kandi-ll-opiskeluoikeus])
 
 (def amk-opiskeluoikeus-fixture [amk-opiskeluoikeus])
@@ -73,7 +73,7 @@
                                 {:opiskeluoikeusAvain "BAZ" :laji "2" :sisaltyvyys [] :laajuus {:opintopiste 90}}
                                 {:opiskeluoikeusAvain "BAZ" :laji "1"}])
 
-(def kandi-ll-attainments(conj kandi-attainments-fixture {:patevyys "ll4"}))
+(def kandi-ll-attainments(conj kandi-attainments-fixture {:patevyys ["ll4"]}))
 
 (def kandi-attainments-without-tutkinto-or-points (take 1 kandi-attainments-fixture))
 
