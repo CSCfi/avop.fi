@@ -23,18 +23,18 @@
 ;        (is (= (json :opiskeluoikeustyyppi) "1"))))))
 
 
-(deftest process-registrations
-  (testing "registration works"
-    (with-redefs
-      ;;does not hit Arvo nor db atm
-      [
-       arvo/generate-questionnaire-credentials! (constantly "FOO")
-       db/get-visitor-by-srid (constantly nil)
-       db/create-visitor! (constantly nil)]
-
-      (let [attribs {:body-params {:opiskeluoikeus_id "avopOa1" :kieli "fi"}}]
-        :session {:opiskeluoikeudet-data [opiskeluoikeus-data-fixture]}
-        (is (= (str (:arvo-answer-url env) "FOO/fi") (:kysely_url (:body (process-registration attribs)))))))))
+;(deftest process-registrations
+;  (testing "registration works"
+;    (with-redefs
+;      ;;does not hit Arvo nor db atm
+;      [
+;       arvo/generate-questionnaire-credentials! (constantly "FOO")
+;       db/get-visitor-by-srid (constantly nil)
+;       db/create-visitor! (constantly nil)]
+;
+;      (let [attribs {:body-params {:opiskeluoikeus_id "avopOa1" :kieli "fi"}}]
+;        :session {:opiskeluoikeudet-data [opiskeluoikeus-data-fixture]}
+;        (is (= (str (:arvo-answer-url env) "FOO/fi") (:kysely_url (:body (process-registration attribs)))))))))
 
 
 

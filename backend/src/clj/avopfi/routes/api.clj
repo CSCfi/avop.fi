@@ -62,8 +62,7 @@
     (not-found {})))
 
 (defn process-registration [{params :body-params session :session}]
-  (let [
-        current-srid (:opiskeluoikeus_id params)
+  (let [current-srid (:opiskeluoikeus_id params)
         kieli (:kieli params)
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
         opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]

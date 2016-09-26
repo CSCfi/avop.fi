@@ -85,7 +85,75 @@
       valid
       (invalid :not-enough-opintosuoritus))))
 
-(defn has-kandi? [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain}]
+(defn all-of [vaatimukset opiskeluoikeus]
+  (let [v (apply juxt vaatimukset)
+        result (v opiskeluoikeus)]
+    (if (some #(= :invalid (:status %)) result)
+      result
+      valid)))
+
+(defn one-of [vaatimukset opiskeluoikeus]
+  (let [v (apply juxt vaatimukset)
+        result (v opiskeluoikeus)]
+    (if (some #(= :valid (:status %)) result)
+      valid
+      result)))
+
+(defn sisaltyvyydet [virta-suoritukset suoritus]
+  (if (empty? (:sisaltyvyys suoritus))
+    (:avain suoritus)
+    (let [sisaltyvat-koodit (map :sisaltyvaOpintosuoritusAvain (:sisaltyvyys suoritus))
+          sisaltyvat-suoritukset (filter #(in? sisaltyvat-koodit (:avain %)) virta-suoritukset)]
+      (map (partial sisaltyvyydet virta-suoritukset) sisaltyvat-suoritukset))))
+
+
+(defn lehti-suoritus? [suoritus]
+  (and (= (:laji suoritus) "2") (empty? (:sisaltyvyys suoritus))))
+
+(defn has-160op [virta-suoritukset opiskeluoikeus]
+  (let [lehti-suoritukset (->> virta-suoritukset
+                               (filter lehti-suoritus?)
+                               (filter #(= (:myontaja opiskeluoikeus) (:myontaja %))))
+        tutkinnot (->> virta-suoritukset (filter #(= "1" (:laji %))))
+        tutkintoon-sisaltyvat (mapcat (partial sisaltyvyydet virta-suoritukset) tutkinnot)
+        hyvaksyttavat (filter #(not(in? tutkintoon-sisaltyvat (:avain %))) lehti-suoritukset)
+        yhteispisteet (->> hyvaksyttavat
+                           (map #(-> % :laajuus :opintopiste))
+                           (reduce +))]
+    (if (and (= alempi-korkeakoulututkinto (:tyyppi opiskeluoikeus))(<= 160 yhteispisteet))
+      valid
+      (invalid :not-enough-opintosuoritus))))
+
+(defn get-alkupvm [opiskeluoikeus]
+  (let [alkuPvm (:alkuPvm opiskeluoikeus)
+        siirtoPvm (-> opiskeluoikeus :siirtoOpiskelija :siirtoPvm)]
+    (if (nil? siirtoPvm)
+      (if (nil? alkuPvm) {:year 1970 :month 1 :day 1} alkuPvm)
+      (earlier alkuPvm siirtoPvm))))
+
+(defn get-loppupvm [opiskeluoikeus]
+  (let [loppuPvm (:loppuPvm opiskeluoikeus)]
+    (if (in-past? loppuPvm)
+      loppuPvm
+      (local-date-map))))
+
+(defn has-enough-lukukausi [opiskeluoikeus]
+  (let [alkuPvm (get-alkupvm opiskeluoikeus)
+        loppuPvm (get-loppupvm opiskeluoikeus)
+        vuodet (- (:year loppuPvm) (:year alkuPvm))
+        taysiVuosi (< (:month alkuPvm) (:month loppuPvm))
+        alku-loppu-kausi (and (< (:month alkuPvm) 8) (>= (:month loppuPvm) 8))
+        lukukaudet (+ (* vuodet 2) (if taysiVuosi 1 0) (if alku-loppu-kausi 1 0))]
+    (if (>= lukukaudet 4)
+      valid
+      (invalid :not-enough-lukukausi))))
+
+(defn has-kandi-suoritukset [virta-suoritukset]
+  (partial all-of[(partial has-160op virta-suoritukset)
+                  (partial has-enough-lukukausi)]))
+
+
+(defn has-kandi [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain}]
   (let [has-tutkinto (some #(and
                              (= (:opiskeluoikeusAvain %) oo-avain)
                              (= (:laji %) opintosuoritus-tutkinto)) virta-suoritukset)
@@ -101,28 +169,30 @@
         laajuus-valid?
         (partial has-enough-opintosuoritus? virta-suoritukset)))
 
-(defn kandi-vaatimukset [virta-suoritukset home-org]
-  (juxt (partial has-type? [alempi-korkeakoulututkinto])
-        (partial has-organization? home-org)
-        (partial has-kandi? virta-suoritukset)))
-
-(defn valvira-vaatimukset [virta-suoritukset home-org]
-  (juxt
-    (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
-    (partial has-organization? home-org)
-    is-active?
-    jakso-active?
-    (partial has-patevyys? virta-suoritukset)))
-
 (defn lisensiaatti? [opiskeluoikeus]
   (let [tavoitetutkinto (-> opiskeluoikeus :jakso :koulutuskoodi)]
-    (in? lisensiaatti-tutkinnot tavoitetutkinto)))
+    (if (in? lisensiaatti-tutkinnot tavoitetutkinto)
+      valid
+      (invalid :not-lisensiaatti))))
 
-(defn vaatimukset [tyyppi opiskeluoikeus]
+
+(defn valvira-vaatimukset [virta-suoritukset home-org]
+  (partial all-of [(partial lisensiaatti?)
+                   (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
+                   (partial has-organization? home-org)
+                   is-active?
+                   jakso-active?
+                   (partial has-patevyys? virta-suoritukset)]))
+
+
+(defn kandipalaute-vaatimukset [virta-suoritukset home-organization]
+  (partial one-of [(partial has-kandi virta-suoritukset)
+                   (has-kandi-suoritukset virta-suoritukset)
+                   (valvira-vaatimukset virta-suoritukset home-organization)]))
+
+(defn vaatimukset [tyyppi]
   (tyyppi {:avop amk-vaatimukset
-           :kandi (if (lisensiaatti? opiskeluoikeus)
-                    valvira-vaatimukset
-                    kandi-vaatimukset)}))
+           :kandi (partial kandipalaute-vaatimukset)}))
 
 
 (defn oo-tyypit [tyyppi]
@@ -149,8 +219,9 @@
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
   (let [oikeudet (filter (partial has-type? (oo-tyypit tyyppi))virta-oikeudet)
         process (fn [oikeus]
-                  (let [vaatimukset ((vaatimukset tyyppi oikeus) virta-suoritukset home-organization)]
+                  (let [vaatimukset ((vaatimukset tyyppi) virta-suoritukset home-organization)]
                     (->> (vaatimukset oikeus)
+                      (flatten)
                       (reduce merge-results {:status :valid :messages []})
                       (merge {:oikeus oikeus}))))
         results (->> oikeudet

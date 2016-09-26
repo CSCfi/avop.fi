@@ -39,7 +39,10 @@
                          :jakso {
                                  :luokittelu ["3"]}
 
-                         :tyyppi "1"})
+                         :tyyppi "1"
+                         :tila {:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}})
+
+
 
 (def kandi-opiskeluoikeus {:avain "BAZ"
                            :myontaja "1234"
@@ -72,6 +75,6 @@
 
 (def kandi-ll-attainments(conj kandi-attainments-fixture {:patevyys "ll4"}))
 
-(def kandi-attainments-without-tutkinto (drop-last kandi-attainments-fixture))
+(def kandi-attainments-without-tutkinto-or-points (take 1 kandi-attainments-fixture))
 
 (def limited-attainments-fixture [(first attainments-fixture)])
