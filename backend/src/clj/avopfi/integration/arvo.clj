@@ -6,37 +6,36 @@
     [java-time :refer [as local-date]]
     [slingshot.slingshot :refer [try+ throw+]]
     [clojure.tools.logging :as log]
-    [clj-http.client :as client]))
+    [clj-http.client :as client]
+    [avopfi.validator :as validator :refer [lisensiaatti?]]))
 
 (defn build-kyselykerran-nimi
-  [opiskeluoikeustyyppi vuosi]
-  (if (nil? opiskeluoikeustyyppi)
+  [opiskeluoikeus vuosi]
+  (if (nil? (:tyyppi opiskeluoikeus))
       nil
       (str
-        (condp = opiskeluoikeustyyppi
+        (condp = (:tyyppi opiskeluoikeus)
           amk-alempi-tyyppi "AUTOMAATTI AVOP-AMK"
           amk-ylempi-tyyppi "AUTOMAATTI AVOP-YAMK"
           alempi-korkeakoulututkinto "AUTOMAATTI KANDI"
-          ylempi-korkeakoulututkinto "AUTOMAATTI KANDI"
+          ylempi-korkeakoulututkinto (if (validator/lisensiaatti? opiskeluoikeus)
+                                       "AUTOMAATTI LAAKIS"
+                                       "AUTOMAATTI KANDI")
           "") " " vuosi)))
 
-(defn clean-opiskeluoikeus-data
-  [{:keys [kieli koulutusmuoto opiskeluoikeustyyppi laajuus]
-    {oppilaitos-id :id} :oppilaitos
-    {koulutus-id :id} :koulutus
-    {kunta-id :id} :kunta}]
+(defn clean-opiskeluoikeus-data [opiskeluoikeus]
   {
-   :oppilaitos oppilaitos-id
-   :koulutus   koulutus-id
-   :kunta      kunta-id
-   :koulutusmuoto (condp = koulutusmuoto
+   :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
+   :koulutus   (-> opiskeluoikeus :koulutus :id)
+   :kunta      (-> opiskeluoikeus :kunta :id)
+   :koulutusmuoto (condp = (:koulutusmuoto opiskeluoikeus)
                     0 "paivaopiskelu"
                     1 "monimuoto"
                     nil)
-   :opiskeluoikeustyyppi opiskeluoikeustyyppi
-   :laajuus laajuus
+   :opiskeluoikeustyyppi (:opiskeluoikeustyyppi opiskeluoikeus)
+   :laajuus (:laajuus opiskeluoikeus)
    :kyselykerran_nimi 
-   (build-kyselykerran-nimi opiskeluoikeustyyppi 
+   (build-kyselykerran-nimi opiskeluoikeus
                             (as (local-date) :year))})
 
 

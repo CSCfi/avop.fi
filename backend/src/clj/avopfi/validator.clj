@@ -177,13 +177,16 @@
 (defn lisensiaatti? [opiskeluoikeus]
   (let [aktiiviset-jaksot (filter jakso-active? (:jakso opiskeluoikeus))
         koulutuskoodit (map :koulutuskoodi aktiiviset-jaksot)]
-    (if (some #(in? lisensiaatti-tutkinnot %) koulutuskoodit)
-      valid
-      (invalid :not-lisensiaatti))))
+    (some #(in? lisensiaatti-tutkinnot %) koulutuskoodit)))
+
+(defn is-lisensiaatti? [opiskeluoikeus]
+  (if (lisensiaatti? opiskeluoikeus)
+    valid
+    (invalid :not-lisensiaatti)))
 
 (defn valvira-vaatimukset [virta-suoritukset home-org]
-  (partial all-of [(partial lisensiaatti?)
-                   (partial has-type? [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto])
+  (partial all-of [(partial is-lisensiaatti?)
+                   (partial has-type? [ylempi-korkeakoulututkinto])
                    (partial has-organization? home-org)
                    is-active?
                    (partial has-patevyys? virta-suoritukset)]))
