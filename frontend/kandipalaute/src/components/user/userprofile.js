@@ -65,7 +65,7 @@ export default class Userprofile extends React.Component {
 
   selectStudyRight(event) {
     this.setState({
-      selectedStudyRight: this.props.study_rights
+      selectedStudyRight: this.props.valid_rights
         .find(x => x.id === event.target.value)
     });
   }

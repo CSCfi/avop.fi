@@ -17,6 +17,7 @@
           amk-alempi-tyyppi "AUTOMAATTI AVOP-AMK"
           amk-ylempi-tyyppi "AUTOMAATTI AVOP-YAMK"
           alempi-korkeakoulututkinto "AUTOMAATTI KANDI"
+          ylempi-korkeakoulututkinto "AUTOMAATTI KANDI"
           "") " " vuosi)))
 
 (defn clean-opiskeluoikeus-data
