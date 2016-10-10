@@ -54,17 +54,19 @@ let localizations_en = {
     haka_error: 'Haka did not return required information. Please contact your study office'
   },
   opiskeluoikeus_errors: {
-  invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
+    invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
     invalid_type: 'Väärä tyyppi.',
     invalid_date: 'Opiskeluoikeutesi ei ole voimassa.',
     invalid_laajuus: 'Puuttellinen tieto opintorekisterissä.',
-    not_enough_opintosuoritus: 'Sinulla ei ole tarvittavia suoritusmerkintöjä opintorekisterissä.',
+    not_active: 'Opiskeluoikeutesi ei ole aktiivinen',
+    not_enough_opintosuoritus: 'Sinulla ei ole riittävästi opintopisteitä opintorekisterissä.',
     no_kandi: 'Sinulla ole kandidaatin tutkinnon suoritusmerkintää opintorekisterissä.',
+    no_patevyys: 'Sinulla ei ole vaadittua pätevyysmerkintää opintorekisterissä',
     header: 'Opiskeluoikeuksia ei löydy',
     no_rights_contact_study_office: 'Tiedoillasi ei löytynyt yhtään opiskeluoikeutta. Ota yhteys opintotoimistoosi.',
     some_rights_contact_study_office: 'Tiedoillasi löytyi %(rights_count)s opiskeluoikeutta, mutta tiedot eivät riitä palautteen antamiseen. Ota yhteys opintotoimistoosi.',
     additional_invalid_rights: 'Lisäksi löytyi %(rights_count)s oikeutta, mutta tiedot eivät riitä palautteen antamiseen.'
-}
+  }
 };
 
 export default localizations_en;

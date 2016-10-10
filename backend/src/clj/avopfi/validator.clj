@@ -6,12 +6,16 @@
             [clojure.tools.logging :as log]))
 
 
+(def valvira-virheet [:no-patevyys :invalid-date :invalid-type])
+
+(def kandi-virheet [:not-enough-opintosuoritus :not-enough-lukukausi :no-kandi :not-active :invalid-date :invalid-type])
+
 (def valid {:status :valid})
 
 (defn invalid [msg]
   {:status :invalid :message msg})
 
-(def ignored-errors [:invalid-type :invalid-organization])
+(def ignored-errors [:invalid-organization])
 
 (defn vals->pct [f s]
   (int (* (/ f s) 100)))
@@ -54,8 +58,9 @@
     (and alku-valid loppu-valid)))
 
 (defn date-valid? [opiskeluoikeus]
-  (let [loppu (:loppuPvm opiskeluoikeus)]
-    (if (or (nil? loppu) (in-future? loppu))
+  (let [alku (:alkuPvm opiskeluoikeus)
+        loppu (:loppuPvm opiskeluoikeus)]
+    (if (and (in-past? alku) (or (nil? loppu) (in-future? loppu)))
       valid
       (invalid :invalid-date))))
 
@@ -145,7 +150,9 @@
       (invalid :not-enough-lukukausi))))
 
 (defn has-kandi-suoritukset [virta-suoritukset]
-  (partial all-of[(partial has-160op virta-suoritukset)
+  (partial all-of[date-valid?
+                  is-active?
+                  (partial has-160op virta-suoritukset)
                   (partial has-enough-lukukausi)]))
 
 
@@ -223,8 +230,18 @@
 (defn remove-ignored [grouped]
   (update grouped :invalid #(filter ignore? %)))
 
+(defn filter-messages [processed-oikeus]
+  (let [msgs (:messages processed-oikeus)
+        msg-order (if (lisensiaatti? processed-oikeus) valvira-virheet kandi-virheet)]
+    (assoc processed-oikeus :messages (filter #(in? msgs %) msg-order))))
+
+(defn process-messages [tyyppi grouped]
+  (if (= tyyppi :kandi)
+    (map filter-messages (:invalid grouped))
+    grouped))
+
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
-  (let [oikeudet (filter (partial has-type? (oo-tyypit tyyppi))virta-oikeudet)
+  (let [oikeudet (filter #(in? (oo-tyypit tyyppi) (:tyyppi % ))virta-oikeudet)
         process (fn [oikeus]
                   (let [vaatimukset ((vaatimukset tyyppi) virta-suoritukset home-organization)]
                     (->> (vaatimukset oikeus)
@@ -234,6 +251,6 @@
         results (->> oikeudet
                      (map process)
                      (group-by :status))
-        final-results (remove-ignored results)]
+        final-results (process-messages tyyppi (remove-ignored results))]
     (log-validation-results results)
     final-results))
