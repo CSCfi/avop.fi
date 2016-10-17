@@ -35,6 +35,7 @@
      :koulutusmuoto koulutustyyppi
      :opiskeluoikeustyyppi tyyppi
      :laajuus laajuus
+     :jakso jaksot
      :oppilaitos {:id myontaja :nimi oppilaitos}
      :virheet (map #(clojure.string/replace (name %) "-" "_") messages)}))
 

@@ -11,10 +11,10 @@
 
 (defn build-kyselykerran-nimi
   [opiskeluoikeus vuosi]
-  (if (nil? (:tyyppi opiskeluoikeus))
+  (if (nil? (:opiskeluoikeustyyppi opiskeluoikeus))
       nil
       (str
-        (condp = (:tyyppi opiskeluoikeus)
+        (condp = (:opiskeluoikeustyyppi opiskeluoikeus)
           amk-alempi-tyyppi "AUTOMAATTI AVOP-AMK"
           amk-ylempi-tyyppi "AUTOMAATTI AVOP-YAMK"
           alempi-korkeakoulututkinto "AUTOMAATTI KANDI"
@@ -37,7 +37,6 @@
    :kyselykerran_nimi 
    (build-kyselykerran-nimi opiskeluoikeus
                             (as (local-date) :year))})
-
 
 (defn generate-questionnaire-credentials!
   "Generate Arvo questionnaire credentials with given data"
