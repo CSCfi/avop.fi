@@ -232,7 +232,8 @@
 
 (defn filter-messages [processed-oikeus]
   (let [msgs (:messages processed-oikeus)
-        msg-order (if (lisensiaatti? processed-oikeus) valvira-virheet kandi-virheet)]
+        oikeus (:oikeus processed-oikeus)
+        msg-order (if (lisensiaatti? oikeus) valvira-virheet kandi-virheet)]
     (assoc processed-oikeus :messages (filter #(in? msgs %) msg-order))))
 
 (defn process-messages [tyyppi grouped]
