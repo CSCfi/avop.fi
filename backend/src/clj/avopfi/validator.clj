@@ -237,7 +237,7 @@
 
 (defn process-messages [tyyppi grouped]
   (if (= tyyppi :kandi)
-    (map filter-messages (:invalid grouped))
+    (update-in grouped [:invalid] #(map filter-messages %))
     grouped))
 
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
