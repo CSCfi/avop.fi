@@ -15,7 +15,7 @@
 (defn invalid [msg]
   {:status :invalid :message msg})
 
-(def ignored-errors [:invalid-organization])
+(def ignored-errors [:invalid-organization :no-jakso])
 
 (defn vals->pct [f s]
   (int (* (/ f s) 100)))
@@ -56,6 +56,9 @@
   (let [alku-valid (and (not-nil? (:alkuPvm jakso)) (in-past? (:alkuPvm jakso)))
         loppu-valid (or (nil? (:loppuPvm jakso)) (in-future? (:loppuPvm jakso)))]
     (and alku-valid loppu-valid)))
+
+(defn jakso-valid? [opiskeluoikeus]
+  (if (empty? (:jakso opiskeluoikeus))(invalid :no-jakso) valid))
 
 (defn date-valid? [opiskeluoikeus]
   (let [alku (:alkuPvm opiskeluoikeus)
@@ -204,10 +207,16 @@
                    (has-kandi-suoritukset virta-suoritukset)
                    (valvira-vaatimukset virta-suoritukset home-organization)]))
 
-(defn vaatimukset [tyyppi]
-  (tyyppi {:avop amk-vaatimukset
-           :kandi (partial kandipalaute-vaatimukset)}))
+(defn common-vaatimukset [opiskeluoikeus]
+  (jakso-valid?  opiskeluoikeus))
 
+
+(defn vaatimukset [tyyppi virta-suoritukset home-organization]
+  (let [tyyppi-vaatimukset (match [tyyppi]
+                            [:avop] (amk-vaatimukset virta-suoritukset home-organization)
+                            [:kandi] (kandipalaute-vaatimukset virta-suoritukset home-organization))]
+    (partial all-of [common-vaatimukset
+                     tyyppi-vaatimukset])))
 
 (defn oo-tyypit [tyyppi]
   (tyyppi {:avop  [amk-alempi-tyyppi amk-ylempi-tyyppi]
@@ -244,7 +253,7 @@
 (defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
   (let [oikeudet (filter #(in? (oo-tyypit tyyppi) (:tyyppi % ))virta-oikeudet)
         process (fn [oikeus]
-                  (let [vaatimukset ((vaatimukset tyyppi) virta-suoritukset home-organization)]
+                  (let [vaatimukset (vaatimukset tyyppi virta-suoritukset home-organization)]
                     (->> (vaatimukset oikeus)
                       (flatten)
                       (reduce merge-results {:status :valid :messages []})
