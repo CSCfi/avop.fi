@@ -7,21 +7,33 @@
     [slingshot.slingshot :refer [try+ throw+]]
     [clojure.tools.logging :as log]
     [clj-http.client :as client]
-    [avopfi.validator :as validator :refer [lisensiaatti?]]))
+    [avopfi.util :refer [in?]]
+    [clojure.core.match :refer :all]
+    [avopfi.validator :as validator :refer [lisensiaatti? jakso-active?]]))
 
-(defn build-kyselykerran-nimi
-  [opiskeluoikeus vuosi]
-  (if (nil? (:opiskeluoikeustyyppi opiskeluoikeus))
-      nil
-      (str
-        (condp = (:opiskeluoikeustyyppi opiskeluoikeus)
-          amk-alempi-tyyppi "AUTOMAATTI AVOP-AMK"
-          amk-ylempi-tyyppi "AUTOMAATTI AVOP-YAMK"
-          alempi-korkeakoulututkinto "AUTOMAATTI KANDI"
-          ylempi-korkeakoulututkinto (if (validator/lisensiaatti? opiskeluoikeus)
-                                       "AUTOMAATTI LAAKIS"
-                                       "AUTOMAATTI KANDI")
-          "") " " vuosi)))
+
+(defn sisaltyy-koodeihin [koodit koulutuskoodit]
+  (some #(in? koodit %) koulutuskoodit))
+
+(defn vaatimukset [{tyypit :tyypit koodit :koodit} t k]
+    (let [tyyppi-ok (or (nil? tyypit) (in? tyypit t))
+          koodit-ok (or (nil? koodit) (sisaltyy-koodeihin koodit k))]
+      (and tyyppi-ok koodit-ok)))
+
+
+(defn build-kyselykerran-nimi [opiskeluoikeus vuosi]
+  (let [aktiiviset-jaksot (:jakso opiskeluoikeus)
+        koodit (map :koulutuskoodi aktiiviset-jaksot)
+        tyyppi (:opiskeluoikeustyyppi opiskeluoikeus)
+        kyselykerran-nimi (cond
+                            (vaatimukset {:tyypit [ylempi-korkeakoulututkinto]
+                                          :koodit laakis-koodit} tyyppi koodit) "AUTOMAATTI LAAKIS"
+                            (vaatimukset {:koodit ekonomi-koodit} tyyppi koodit) "AUTOMAATTI EKONOMIT"
+                            (vaatimukset {:koodit tek-koodit} tyyppi koodit) "AUTOMAATTI TEK"
+                            (vaatimukset {:tyypit [amk-alempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-AMK"
+                            (vaatimukset {:tyypit [amk-ylempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-YAMK"
+                            (vaatimukset {:tyypit [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]} tyyppi koodit) "AUTOMAATTI KANDI")]
+    (str kyselykerran-nimi " " vuosi (apply str koodit))))
 
 (defn clean-opiskeluoikeus-data [opiskeluoikeus]
   {

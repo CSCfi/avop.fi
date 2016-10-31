@@ -187,7 +187,7 @@
 (defn lisensiaatti? [opiskeluoikeus]
   (let [aktiiviset-jaksot (filter jakso-active? (:jakso opiskeluoikeus))
         koulutuskoodit (map :koulutuskoodi aktiiviset-jaksot)]
-    (some #(in? lisensiaatti-tutkinnot %) koulutuskoodit)))
+    (some #(in? laakis-koodit %) koulutuskoodit)))
 
 (defn is-lisensiaatti? [opiskeluoikeus]
   (if (lisensiaatti? opiskeluoikeus)
