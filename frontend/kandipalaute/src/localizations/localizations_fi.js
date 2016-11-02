@@ -5,9 +5,9 @@ let localizations_fi = {
   content: {
     kysely: {
       information: 'Tietoa kyselystä',
-      about1: 'Kandipalaute on yliopistojen valtakunnallinen opiskelijapalautekysely, jossa  selvitetään alemman korkeakoulututkinnon suorittaneiden opiskelijoiden tyytyväisyyttä yliopistoonsa ja kokemuksia opintojen sujumisesta. Kyselyn tuloksia hyödynnetään sekä paikallisesti korkeakoulun oman toiminnan kehittämisessä että valtakunnallisesti koulutuksen ohjauksessa ja rahoituksessa. Kyselyn täyttävät kaikki alempaan korkeakoulututkintoon kuuluvat opinnot suorittaneet yliopisto-opiskelijat.',
-      about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi Kandipalaute-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse Kandipalaute – kyselyyn vaan palautekysely on täysin anonyymi.',
-      about3: 'Kandipalaute -kyselymittaristo on syntynyt Suomen Yliopistot UNIFI ry:n ja opetus- ja kulttuuriministeriön (OKM) yhteisenä hankkeena. Kyselymittariston käyttöönotosta ja sen kehittämisestä vastaa UNIFI ry.',
+      about1: 'Kandipalaute on yliopistojen valtakunnallinen opiskelijapalautekysely, jossa  selvitetään kandidaatin tutkinnon suorittaneiden opiskelijoiden tyytyväisyyttä yliopistoonsa ja kokemuksia opintojen sujumisesta. Kysely perustuu oppimista, opiskelua ja opetusta koskevaan tieteelliseen tutkimukseen, ja sen pohjalta kehitettyyn Helsingin yliopiston HowULearn-kyselyyn. Kyselyn tuloksia hyödynnetään yliopistojen koulutuksen kehittämisessä sekä valtakunnallisesti yliopistojen ohjauksessa. Kyselyn täyttävät kaikki alempaan korkeakoulututkintoon kuuluvat tai vastaavat opinnot suorittaneet yliopisto-opiskelijat.',
+      about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi Kandipalaute-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse Kandipalaute-kyselyyn ja annettua palautetta käsitellään anonyymisti.',
+      about3: 'Kandipalaute-kyselystä ja sen kehittämisestä vastaa Suomen yliopistot UNIFI ry.',
       privacy: 'Lisätietoja tietosuojaselosteessa.'
     },
     login: {
@@ -34,7 +34,7 @@ let localizations_fi = {
   },
   profiledata: {
     header: 'Palautekyselyn taustatiedot',
-    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, yliopisto, koulutuksen kunta ja tutkinnon suorituskieli. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
+    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, yliopisto, koulutuksen kunta, tutkinnon suorituskieli ja opiskeluoikeuden alkamisvuosi. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
     education: 'Koulutus',
     school: 'Yliopisto',
     municipality: 'Kunta',
