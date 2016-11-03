@@ -57,7 +57,7 @@
         loppu-valid (or (nil? (:loppuPvm jakso)) (in-future? (:loppuPvm jakso)))]
     (and alku-valid loppu-valid)))
 
-(defn jakso-valid? [opiskeluoikeus]
+(defn jakso-valid? [opiskeluoikeus]
   (if (empty? (:jakso opiskeluoikeus))(invalid :no-jakso) valid))
 
 (defn date-valid? [opiskeluoikeus]
@@ -91,14 +91,14 @@
 
 (defn all-of [vaatimukset opiskeluoikeus]
   (let [v (apply juxt vaatimukset)
-        result (v opiskeluoikeus)]
+        result (flatten (v opiskeluoikeus))]
     (if (some #(= :invalid (:status %)) result)
-      result
+      (filter #(= :invalid (:status %)) result)
       valid)))
 
 (defn one-of [vaatimukset opiskeluoikeus]
   (let [v (apply juxt vaatimukset)
-        result (v opiskeluoikeus)]
+        result (flatten (v opiskeluoikeus))]
     (if (some #(= :valid (:status %)) result)
       valid
       result)))
@@ -208,7 +208,7 @@
                    (valvira-vaatimukset virta-suoritukset home-organization)]))
 
 (defn common-vaatimukset [opiskeluoikeus]
-  (jakso-valid?  opiskeluoikeus))
+  (jakso-valid? opiskeluoikeus))
 
 
 (defn vaatimukset [tyyppi virta-suoritukset home-organization]
