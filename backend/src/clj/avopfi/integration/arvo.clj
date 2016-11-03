@@ -33,7 +33,7 @@
                             (vaatimukset {:tyypit [amk-alempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-AMK"
                             (vaatimukset {:tyypit [amk-ylempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-YAMK"
                             (vaatimukset {:tyypit [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]} tyyppi koodit) "AUTOMAATTI KANDI")]
-    (str kyselykerran-nimi " " vuosi (apply str koodit))))
+    (str kyselykerran-nimi " " vuosi)))
 
 (defn clean-opiskeluoikeus-data [opiskeluoikeus]
   {
