@@ -24,35 +24,28 @@
   (subs shibbo-uid (+ (.lastIndexOf shibbo-uid (int \:)) 1)))
 
 
-(defn user-id [user-data]
-  (match [user-data]
-         [{"learner-id" lid}] lid
-         [{"national-identification-number" nin}] nin
-         [{"unique-id" uid}] (extract-hetu-from-shibbo uid)
-         :else nil))
-
 (defn extract-opintosuoritukset-data
   "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
   is returned with .getOpiskeluoikeudet and multiple OpiskeluoikeusTyyppis
   with getOpiskeluoikeus"
-  [^OpintosuorituksetResponse opintosuoritukset-response user-data]
+  [^OpintosuorituksetResponse opintosuoritukset-response]
   (let [results (some-> opintosuoritukset-response
                     (.getOpintosuoritukset)
                     (.getOpintosuoritus))
         opintosuoritukset (map #(from-java %) results)]
-    (log/info "Saatiin Virrasta" (count opintosuoritukset) "opintosuoritusta käyttäjälle" (user-id user-data))
+    (log/info "Saatiin Virrasta" (count opintosuoritukset) "opintosuoritusta")
     opintosuoritukset))
 
 (defn extract-opiskeluoikeus-data
   "Note: Confusingly one opiskeluoikeudetLaajennettuTyyppi instance
   is returned with .getOpiskeluoikeudet and multiple OpiskeluoikeusTyyppis
   with getOpiskeluoikeus"
-  [^OpiskeluoikeudetResponse opiskeluoikeudet-response user-data]
+  [^OpiskeluoikeudetResponse opiskeluoikeudet-response]
   (let [results (some-> opiskeluoikeudet-response
                     (.getOpiskeluoikeudet)
                     (.getOpiskeluoikeus))
         opiskeluoikeudet (map #(from-java %) results)]
-    (log/info "Saatiin Virrasta" (count opiskeluoikeudet) "opiskeluoikeutta käyttäjälle" (user-id user-data))
+    (log/info "Saatiin Virrasta" (count opiskeluoikeudet) "opiskeluoikeutta")
     (log/info "Opiskelu-oikeudet:" (join ", " (map #(:avain %) opiskeluoikeudet)))
     opiskeluoikeudet))
 
@@ -95,23 +88,23 @@
         set-id-query))))
 
 (defn get-opintosuoritukset!
-  [user-data set-id-query]
+  [set-id-query]
   (let [service (get-ws-service)
         request (build-ws-request-from (OpintosuorituksetRequest.) set-id-query)]
-    (extract-opintosuoritukset-data (.opintosuoritukset service request) user-data)))
+    (extract-opintosuoritukset-data (.opintosuoritukset service request))))
 
 (defn get-opiskeluoikeudet!
-  [user-data set-id-query]
+  [set-id-query]
   (let [service (get-ws-service)
             request (build-ws-request-from (OpiskeluoikeudetRequest.) set-id-query)]
-    (extract-opiskeluoikeus-data (.opiskeluoikeudet service request) user-data)))
+    (extract-opiskeluoikeus-data (.opiskeluoikeudet service request))))
 
 (defn get-from-virta-by-pid [person-id virta-fetcher]
-  (log/info "Haetaan Virrasta henkilötunnuksella:" person-id)
+  (log/info "Haetaan Virrasta henkilötunnuksella")
   (virta-fetcher #(.setHenkilotunnus % (trim person-id))))
 
 (defn get-from-virta-by-oid [oid virta-fetcher]
-  (log/info "Haetaan Virrasta oppijanumerolla:" oid)
+  (log/info "Haetaan Virrasta oppijanumerolla")
   (virta-fetcher #(.setKansallinenOppijanumero % oid)))
 
 (defn get-from-virta-with [virta-fetcher user-data]
@@ -132,7 +125,7 @@
                                             "national-identification-number"
                                             "unique-id"])))
 (defn get-virta-suoritukset [user-data]
-  (get-from-virta-with-retry (partial get-opintosuoritukset! user-data) user-data))
+  (get-from-virta-with-retry get-opintosuoritukset! user-data))
 
 (defn get-virta-opiskeluoikeudet [user-data]
-  (get-from-virta-with-retry (partial get-opiskeluoikeudet! user-data) user-data))
+  (get-from-virta-with-retry get-opiskeluoikeudet! user-data))
