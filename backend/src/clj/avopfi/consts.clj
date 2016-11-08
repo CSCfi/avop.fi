@@ -8,7 +8,7 @@
 (def ylempi-korkeakoulututkinto "4")
 
 (def laakis-koodit ["772101" "772201"])
-(def ekonomi-koodit ["632101" "632105" "632115" "633102" "632199"])
+(def ekonomi-koodit ["632101" "632105" "632115" "632199"])
 (def tek-koodit ["655101" "655201" "655301" "655401" "655102" "655302" "655402" "655203" "655403" "655410" "655601" "655801" "655999"])
 
 (def laaketieteen-lisensiaatti "ll4")
