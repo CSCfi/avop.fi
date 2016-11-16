@@ -39,6 +39,7 @@ let localizations_fi = {
     school: 'Yliopisto',
     municipality: 'Kunta',
     language: 'Tutkinnon suorituskieli',
+    startYear: 'Tutkinnon aloitusvuosi',
     form_of_education: 'Koulutusmuoto',
     reminder: 'Tarkistathan, että koulutuksesi tiedot ovat oikein. Siirtymällä palautekyselyyn hyväksyt tietojen käyttämisen palautekyselyn taustatietona.',
     survey: 'Siirry palautekyselyyn',

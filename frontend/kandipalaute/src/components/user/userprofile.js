@@ -170,6 +170,10 @@ export default class Userprofile extends React.Component {
                       </TranslateProperty>
                     </tr>
                     <tr>
+                      <Translate component="td" content="profiledata.startYear"/>
+                      <td>{this.state.selectedStudyRight.aloitusvuosi}</td>
+                    </tr>
+                    <tr>
                       <Translate component="td" content="profiledata.language"></Translate>
                       <td>{this.state.selectedStudyRight.kieli}</td>
                     </tr>

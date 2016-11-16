@@ -39,6 +39,7 @@ let localizations_en = {
     school: 'University of applied sciences',
     municipality: 'Municipality',
     language: 'Language of learning',
+    startYear: 'Tutkinnon aloitusvuosi',
     form_of_education: 'Mode of education',
     reminder: 'Please confirm the education information is correct. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
     survey: 'Go to the survey',

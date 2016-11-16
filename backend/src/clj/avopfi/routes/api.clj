@@ -20,7 +20,7 @@
    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 (defn opiskeluoikeus->ui-map
-  [messages {:keys [avain myontaja tyyppi] jaksot :jakso {laajuus :opintopiste} :laajuus}]
+  [messages {:keys [avain myontaja tyyppi alkuPvm] jaksot :jakso {laajuus :opintopiste} :laajuus}]
   (let [{kunta-id :koulutuskunta :keys [luokittelu koulutuskoodi koulutuskieli]}
         (virta/select-active-timespan jaksot)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
@@ -29,6 +29,7 @@
         oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
     {
      :id avain
+     :aloitusvuosi (:year alkuPvm)
      :kunta {:id kunta-id :nimi kunta}
      :kieli koulutuskieli
      :koulutus {:id koulutuskoodi :nimi koulutus}
