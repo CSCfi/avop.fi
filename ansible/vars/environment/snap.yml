@@ -1,9 +1,12 @@
 ---
 apache:
   server_name: "avopfisnap.csc.fi"
-  kandipalaute_server_name: "snapkandipalaute.csc.fi"
   certificate: "36652041-avopfisnap.csc.fi.cert"
   certificate_key: "36652041-avopfisnap.csc.fi.key"
+  kandipalaute_server_name: "snapkandipalaute.csc.fi"
+  kandipalaute_certificate: "36652041-avopfisnap.csc.fi.cert"
+  kandipalaute_certificate_key: "36652041-avopfisnap.csc.fi.key"
+  kandipalaute_chain_certificate: "36652041-avopfisnap.csc.fi.cert"
   appserver: "localhost"
 postgresql_avop_database: avop
 postgresql_avop_user: "{{ vault_postgresql_avop_user }}"
