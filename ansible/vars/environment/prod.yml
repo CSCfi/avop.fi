@@ -1,10 +1,13 @@
 ---
 apache:
   server_name: "avop.fi"
-  kandipalaute_server_name: "kandipalaute.fi"
   certificate: "star_avop_fi.pem"
   certificate_key: "star_avop_fi.key"
   chain_certificate: "star_avop_fi-chain.pem"
+  kandipalaute_server_name: "kandipalaute.fi"
+  kandipalaute_certificate: "kandipalaute_fi.crt"
+  kandipalaute_certificate_key: "kandipalaute.fi.key"
+  kandipalaute_chain_certificate: "kandipalaute_fi-chain.crt"
   appserver: "localhost"
 # haka_cert_file: /etc/shibboleth/ path prefix will be appended, just the filename, please
 haka_cert_file: "haka-sign-v3.pem"
