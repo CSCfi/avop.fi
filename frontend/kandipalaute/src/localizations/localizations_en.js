@@ -1,29 +1,29 @@
 let localizations_en = {
   header: {
-    logotext: 'Polytechic graduand feedback questionnaire'
+    logotext: 'The Finnish Bachelor´s Graduate Survey'
   },
   content: {
     kysely: {
       information: 'About the questionnaire',
-      about1: 'AVOP - Graduand feedback questionnaire asks graduating students to evaluate and provide feedback on their education. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire (except Police University College).',
+      about1: 'Kandipalaute - The Finnish Bachelor´s Graduate Survey is a national student feedback survey that examines students´ satisfaction with their university and studying experience. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire (except Police University College).',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are completely anonymous.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
       privacy: 'More information in privacy policy.'
     },
     login: {
       header: 'UAS student',
-      description: 'Please sign in to the survey by using your own UAS credentials:'
+      description: 'Please sign in to the survey by using your own university credentials:'
     },
     tulokset: {
       header: 'The results',
-      results1: 'The staff of the universities of applied sciences can review the real time survey results by using the Arvo - education management information service with appropriate user rights.',
+      results1: 'The staff of the universities can review the real time survey results by using the Arvo - education management information service with appropriate user rights.',
       results2: 'The statistics are freely available at the Vipunen statistics services of the educational administration.'
     }
   },
   footer: {
     header: 'In cooperation:',
     arene: {
-      description: 'Rectors´Conference of Finnish Universities of Applied Sciences, Arene'
+      description: 'Universities Finland Unifi'
     },
     okm: {
       description: 'Ministry of Education and Culture'
@@ -34,12 +34,12 @@ let localizations_en = {
   },
   profiledata: {
     header: 'Background information',
-    about: 'Information on education, university of applied sciences, municipality and language of learning is used as survey background information. The collected personal information is not transferred to the feedback system.',
+    about: 'Information on education, university, municipality, language of learning and start date of the right to study is used as survey background information. The collected personal information is not transferred to the feedback system.',
     education: 'Education',
-    school: 'University of applied sciences',
+    school: 'University',
     municipality: 'Municipality',
     language: 'Language of learning',
-    startYear: 'Tutkinnon aloitusvuosi',
+    startYear: 'Start date of the right to study',
     form_of_education: 'Mode of education',
     reminder: 'Please confirm the education information is correct. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
     survey: 'Go to the survey',
@@ -55,18 +55,18 @@ let localizations_en = {
     haka_error: 'Haka did not return required information. Please contact your study office'
   },
   opiskeluoikeus_errors: {
-    invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
-    invalid_type: 'Väärä tyyppi.',
-    invalid_date: 'Opiskeluoikeutesi ei ole voimassa.',
-    invalid_laajuus: 'Puuttellinen tieto opintorekisterissä.',
-    not_active: 'Opiskeluoikeutesi ei ole aktiivinen',
-    not_enough_opintosuoritus: 'Sinulla ei ole riittävästi opintopisteitä opintorekisterissä.',
-    no_kandi: 'Sinulla ole kandidaatin tutkinnon suoritusmerkintää opintorekisterissä.',
-    no_patevyys: 'Sinulla ei ole vaadittua pätevyysmerkintää opintorekisterissä',
-    header: 'Opiskeluoikeuksia ei löydy',
-    no_rights_contact_study_office: 'Tiedoillasi ei löytynyt yhtään opiskeluoikeutta. Ota yhteys opintotoimistoosi.',
-    some_rights_contact_study_office: 'Tiedoillasi löytyi %(rights_count)s opiskeluoikeutta, mutta tiedot eivät riitä palautteen antamiseen. Ota yhteys opintotoimistoosi.',
-    additional_invalid_rights: 'Lisäksi löytyi %(rights_count)s oikeutta, mutta tiedot eivät riitä palautteen antamiseen.'
+    invalid_organization: 'Your right to study does not correspond to the HAKA home organisation.',
+    invalid_type: 'Wrong type of degree.',
+    invalid_date: 'Your right to study is not valid.',
+    invalid_laajuus: 'Insufficient information in the student registration system.',
+    not_active: 'Your right to study is not active.',
+    not_enough_opintosuoritus: 'You do not have enough study points recorded in the student registration system.',
+    no_kandi: 'You do not have a bachelor degree recorded in the student registration system.',
+    no_patevyys: 'You do not have requiered qualification recorded in the student registration system.',
+    header: 'No rights to study found.',
+    no_rights_contact_study_office: 'No rights to study found with your logging information. Please contact your study office for further information.',
+    some_rights_contact_study_office: ' %(rights_count)s rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information',
+    additional_invalid_rights: 'In addition, %(rights_count)rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information'
   }
 };
 
