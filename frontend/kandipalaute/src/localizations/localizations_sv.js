@@ -38,7 +38,7 @@ let localizations_sv = {
     education: 'Utbildning',
     school: 'Yrkeshögskola',
     municipality: 'Kommun',
-    startYear: 'Tutkinnon aloitusvuosi',
+    startYear: 'Inledningsdatum för studierna',
     language: 'Språket för examen',
     form_of_education: 'Undervisningsform',
     reminder: 'Var god och kontrollera att uppgifterna om din utbildning är korrekta. Genom att gå vidare till enkäten godkänner du att uppgifterna används som bakgrundsinformation för enkäten.',
