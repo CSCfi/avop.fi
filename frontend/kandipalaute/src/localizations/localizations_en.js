@@ -1,18 +1,18 @@
 let localizations_en = {
   header: {
-    logotext: 'The Finnish Bachelor´s Graduate Survey'
+    logotext: 'The Finnish Bachelor’s Graduate Survey'
   },
   content: {
     kysely: {
       information: 'About the questionnaire',
-      about1: 'Kandipalaute - The Finnish Bachelor´s Graduate Survey is a national student feedback survey that examines students´ satisfaction with their university and studying experience. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire (except Police University College).',
+      about1: 'Kandipalaute - The Finnish Bachelor’s Graduate Survey is a national student feedback survey that examines students’ satisfaction with their university and studying experience. The survey is founded on HowULearn-questionnaire that was developed by the University of Helsinki based on prior research on academic teaching and learning. The findings are used by institutions to improve education and learning and nationally to inform performance-based monitoring and guidance. All graduating Bachelor degree students or students with corresponding studies from universities are requested to fill out the questionnaire.',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are completely anonymous.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
       privacy: 'More information in privacy policy.'
     },
     login: {
-      header: 'UAS student',
-      description: 'Please sign in to the survey by using your own university credentials:'
+      header: 'University student',
+      description: 'Please sign in to the survey by using your university credentials:'
     },
     tulokset: {
       header: 'The results',
