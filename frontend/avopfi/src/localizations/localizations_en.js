@@ -6,7 +6,7 @@ let localizations_en = {
     kysely: {
       information: 'About the questionnaire',
       about1: 'AVOP - Graduand feedback questionnaire asks graduating students to evaluate and provide feedback on their education. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire (except Police University College).',
-      about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are completely anonymous.',
+      about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are handled anonymously.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
       privacy: 'More information in privacy policy.'
     },
@@ -51,20 +51,20 @@ let localizations_en = {
   },
   errors: {
     title: 'Error',
-    general_error: 'The application has encountered an unspecified error. Please contact arvo@postit.csc.fi',
-    haka_error: 'Haka did not return required information. Please contact your study office'
+    general_error: 'The application has encountered an unspecified error. Please contact arvo@postit.csc.fi.',
+    haka_error: 'Haka did not return required information. Please contact your study office.'
   },
   opiskeluoikeus_errors: {
-    invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
-    invalid_type: 'Väärä tyyppi.',
-    invalid_date: 'Opiskeluoikeutesi ei ole voimassa.',
-    invalid_laajuus: 'Puuttellinen tieto opintorekisterissä.',
-    not_enough_opintosuoritus: 'Sinulla ei ole tarvittavia suoritusmerkintöjä opintorekisterissä.',
+    invalid_organization: 'Your right to study does not correspond to the HAKA home organisation.',
+    invalid_type: 'Wrong type of degree.',
+    invalid_date: 'Your right to study is not valid.',
+    invalid_laajuus: 'Insufficient information in the student registration system.',
+    not_enough_opintosuoritus: 'You do not have enough study points recorded in the student registration system.',
     no_kandi: 'Sinulla ole kandidaatin tutkinnon suoritusmerkintää opintorekisterissä.',
-    header: 'Opiskeluoikeuksia ei löydy',
-    no_rights_contact_study_office: 'Tiedoillasi ei löytynyt yhtään opiskeluoikeutta. Ota yhteys opintotoimistoosi.',
-    some_rights_contact_study_office: 'Tiedoillasi löytyi %(rights_count)s opiskeluoikeutta, mutta tiedot eivät riitä palautteen antamiseen. Ota yhteys opintotoimistoosi.',
-    additional_invalid_rights: 'Lisäksi löytyi %(rights_count)s oikeutta, mutta tiedot eivät riitä palautteen antamiseen.'
+    header: 'No rights to study found.',
+    no_rights_contact_study_office: 'No rights to study found with your logging information. Please contact your study office for further information.',
+    some_rights_contact_study_office: ' %(rights_count)s rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information.',
+    additional_invalid_rights: 'In addition, %(rights_count)rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information.'
   }
 };
 
