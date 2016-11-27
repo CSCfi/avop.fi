@@ -6,8 +6,8 @@ let localizations_en = {
     kysely: {
       information: 'About the questionnaire',
       about1: 'Kandipalaute - The Finnish Bachelor’s Graduate Survey is a national student feedback survey that examines students’ satisfaction with their university and studying experience. The survey is founded on HowULearn-questionnaire that was developed by the University of Helsinki based on prior research on academic teaching and learning. The findings are used by institutions to improve education and learning and nationally to inform performance-based monitoring and guidance. All graduating Bachelor degree students or students with corresponding studies from universities are requested to fill out the questionnaire.',
-      about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are completely anonymous.',
-      about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
+      about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the questionnaire and all answers are handled confidentially and anonymized.',
+      about3: 'The responsibility for development and implementation of the questionnaire lies with Universities Finland Unifi.',
       privacy: 'More information in privacy policy.'
     },
     login: {
@@ -41,7 +41,7 @@ let localizations_en = {
     language: 'Language of learning',
     startYear: 'Start date of the right to study',
     form_of_education: 'Mode of education',
-    reminder: 'Please confirm the education information is correct. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
+    reminder: 'Please confirm the education information is correct. In case of errors, please contact your study office. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
     survey: 'Go to the survey',
     type: {
       day: 'Daytime studies',
@@ -66,7 +66,7 @@ let localizations_en = {
     header: 'No rights to study found.',
     no_rights_contact_study_office: 'No rights to study found with your logging information. Please contact your study office for further information.',
     some_rights_contact_study_office: ' %(rights_count)s rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information',
-    additional_invalid_rights: 'In addition, %(rights_count)rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information'
+    additional_invalid_rights: 'In addition, %(rights_count) rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information'
   }
 };
 
