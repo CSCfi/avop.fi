@@ -41,7 +41,7 @@ let localizations_sv = {
     startYear: 'Inledningsdatum för studierna',
     language: 'Språket för examen',
     form_of_education: 'Undervisningsform',
-    reminder: 'Var god och kontrollera att uppgifterna om din utbildning är korrekta. Genom att gå vidare till enkäten godkänner du att uppgifterna används som bakgrundsinformation för enkäten.',
+    reminder: 'Var god och kontrollera att uppgifterna om din utbildning är korrekta. Om det finns brister eller fel i dina uppgifter, kontakta din studiebyrå. Genom att gå vidare till enkäten godkänner du att uppgifterna används som bakgrundsinformation för enkäten.',
     survey: 'Gå till enkäten',
     type: {
       day: 'Dagundervisning',
