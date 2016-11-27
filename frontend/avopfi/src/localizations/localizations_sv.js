@@ -34,8 +34,8 @@ let localizations_sv = {
   },
   profiledata: {
     header: 'Bakgrundsinformation till enkäten',
-    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och undervisningsform. Personuppgifter förmedlas inte vidare till enkäten.',
-    about_yamk: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun och språket för examen. Personuppgifter förmedlas inte vidare till enkäten.',
+    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och undervisningsform. Personuppgifter förmedlas inte vidare till enkäten och alla svar behandlas anonymt.',
+    about_yamk: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun och språket för examen. Personuppgifter förmedlas inte vidare till enkäten och alla svar behandlas anonymt.',
     education: 'Examensbenämning',
     school: 'Yrkeshögskola',
     municipality: 'Kommun',
@@ -52,19 +52,19 @@ let localizations_sv = {
   errors: {
     title: 'Ett fel',
     general_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
-    haka_error: 'Haka did not return required information. Contact your study office'
+    haka_error: 'HAKA returnerade inte behövlig information. Kontakta din studiebyrå.'
   },
   opiskeluoikeus_errors: {
-    invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
-    invalid_type: 'Väärä tyyppi.',
-    invalid_date: 'Opiskeluoikeutesi ei ole voimassa.',
-    invalid_laajuus: 'Puuttellinen tieto opintorekisterissä.',
-    not_enough_opintosuoritus: 'Sinulla ei ole tarvittavia suoritusmerkintöjä opintorekisterissä.',
-    no_kandi: 'Sinulla ole kandidaatin tutkinnon suoritusmerkintää opintorekisterissä.',
-    header: 'Opiskeluoikeuksia ei löydy',
-    no_rights_contact_study_office: 'Tiedoillasi ei löytynyt yhtään opiskeluoikeutta. Ota yhteys opintotoimistoosi.',
-    some_rights_contact_study_office: 'Tiedoillasi löytyi %(rights_count)s opiskeluoikeutta, mutta tiedot eivät riitä palautteen antamiseen. Ota yhteys opintotoimistoosi.',
-    additional_invalid_rights: 'Lisäksi löytyi %(rights_count)s oikeutta, mutta tiedot eivät riitä palautteen antamiseen.'
+    invalid_organization: 'Din studierätt tillhör inte den högskola som din HAKA-inloggning ger till känna.',
+    invalid_type: 'Fel typ.',
+    invalid_date: 'Din studierätt är inte i kraft.',
+    invalid_laajuus: 'Bristfällig uppgift i studieregistret.',
+    not_enough_opintosuoritus: 'Du har inte tillräckligt med studiepoäng i studieregistret.',
+    no_kandi: 'Du saknar registrering om avlagd kandidatexamen i studieregistret.',
+    header: 'Ingen studierätt hittades.',
+    no_rights_contact_study_office: 'Med dina uppgifter hittades ingen studierätt. Kontakta din studiebyrå.',
+    some_rights_contact_study_office: 'Med dina uppgifter hittades %(rights_count)s studierätter, men uppgifterna räcker inte till för ge respons. Kontakta din studiebyrå.',
+    additional_invalid_rights: 'Dessutom hittades %(rights_count)s studierätter, men informationen räcker inte till för att kunna ge respons.'
   }
 };
 
