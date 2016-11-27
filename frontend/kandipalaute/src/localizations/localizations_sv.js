@@ -4,26 +4,26 @@ let localizations_sv = {
   },
   content: {
     kysely: {
-      information: 'Enkäten i korthet',
-      about1: 'AVOP - Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna är ett utvärderingssystem som ger studenten möjlighet att utvärdera och ge respons på sin utbildning. Utvärderingsresultaten används lokalt vid högskolorna med syfte att förbättra de egna processerna och att prägla uppföljningen och finansieringen av den nationella utbildningen. Alla utexaminerade yrkesehögskolestuderanden ombeds fylla i enkäten (förutom Polishögskolan).',
-      about2: 'Med hjälp av HAKA-identifieringen hämtas personens uppgifter gällande studierätten från VIRTA-datalager som bakgrundsinformation för att kunna skapa AVOP svarskoden och möjliggöra givande av respons elektroniskt. Uppgifter som skulle identifiera personen skickas inte vidare till AVOP-enkäten utan förfrågan är helt anonym.',
-      about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.',
-      privacy: 'Mer information.'
+      information: 'Om enkäten',
+      about1: 'Kandidatrespons är universitetens riksomfattande undersökning, som utvärderar erfarenheter av hur studierna förlöpt och hur nöjd studerande är med sitt universitet. Enkäten grundar sig på vetenskaplig forskning om inlärning, studier och undervisning som hör till HowULearn-enkäten som utvecklas av Helsingfors universitet. Undersökningens resultat utnyttjas till att utveckla utbildningen och nationellt i styrning av universiteten. Enkäten besvaras av de universitetsstuderande som har avlagt en lägre högskoleexamen eller motsvarande.',
+      about2: 'Med hjälp av studerandes HAKA-inloggning hittas personens information om studierätt från nationella VIRTA-studieregistret. Uppgifterna används som bakgrundsinformation för att skapa svarsidentifiering och gör de möjligt att ge respons i elektronisk form. Information som möjliggör personlig identifiering överförs inte vidare till själva Kandidatrespons-enkäten, utan materialet behandlas anonymt.',
+      about3: 'Kandidatrespons-enkäten koordineras och utvecklas av Finlands universitet UNIFI rf.',
+      privacy: 'Utförligare information i registerbeskrivningen.'
     },
     login: {
-      header: 'Yrkeshögskolestuderande',
-      description: 'Använd din personliga HAKA-kod för att logga in på enkäten:'
+      header: 'Studerande vid universitet',
+      description: 'Svara på enkäten genom att logga in med ditt eget universitets användarnamn och lösenord:'
     },
     tulokset: {
-      header: 'Enkätens resultat',
-      results1: 'Personalen vid yrkeshögskolorna kommer åt enkätens resultat i realtid via Arvo-tjänsten.',
-      results2: 'Statistiken som stått som bakgrund för enkätresultaten är fritt tillgängliga via utbildningsförvaltningens statistiktjänst Vipunen:'
+      header: 'Undersökningsresultaten',
+      results1: 'Universitetets personal kan följa med enkätens resultat i realtid via utbildningsförvaltningens tjänst ”Arvo”. Ansökan om läsrättigheter (Arvo-katselija) kan anhållas via Opintopolku (virkailijan työpöytä, omat tiedot).',
+      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via utbildningsförvaltningens statistiktjänst Vipunen.'
     }
   },
   footer: {
     header: 'I samarbete med:',
     arene: {
-      description: 'Rådet för yrkeshögskolornas rektorer, Arene'
+      description: 'Finlands universitet UNIFI rf'
     },
       okm: {
       description: 'Undervisnings- och kulturministeriet'
@@ -34,7 +34,7 @@ let localizations_sv = {
   },
   profiledata: {
     header: 'Bakgrundsinformation till enkäten',
-    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun och språket för examen. Personuppgifter förmedlas inte vidare till enkäten.',
+    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och inledningsdatum för studierna. Personuppgifter förmedlas inte vidare till enkäten och alla svar behandlas anonymt.',
     education: 'Utbildning',
     school: 'Yrkeshögskola',
     municipality: 'Kommun',
@@ -52,21 +52,21 @@ let localizations_sv = {
   errors: {
     title: 'Ett fel',
     general_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
-    haka_error: 'Haka did not return required information. Contact your study office'
+    haka_error: 'HAKA returnerade inte behövlig information. Kontakta din studiebyrå.'
   },
   opiskeluoikeus_errors: {
-    invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
-    invalid_type: 'Väärä tyyppi.',
-    invalid_date: 'Opiskeluoikeutesi ei ole voimassa.',
-    invalid_laajuus: 'Puuttellinen tieto opintorekisterissä.',
-    not_active: 'Opiskeluoikeutesi ei ole aktiivinen',
-    not_enough_opintosuoritus: 'Sinulla ei ole riittävästi opintopisteitä opintorekisterissä.',
-    no_kandi: 'Sinulla ole kandidaatin tutkinnon suoritusmerkintää opintorekisterissä.',
-    no_patevyys: 'Sinulla ei ole vaadittua pätevyysmerkintää opintorekisterissä',
-    header: 'Opiskeluoikeuksia ei löydy',
-    no_rights_contact_study_office: 'Tiedoillasi ei löytynyt yhtään opiskeluoikeutta. Ota yhteys opintotoimistoosi.',
-    some_rights_contact_study_office: 'Tiedoillasi löytyi %(rights_count)s opiskeluoikeutta, mutta tiedot eivät riitä palautteen antamiseen. Ota yhteys opintotoimistoosi.',
-    additional_invalid_rights: 'Lisäksi löytyi %(rights_count)s oikeutta, mutta tiedot eivät riitä palautteen antamiseen.'
+    invalid_organization: 'Din studierätt tillhör inte den högskola som din HAKA-inloggning ger till känna.',
+    invalid_type: 'Fel typ.',
+    invalid_date: 'Din studierätt är inte i kraft.',
+    invalid_laajuus: 'Bristfällig uppgift i studieregistret.',
+    not_active: 'Din studierätt är inte aktiv.',
+    not_enough_opintosuoritus: 'Du har inte tillräckligt med studiepoäng i studieregistret.',
+    no_kandi: 'Du saknar registrering om avlagd kandidatexamen i studieregistret.',
+    no_patevyys: 'Du saknar behövlig behörighetsanteckning i studieregistret.',
+    header: 'Ingen studierätt hittades.',
+    no_rights_contact_study_office: 'Med dina uppgifter hittades ingen studierätt. Kontakta din studiebyrå.',
+    some_rights_contact_study_office: 'Med dina uppgifter hittades %(rights_count)st studierätter, men uppgifterna räcker inte till för ge respons. Kontakta din studiebyrå.',
+    additional_invalid_rights: 'Dessutom hittades %(rights_count)st studierätter, men informationen räcker inte till för att kunna ge respons.'
   }
 };
 
