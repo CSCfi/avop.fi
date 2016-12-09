@@ -34,7 +34,7 @@ let localizations_sv = {
   },
   profiledata: {
     header: 'Bakgrundsinformation till enkäten',
-    about: 'Som bakgrundinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och inledningsdatum för studierna. Personuppgifter förmedlas inte vidare till enkäten och alla svar behandlas anonymt.',
+    about: 'Som bakgrundsinformation för enkäten används följande uppgifter: utbildning, yrkeshögskola, yrkeshögskolans kommun, språket för examen och inledningsdatum för studierna. Personuppgifter förmedlas inte vidare till enkäten och alla svar behandlas anonymt.',
     education: 'Utbildning',
     school: 'Yrkeshögskola',
     municipality: 'Kommun',
