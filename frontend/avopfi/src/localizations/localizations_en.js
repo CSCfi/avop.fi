@@ -23,13 +23,13 @@ let localizations_en = {
   footer: {
     header: 'In cooperation:',
     arene: {
-      description: 'Rectors´Conference of Finnish Universities of Applied Sciences, Arene'
+      description: 'Rectors’ Conference of Finnish Universities of Applied Sciences, Arene'
     },
     okm: {
       description: 'Ministry of Education and Culture'
     },
     csc: {
-      description: 'Arvo - Education information management service'
+      description: 'Arvo - Education management information service'
     }
   },
   profiledata: {
