@@ -39,6 +39,7 @@ let localizations_en = {
     education: 'Degree title',
     school: 'University of applied sciences',
     municipality: 'Municipality',
+    startYear: 'Start date of the right to study',
     language: 'Language of learning',
     form_of_education: 'Mode of education',
     reminder: 'Please confirm the education information is correct. Once you move to the feedback questionnaire, you accept that the information is used as background information.',
