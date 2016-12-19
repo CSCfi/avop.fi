@@ -59,3 +59,13 @@
     ServerName {{ apache.server_name }}
     Redirect / https://{{ apache.server_name }}/
 </VirtualHost>
+
+# Redirect www to ...
+<VirtualHost *:80>
+    ServerName www.{{ apache.server_name }}
+    Redirect / https://{{ apache.server_name }}/
+</VirtualHost>
+<VirtualHost *:443>
+    ServerName www.{{ apache.server_name }}
+    Redirect / https://{{ apache.server_name }}/
+</VirtualHost>
