@@ -34,8 +34,8 @@ let localizations_fi = {
   },
   profiledata: {
     header: 'Palautekyselyn taustatiedot',
-    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli ja koulutusmuoto. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
-    about_yamk: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon suorituskieli. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
+    about: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon aloitusvuosi, tutkinnon suorituskieli ja koulutusmuoto. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
+    about_yamk: 'Palautekyselyyn välitetään taustatiedoiksi koulutus, ammattikorkeakoulu, koulutuksen kunta, tutkinnon aloitusvuosi, tutkinnon suorituskieli. Henkilöön liittyviä tietoja ei välitetä palautekyselylle.',
     education: 'Tutkintonimike',
     school: 'Ammattikorkeakoulu',
     municipality: 'Kunta',
