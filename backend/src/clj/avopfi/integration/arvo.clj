@@ -9,7 +9,7 @@
     [clj-http.client :as client]
     [avopfi.util :refer [in?]]
     [clojure.core.match :refer :all]
-    [avopfi.validator :as validator :refer [lisensiaatti? jakso-active?]]))
+    [avopfi.validator :refer [lisensiaatti? jakso-active?]]))
 
 
 (defn sisaltyy-koodeihin [koodit koulutuskoodit]
@@ -33,7 +33,9 @@
                             (vaatimukset {:tyypit [amk-alempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-AMK"
                             (vaatimukset {:tyypit [amk-ylempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-YAMK"
                             (vaatimukset {:tyypit [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]} tyyppi koodit) "AUTOMAATTI KANDI")]
-    (str kyselykerran-nimi " " vuosi)))
+    (if (nil? kyselykerran-nimi)
+      nil
+      (str kyselykerran-nimi " " vuosi))))
 
 (defn clean-opiskeluoikeus-data [opiskeluoikeus]
   {

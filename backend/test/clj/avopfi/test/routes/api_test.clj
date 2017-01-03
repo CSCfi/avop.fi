@@ -10,6 +10,8 @@
             [avopfi.integration.virta :as virta]
             [avopfi.db.migrations :as migrations]))
 
+;TODO: unit tests for generating kyselykerran-nimi etc.
+
 ;(deftest opiskeluoikeudet-mapping
 ;  (testing "Converts raw opiskeluoikeus data to proper JSON structure"
 ;    (with-redefs [has-organization? (fn [x y] (= "yliopisto.fi" x))
@@ -29,7 +31,7 @@
 ;      ;;does not hit Arvo nor db atm
 ;      [
 ;       arvo/generate-questionnaire-credentials! (constantly "FOO")
-;       db/get-visitor-by-srid (constantly nil)
+;       db/get-visitor (constantly nil)
 ;       db/create-visitor! (constantly nil)]
 ;
 ;      (let [attribs {:body-params {:opiskeluoikeus_id "avopOa1" :kieli "fi"}}]

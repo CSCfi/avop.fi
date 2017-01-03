@@ -30,14 +30,11 @@
 
 
 
-
-
-
 (def amk-opiskeluoikeus {:avain "FOO"
                          :myontaja "10065"
                          :laajuus {:opintopiste 235}
                          :jakso [{:luokittelu ["3"]}]
-
+                         :alkuPvm {:year 2010 :month 5 :day 1}
                          :tyyppi "1"
                          :tila [{:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}]})
 
@@ -52,9 +49,9 @@
                            :tyyppi "2"
                            :tila [{:koodi "1" :alkuPvm {:year 2010 :month 5 :day 1}}]})
 
-(def kandi-ll-opiskeluoikeus (assoc-in kandi-opiskeluoikeus [:jakso] [{:alkuPvm {:year 2010 :month 5 :day 1}}
-                                                                      :luokittelu ["3"]
-                                                                      :koulutuskoodi "772101"]))
+(def kandi-ll-opiskeluoikeus (assoc-in kandi-opiskeluoikeus [:jakso] [{:alkuPvm {:year 2010 :month 5 :day 1}
+                                                                       :luokittelu ["3"]
+                                                                       :koulutuskoodi "772101"}]))
 (def kandi-ll-opiskeluoikeus-fixture [kandi-ll-opiskeluoikeus])
 
 (def amk-opiskeluoikeus-fixture [amk-opiskeluoikeus])

@@ -45,14 +45,19 @@
     (map #(opiskeluoikeus->ui-map (:messages %) (:oikeus %)) oikeudet)))
 
 
+(defn get-oppilaitos-code-by-domain [domain]
+  (let [mapping (db/get-mapping-by-domain {:domain domain})]
+    (:code mapping)))
+
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
-  (let [virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
-        virta-suoritukset
-          (virta/get-virta-suoritukset shibbo-vals)
-        validated-oikeudet
-          (->> (validate virta-oikeudet virta-suoritukset (shibbo-vals "home-organization") tyyppi))
+  (let [home-organization (shibbo-vals "home-organization")
+        oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
+        virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
+        virta-suoritukset (virta/get-virta-suoritukset shibbo-vals)
+        validated-oikeudet (->> (validate virta-oikeudet virta-suoritukset oppilaitos-id tyyppi))
         oikeudet {:valid (to-ui :valid validated-oikeudet)
-                  :invalid (to-ui :invalid validated-oikeudet)}]
+                  :invalid (to-ui :invalid validated-oikeudet)
+                  :oppilaitos_id oppilaitos-id}]
     oikeudet))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
@@ -65,11 +70,12 @@
 
 (defn process-registration [{params :body-params session :session}]
   (let [current-srid (:opiskeluoikeus_id params)
+        oppilaitos (:oppilaitos_id params)
         kieli (:kieli params)
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
         opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]
     (if opiskeluoikeus
-      (let [res (db/get-visitor-by-srid {:opiskeluoikeus_id current-srid})]
+      (let [res (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos})]
         (if (nil? res)
           (let [arvo-hash
                 (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]

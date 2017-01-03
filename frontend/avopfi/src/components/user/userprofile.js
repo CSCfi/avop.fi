@@ -44,13 +44,14 @@ export default class Userprofile extends React.Component {
           }
         })
         .then(study_rights => {
-          var valid_rights = study_rights['valid'];
-          var invalid_rights = study_rights['invalid'];
+          const valid_rights = study_rights['valid'];
+          const invalid_rights = study_rights['invalid'];
+          const oppilaitos = study_rights['oppilaitos_id'];
 
           if (hasStorage) {
             sessionStorage.setItem(key, JSON.stringify({valid_rights, invalid_rights, timestamp: new Date()}))
           }
-          cb(null, {valid_rights, invalid_rights})
+          cb(null, {valid_rights, invalid_rights, oppilaitos})
         })
         .catch(e => {
           if(e.message === '403'){
@@ -74,6 +75,7 @@ export default class Userprofile extends React.Component {
     event.preventDefault();
     let data = {
       opiskeluoikeus_id: this.state.selectedStudyRight.id,
+      oppilaitos_id: this.props.oppilaitos,
       kieli: this.props.params.lang
     };
     fetch('/api/rekisteroidy', {

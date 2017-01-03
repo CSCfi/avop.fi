@@ -1,7 +1,6 @@
 (ns avopfi.validator
   (:require [avopfi.util :refer :all]
             [avopfi.consts :refer :all]
-            [avopfi.db.core :as db]
             [clojure.core.match :refer :all]
             [clojure.tools.logging :as log]))
 
@@ -20,10 +19,6 @@
 (defn vals->pct [f s]
   (int (* (/ f s) 100)))
 
-(defn get-oppilaitos-code-by-domain [domain]
-  (let [mapping (db/get-mapping-by-domain {:domain domain})]
-    (:code mapping)))
-
 (defn has-type? [types opiskeluoikeus]
   (if (in? types (:tyyppi opiskeluoikeus))
     valid
@@ -34,12 +29,10 @@
     valid
     (invalid :invalid-laajuus)))
 
-(defn has-organization? [home-organization {org-koodi :myontaja}]
-  (let
-    [code (get-oppilaitos-code-by-domain home-organization)]
-    (if (= code org-koodi)
-      valid
-      (invalid :invalid-organization))))
+(defn has-organization? [oppilaitos {org-koodi :myontaja}]
+  (if (= oppilaitos org-koodi)
+    valid
+    (invalid :invalid-organization)))
 
 (defn tila-active? [tila]
   (let [active (= "1" (:koodi tila))
@@ -168,9 +161,9 @@
       valid
       (invalid :no-kandi))))
 
-(defn amk-vaatimukset [virta-suoritukset home-org]
+(defn amk-vaatimukset [virta-suoritukset oppilaitos]
   (juxt (partial has-type? [amk-alempi-tyyppi amk-ylempi-tyyppi])
-        (partial has-organization? home-org)
+        (partial has-organization? oppilaitos)
         date-valid?
         laajuus-valid?
         (partial has-enough-opintosuoritus? virta-suoritukset)))
@@ -194,27 +187,27 @@
     valid
     (invalid :not-lisensiaatti)))
 
-(defn valvira-vaatimukset [virta-suoritukset home-org]
+(defn valvira-vaatimukset [virta-suoritukset oppilaitos]
   (partial all-of [(partial is-lisensiaatti?)
                    (partial has-type? [ylempi-korkeakoulututkinto])
-                   (partial has-organization? home-org)
+                   (partial has-organization? oppilaitos)
                    is-active?
                    (partial has-patevyys? virta-suoritukset)]))
 
 
-(defn kandipalaute-vaatimukset [virta-suoritukset home-organization]
+(defn kandipalaute-vaatimukset [virta-suoritukset oppilaitos]
   (partial one-of [(partial has-kandi virta-suoritukset)
                    (has-kandi-suoritukset virta-suoritukset)
-                   (valvira-vaatimukset virta-suoritukset home-organization)]))
+                   (valvira-vaatimukset virta-suoritukset oppilaitos)]))
 
 (defn common-vaatimukset [opiskeluoikeus]
   (jakso-valid? opiskeluoikeus))
 
 
-(defn vaatimukset [tyyppi virta-suoritukset home-organization]
+(defn vaatimukset [tyyppi virta-suoritukset oppilaitos]
   (let [tyyppi-vaatimukset (match [tyyppi]
-                            [:avop] (amk-vaatimukset virta-suoritukset home-organization)
-                            [:kandi] (kandipalaute-vaatimukset virta-suoritukset home-organization))]
+                            [:avop] (amk-vaatimukset virta-suoritukset oppilaitos)
+                            [:kandi] (kandipalaute-vaatimukset virta-suoritukset oppilaitos))]
     (partial all-of [common-vaatimukset
                      tyyppi-vaatimukset])))
 
@@ -250,10 +243,10 @@
     (update-in grouped [:invalid] #(map filter-messages %))
     grouped))
 
-(defn validate [virta-oikeudet virta-suoritukset home-organization tyyppi]
+(defn validate [virta-oikeudet virta-suoritukset oppilaitos tyyppi]
   (let [oikeudet (filter #(in? (oo-tyypit tyyppi) (:tyyppi % ))virta-oikeudet)
         process (fn [oikeus]
-                  (let [vaatimukset (vaatimukset tyyppi virta-suoritukset home-organization)]
+                  (let [vaatimukset (vaatimukset tyyppi virta-suoritukset oppilaitos)]
                     (->> (vaatimukset oikeus)
                       (flatten)
                       (reduce merge-results {:status :valid :messages []})
