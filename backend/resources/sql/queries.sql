@@ -4,7 +4,7 @@ INSERT INTO visitors
 (vastaajatunnus, taustatiedot, login_time)
 VALUES (:vastaajatunnus, :taustatiedot, now());
 
--- :name get-visitor :? :2
+-- :name get-visitor :? :1
 -- :doc retrieve visitor for certan study right id
 SELECT * FROM visitors
 WHERE taustatiedot ->>'opiskeluoikeus' = :opiskeluoikeus_id
