@@ -87,45 +87,45 @@
       (doto (HakuEhdotOrganisaatioVapaa.)
         set-id-query))))
 
-(defn get-opintosuoritukset!
-  [set-id-query]
+(defn get-opintosuoritukset! [set-id-query]
   (let [service (get-ws-service)
         request (build-ws-request-from (OpintosuorituksetRequest.) set-id-query)]
     (extract-opintosuoritukset-data (.opintosuoritukset service request))))
 
-(defn get-opiskeluoikeudet!
-  [set-id-query]
+(defn get-opiskeluoikeudet! [set-id-query]
   (let [service (get-ws-service)
-            request (build-ws-request-from (OpiskeluoikeudetRequest.) set-id-query)]
+        request (build-ws-request-from (OpiskeluoikeudetRequest.) set-id-query)]
     (extract-opiskeluoikeus-data (.opiskeluoikeudet service request))))
 
-(defn get-from-virta-by-pid [person-id virta-fetcher]
+(defn get-from-virta-by-pid [person-id virta-fetcher oppilaitos]
   (log/info "Haetaan Virrasta henkilötunnuksella")
-  (virta-fetcher #(.setHenkilotunnus % (trim person-id))))
+  (virta-fetcher #(do (.setHenkilotunnus % (trim person-id))
+                      (.setOrganisaatio % oppilaitos))))
 
-(defn get-from-virta-by-oid [oid virta-fetcher]
+(defn get-from-virta-by-oid [oid virta-fetcher oppilaitos]
   (log/info "Haetaan Virrasta oppijanumerolla")
-  (virta-fetcher #(.setKansallinenOppijanumero % oid)))
+  (virta-fetcher #(do (.setKansallinenOppijanumero % oid)
+                      (.setOrganisaatio % oppilaitos))))
 
-(defn get-from-virta-with [virta-fetcher user-data]
+(defn get-from-virta-with [virta-fetcher oppilaitos user-data]
   (match [user-data]
          [{"learner-id" lid}]
-         (get-from-virta-by-oid lid virta-fetcher)
+         (get-from-virta-by-oid lid virta-fetcher oppilaitos)
          [{"national-identification-number" nin}]
-         (get-from-virta-by-pid nin virta-fetcher)
+         (get-from-virta-by-pid nin virta-fetcher oppilaitos)
          [{"unique-id" uid}]
-         (get-from-virta-by-pid (extract-hetu-from-shibbo uid) virta-fetcher)
+         (get-from-virta-by-pid (extract-hetu-from-shibbo uid) virta-fetcher oppilaitos)
          :else nil))
 
 
-(defn get-from-virta-with-retry [virta-fetcher user-data]
-  (retry (partial get-from-virta-with virta-fetcher)
+(defn get-from-virta-with-retry [virta-fetcher user-data oppilaitos]
+  (retry (partial get-from-virta-with virta-fetcher oppilaitos)
          seq
          (map #(select-keys user-data [%]) ["learner-id"
                                             "national-identification-number"
                                             "unique-id"])))
-(defn get-virta-suoritukset [user-data]
-  (get-from-virta-with-retry get-opintosuoritukset! user-data))
+(defn get-virta-suoritukset [user-data oppilaitos]
+  (get-from-virta-with-retry get-opintosuoritukset! user-data oppilaitos))
 
-(defn get-virta-opiskeluoikeudet [user-data]
-  (get-from-virta-with-retry get-opiskeluoikeudet! user-data))
+(defn get-virta-opiskeluoikeudet [user-data oppilaitos]
+  (get-from-virta-with-retry get-opiskeluoikeudet! user-data oppilaitos))

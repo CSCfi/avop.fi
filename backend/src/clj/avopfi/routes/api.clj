@@ -52,8 +52,8 @@
 (defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
   (let [home-organization (shibbo-vals "home-organization")
         oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
-        virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals)
-        virta-suoritukset (virta/get-virta-suoritukset shibbo-vals)
+        virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
+        virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)
         validated-oikeudet (->> (validate virta-oikeudet virta-suoritukset oppilaitos-id tyyppi))
         oikeudet {:valid (to-ui :valid validated-oikeudet)
                   :invalid (to-ui :invalid validated-oikeudet)
