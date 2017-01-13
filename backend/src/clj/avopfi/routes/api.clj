@@ -80,7 +80,11 @@
           (let [arvo-hash
                 (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]
             (db/create-visitor! {:taustatiedot {:opiskeluoikeus current-srid
-                                                :oppilaitos (-> opiskeluoikeus :oppilaitos :id)}
+                                                :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
+                                                :kunta (-> opiskeluoikeus :kunta :id)
+                                                :aloitusvuosi (-> opiskeluoikeus :aloitusvuosi)
+                                                :kieli (-> opiskeluoikeus :kieli)
+                                                :koulutus (-> opiskeluoikeus :koulutus :id)}
                                  :vastaajatunnus arvo-hash})
             (ok {:kysely_url (str
                               (:arvo-answer-url env) arvo-hash "/" kieli)}))
