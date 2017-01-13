@@ -29,7 +29,7 @@
         oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
     {
      :id avain
-     :aloitusvuosi (:year alkuPvm)
+     :aloituspvm alkuPvm
      :kunta {:id kunta-id :nimi kunta}
      :kieli koulutuskieli
      :koulutus {:id koulutuskoodi :nimi koulutus}
@@ -82,7 +82,7 @@
             (db/create-visitor! {:taustatiedot {:opiskeluoikeus current-srid
                                                 :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
                                                 :kunta (-> opiskeluoikeus :kunta :id)
-                                                :aloitusvuosi (-> opiskeluoikeus :aloitusvuosi)
+                                                :aloituspvm (-> opiskeluoikeus :aloituspvm)
                                                 :kieli (-> opiskeluoikeus :kieli)
                                                 :koulutus (-> opiskeluoikeus :koulutus :id)}
                                  :vastaajatunnus arvo-hash})
