@@ -84,7 +84,8 @@
                                                 :kunta (-> opiskeluoikeus :kunta :id)
                                                 :aloituspvm (-> opiskeluoikeus :aloituspvm)
                                                 :kieli (-> opiskeluoikeus :kieli)
-                                                :koulutus (-> opiskeluoikeus :koulutus :id)}
+                                                :koulutus (-> opiskeluoikeus :koulutus :id)
+                                                :koulutusmuoto (-> opiskeluoikeus :koulutusmuoto)}
                                  :vastaajatunnus arvo-hash})
             (ok {:kysely_url (str
                               (:arvo-answer-url env) arvo-hash "/" kieli)}))
