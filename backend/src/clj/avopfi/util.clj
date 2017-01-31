@@ -36,6 +36,10 @@
       (.isAfter (local-date) (to-local-date date-map))
       (.isEqual (local-date) (to-local-date date-map)))))
 
+(defn after? [compared-date-map date-map]
+  (and (some? date-map)
+       (.isAfter (to-local-date compared-date-map)(to-local-date date-map))))
+
 (defn in? [coll elem]
   (some #(= elem %) coll))
 
