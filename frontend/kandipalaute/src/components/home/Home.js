@@ -29,20 +29,19 @@ export default class Content extends React.Component {
           <div className="container">
             <div className="row">
 
-              <div className="six columns">
+              {/*<div className="six columns">*/}
                 <div id="haka-login">
                   <Translate component="h4" content="content.login.header"/>
                   <Translate component="p" content="content.login.description"/>
                 </div>
+              {/*</div>*/}
+
+              <div id="haka" className="centered" onClick={this.login}>
+                <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
+                  <img src={hakaLoginImage} alt="haka-login"/>
+                </a>
               </div>
 
-              <div className="six-columns">
-                <div id="haka" className="u-pull-right" onClick={this.login}>
-                  <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
-                    <img src={hakaLoginImage} alt="haka-login"/>
-                  </a>
-                </div>
-              </div>
 
             </div>
           </div>
