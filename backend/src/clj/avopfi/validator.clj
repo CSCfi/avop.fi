@@ -151,11 +151,12 @@
                   (partial has-160op virta-suoritukset)
                   (partial has-enough-lukukausi)]))
 
-
 (defn has-kandi [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain}]
   (let [has-tutkinto (some #(and
                              (= (:opiskeluoikeusAvain %) oo-avain)
-                             (= (:laji %) opintosuoritus-tutkinto)) virta-suoritukset)
+                             (= (:laji %) opintosuoritus-tutkinto)
+                             (after? {:year 2016 :month 12 :day 1} (:suoritusPvm %))) 
+                           virta-suoritukset)
         is-kandi (= alempi-korkeakoulututkinto oo-tyyppi)]
     (if (and is-kandi has-tutkinto)
       valid
