@@ -155,7 +155,7 @@
   (let [has-tutkinto (some #(and
                              (= (:opiskeluoikeusAvain %) oo-avain)
                              (= (:laji %) opintosuoritus-tutkinto)
-                             (after? {:year 2016 :month 12 :day 1} (:suoritusPvm %))) 
+                             (after? {:year 2016 :month 11 :day 30} (:suoritusPvm %)))
                            virta-suoritukset)
         is-kandi (= alempi-korkeakoulututkinto oo-tyyppi)]
     (if (and is-kandi has-tutkinto)
