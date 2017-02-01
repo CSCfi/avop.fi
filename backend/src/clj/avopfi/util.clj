@@ -38,7 +38,7 @@
 
 (defn after? [compared-date-map date-map]
   (and (some? date-map)
-       (.isAfter (to-local-date compared-date-map)(to-local-date date-map))))
+       (.isAfter (to-local-date date-map) (to-local-date compared-date-map))))
 
 (defn in? [coll elem]
   (some #(= elem %) coll))
