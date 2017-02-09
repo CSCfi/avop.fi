@@ -13,7 +13,9 @@
             [ring.util.http-response :refer :all]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
-            [avopfi.validator :refer [validate]]))
+            [avopfi.validator :refer [validate]]
+            [clojure.walk :refer [stringify-keys]]
+            [avopfi.middleware :refer [wrap-basic-auth]]))
 
 (defn home-page []
   (layout/render
@@ -106,6 +108,11 @@
                    (assoc session :opiskeluoikeudet-data
                                   (:valid resp-data)))))))
 
+(defn get-visitors [request]
+  (let [visitors (db/get-visitors)]
+    (println "Fetched visitors" visitors)
+    (ok visitors)))
+
 (defroutes api-routes
   (context
       "/api" []
@@ -117,3 +124,8 @@
     (GET "/status" request
       (debug-status request)))
   (GET "/" [] (found "/api")))
+
+(defroutes vipunen-routes
+  (context "/api/vipunen" []
+    (GET "/" request
+      (get-visitors request))))

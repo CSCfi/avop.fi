@@ -1,7 +1,7 @@
 (ns avopfi.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [avopfi.layout :refer [error-page]]
-            [avopfi.routes.api :refer [api-routes]]
+            [avopfi.routes.api :refer [api-routes vipunen-routes]]
             [avopfi.routes.public :refer [public-routes]]
             [avopfi.middleware :as middleware]
             [avopfi.db.migrations :as migrations]
@@ -34,6 +34,7 @@
 (def app-routes
   (routes
     (wrap-routes #'api-routes middleware/wrap-restricted)
+    (wrap-routes #'vipunen-routes middleware/wrap-basic-auth)
     (wrap-routes #'public-routes middleware/wrap-restricted)
    (route/not-found
       (:body

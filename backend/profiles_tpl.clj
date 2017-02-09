@@ -8,6 +8,8 @@
    :arvo-api-url "http://avopsnap.csc.fi/api/public/luovastaajatunnus"
    :arvo-answer-url "http://avopvastaussnap.csc.fi/"
    :arvo-jwt-secret	"secret"
-   :database-url "jdbc:postgresql://192.168.99.100/avopfi?user=avopfi&password=avopfi"}}
+   :database-url "jdbc:postgresql://192.168.99.100/avopfi?user=avopfi&password=avopfi"
+	 :basic-auth-username "vipunen"
+	 :basic-auth-password "salasana"}}
  :profiles/test {:env {
  	:database-url "jdbc:postgresql://192.168.99.100/avopfi_test?user=avopfi&password=avopfi"}}}

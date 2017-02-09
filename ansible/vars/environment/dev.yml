@@ -14,3 +14,5 @@ arvo_api_url: "http://avopsnap.csc.fi/api/public/luovastaajatunnus"
 arvo_answer_url: "http://avopvastaussnap.csc.fi/#/vastaus/"
 arvo_jwt_secret: "secret"
 is_dev: true
+basic_auth_username: "username"
+basic_auth_password: "password"

@@ -11,8 +11,11 @@
             [buddy.auth.middleware :refer [wrap-authentication wrap-authorization]]
             [buddy.auth.backends.token :refer [token-backend]]
             [buddy.auth.accessrules :refer [restrict]]
-            [buddy.auth :refer [authenticated?]])
-  (:import [javax.servlet ServletContext]))
+            [buddy.auth :refer [authenticated?]]
+            [clojure.string :as str]
+            [config.core :refer [env]])
+  (:import [javax.servlet ServletContext]
+           [java.util Base64]))
 
 (def ^:const one-hour (* 60 60))
 
@@ -67,6 +70,32 @@
 (defn wrap-restricted [handler]
   (restrict handler {:handler authenticated?
                      :on-error on-403}))
+
+
+(defn hae-tunnus [request]
+  (when-let [auth-header (get-in request [:headers "authorization"])]
+    (let [decoder (Base64/getMimeDecoder)
+          [_ auth-encoded] (re-matches #"Basic ([A-z0-9+/=]*)" auth-header)]
+      (when-not (str/blank? auth-encoded)
+        (try
+          (->
+            (.decode decoder auth-encoded)
+            (String. "UTF-8")
+            (str/split #":"))
+          (catch IllegalArgumentException _))))))
+
+
+(defn wrap-basic-auth [handler]
+  (fn [request]
+    (let [username (env :basic-auth-username)
+          password (env :basic-auth-password)]
+      (if-not (and username password)
+        (throw (IllegalStateException. "Basic-autentikaation tunnusta ja salasanaa ei ole asetettu"))
+        (if (= (hae-tunnus request) [username password])
+          (handler request)
+          {:status 401
+           :headers {"www-authenticate" "Basic realm=\"restricted\""}})))))
+
 
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
