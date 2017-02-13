@@ -58,6 +58,7 @@
   (let [json-data (clean-opiskeluoikeus-data opiskeluoikeus-data)
         auth-header (str "Bearer " 
                          (jws/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
+    (log/info "Pyydetään vastaajatunnusta tiedoille: " json-data)
     (try+ 
      (let [resp (client/post
                  (:arvo-api-url env)
