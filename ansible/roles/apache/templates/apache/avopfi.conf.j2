@@ -52,6 +52,18 @@
         require valid-user
     </Location>
     
+    <Location /api/vipunen>
+        ShibRequireSession Off
+{% if environment_id == "dev" %}
+        ProxyPass        http://{{ apache.appserver }}:3000/api/vipunen
+        ProxyPassReverse http://{{ apache.appserver }}:3000/api/vipunen
+{% else %}
+        ProxyPass        ajp://localhost:8009/api/vipunen
+        ProxyPassReverse ajp://localhost:8009/api/vipunen
+{% endif %}
+        Require all granted
+    </Location>
+
 </VirtualHost>
 
 # Redirect http to https
