@@ -109,9 +109,7 @@
                                   (:valid resp-data)))))))
 
 (defn get-visitors [request]
-  (let [visitors (db/get-visitors)]
-    (println "Fetched visitors" visitors)
-    (ok visitors)))
+  (ok (db/get-visitors)))
 
 (defroutes api-routes
   (context

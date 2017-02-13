@@ -100,12 +100,16 @@
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
 
-(defn wrap-base [handler]
+(defn wrap-haka [handler]
   (-> ((:middleware defaults) handler)
-      wrap-formats
       (wrap-authentication (shibbo-backend)
                            (token-backend {:authfn authenticate}))
+      ))
+
+(defn wrap-base [handler]
+  (-> ((:middleware defaults) handler)
       (wrap-authorization (authz-backend))
+      wrap-formats
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)

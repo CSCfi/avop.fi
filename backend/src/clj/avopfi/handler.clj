@@ -7,6 +7,7 @@
             [avopfi.db.migrations :as migrations]
             [clojure.tools.logging :as log]
             [compojure.route :as route]
+            [compojure.handler :as handler]
             [config.core :refer [env]]
             [avopfi.config :refer [defaults]]
             [mount.core :as mount]
@@ -31,14 +32,14 @@
     (log/info component "stopped"))
   (log/info "shutdown complete!"))
 
-(def app-routes
-  (routes
-    (wrap-routes #'api-routes middleware/wrap-restricted)
-    (wrap-routes #'vipunen-routes middleware/wrap-basic-auth)
-    (wrap-routes #'public-routes middleware/wrap-restricted)
-   (route/not-found
-      (:body
-        (error-page {:status 404
-                     :title "page not found"})))))
+(defroutes haka-routes api-routes public-routes)
+
+(defroutes app-routes
+           (wrap-routes haka-routes middleware/wrap-haka)
+           (wrap-routes vipunen-routes middleware/wrap-basic-auth)
+ (route/not-found
+    (:body
+      (error-page {:status 404
+                   :title "page not found"}))))
 
 (def app (middleware/wrap-base #'app-routes))
