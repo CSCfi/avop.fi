@@ -8,7 +8,7 @@
     [clojure.tools.logging :as log]
     [clj-http.client :as client]
     [avopfi.util :refer [in?]]
-    [clojure.core.match :refer :all]
+    [clojure.core.match :refer [match]]
     [avopfi.validator :refer [lisensiaatti? jakso-active?]]))
 
 

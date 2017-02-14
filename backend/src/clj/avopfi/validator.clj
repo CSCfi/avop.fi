@@ -1,7 +1,7 @@
 (ns avopfi.validator
   (:require [avopfi.util :refer :all]
             [avopfi.consts :refer :all]
-            [clojure.core.match :refer :all]
+            [clojure.core.match :refer [match]]
             [clojure.tools.logging :as log]))
 
 

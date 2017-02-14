@@ -15,5 +15,5 @@ WHERE taustatiedot ->>'opiskeluoikeus' = :opiskeluoikeus_id
 SELECT * FROM organization_mappings
 WHERE domain = :domain;
 
--- :name get-visitors :? :n
+-- :name get-visitors
 SELECT * FROM visitors;
