@@ -148,8 +148,7 @@
 (defn has-kandi-suoritukset [virta-suoritukset]
   (partial all-of[date-valid?
                   is-active?
-                  (partial has-160op virta-suoritukset)
-                  (partial has-enough-lukukausi)]))
+                  (partial has-160op virta-suoritukset)]))
 
 (defn has-kandi [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain}]
   (let [has-tutkinto (some #(and
