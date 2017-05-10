@@ -18,7 +18,7 @@
 (def ignored-errors [:invalid-organization :no-jakso])
 
 (defn vals->pct [f s]
-  (int (* (/ f s) 100)))
+  (* (/ f s) 100))
 
 (defn has-type? [types opiskeluoikeus]
   (if (in? types (:tyyppi opiskeluoikeus))
@@ -66,7 +66,6 @@
     (if (and (not-nil? vaaditut-pisteet) (< 0 vaaditut-pisteet))
       (>= (vals->pct pisteet (float laajuus)) vaaditut-pisteet)
       false)))
-
 
 (defn has-enough-opintosuoritus? [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
                                                      {oo-laajuus :opintopiste} :laajuus}]
