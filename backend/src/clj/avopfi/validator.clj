@@ -5,6 +5,7 @@
             [clojure.tools.logging :as log]))
 
 
+
 (def valvira-virheet [:no-patevyys :invalid-date :invalid-type])
 
 (def kandi-virheet [:not-enough-opintosuoritus :not-enough-lukukausi :no-kandi :not-active :invalid-date :invalid-type])
@@ -75,7 +76,7 @@
                        (= (:opiskeluoikeusAvain %) oo-avain)
                        (= (:laji %) opintosuoritus-muu-laji)
                        (empty? (:sisaltyvyys %))))
-             (reduce #(+ %1 (int (-> %2 :laajuus :opintopiste))) 0))]
+             (reduce #(+ %1 (float (-> %2 :laajuus :opintopiste))) 0))]
     (if (and (not-nil? oo-laajuus)
              (> oo-laajuus 0)
              (check-opintosuoritukset oo-tyyppi pisteet oo-laajuus))
