@@ -30,7 +30,9 @@
                  [buddy/buddy-auth "0.13.0"]
                  [org.postgresql/postgresql "9.4-1206-jdbc4"]
                  [luminus-jetty "0.1.0"]
-                 [luminus-log4j "0.1.2"]]
+                 [luminus-log4j "0.1.2"]
+                 [funcool/cats "2.1.0"]]
+
 
   :min-lein-version "2.0.0"
 
@@ -76,6 +78,7 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]
+                  :jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
                   ;;when :nrepl-port is set the application starts the nREPL server on load
                   :env {:dev        true
                         :port       3000

@@ -6,7 +6,8 @@ import LocalizedImage from './common/localizedimage/localizedimage';
 export default class Error extends React.Component {
 
   render() {
-    var status = this.props.params.status;
+    const status = this.props.params.status ? this.props.params.status : 'general_error';
+
     return (
       <div>
         <section id="theme">
@@ -29,9 +30,7 @@ export default class Error extends React.Component {
           <div className="container">
             <div className="row">
               <Translate component="h1" content="errors.title"/>
-              {status === 'haka_error' ?
-                <Translate component="p" content="errors.haka_error"/> :
-                <Translate component="p" content="errors.general_error"/>}
+              <Translate component="p" content={"errors."+status}/>
             </div>
           </div>
         </section>

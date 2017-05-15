@@ -2,8 +2,8 @@ import React from 'react';
 import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
-import fetch from 'isomorphic-fetch';
 import LocalizedImage from '../common/localizedimage/localizedimage'
+import request from '../../util/request'
 
 require('es6-promise').polyfill();
 require('array.prototype.find').shim();
@@ -31,19 +31,9 @@ export default class Userprofile extends React.Component {
     }
 
     if (!data) {
-      fetch('/api/opiskeluoikeudet/avop',
-        {credentials: 'same-origin'})
-        .then(response => {
-          if (response.status >= 400 || response.status === 302) {
-            throw Error(response.status);
-          }
-          try {
-            return response.json();
-          } catch (ex) {
-            throw Error(0);
-          }
-        })
+      request('/api/opiskeluoikeudet/avop', {credentials: 'same-origin'})
         .then(study_rights => {
+          console.log("Study rights: "+ JSON.stringify(study_rights))
           const valid_rights = study_rights['valid'];
           const invalid_rights = study_rights['invalid'];
           const oppilaitos = study_rights['oppilaitos_id'];
@@ -52,13 +42,11 @@ export default class Userprofile extends React.Component {
             sessionStorage.setItem(key, JSON.stringify({valid_rights, invalid_rights, timestamp: new Date()}))
           }
           cb(null, {valid_rights, invalid_rights, oppilaitos})
-        })
-        .catch(e => {
-          if(e.message === '403'){
-            window.location = '/' + params.params.lang + '/error/haka_error'
-          } else {
-            window.location = '/' + params.params.lang + '/error'
-          }});
+      })
+      .catch(e => {
+        console.log("error handled: "+ JSON.stringify(e))
+        window.location = '/' + params.params.lang + '/' + (e.json.error)
+      })
     } else {
       cb(null, JSON.parse(data));
     }
@@ -78,7 +66,7 @@ export default class Userprofile extends React.Component {
       oppilaitos_id: this.props.oppilaitos,
       kieli: this.props.params.lang
     };
-    fetch('/api/rekisteroidy', {
+    request('/api/rekisteroidy', {
       method: 'post',
       credentials: 'same-origin',
       headers: {
@@ -86,18 +74,12 @@ export default class Userprofile extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }).then(response => {
-        if (response.status == 401) {
-          throw Error(response.status);
-        }
-        try {
-          return response.json();
-        } catch (ex) {
-          throw Error(0);
-        }
-      })
-      .then(registration => window.location = registration['kysely_url'])
-      .catch(() => browserHistory.push(`/${this.props.params.lang}/error/`));
+    })
+    .then(registration => window.location = registration['kysely_url'])
+    .catch(e => {
+      console.log("Virhe kyselyyn siirryttäessä: " + JSON.stringify(e))
+      browserHistory.push(`/${this.props.params.lang}/error/${e.json.error}`)
+    });
   }
 
   static headerImages() {

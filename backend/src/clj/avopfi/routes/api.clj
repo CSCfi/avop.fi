@@ -15,7 +15,9 @@
             [clojure.tools.logging :as log]
             [avopfi.validator :refer [validate]]
             [clojure.walk :refer [stringify-keys]]
-            [avopfi.middleware :refer [wrap-basic-auth]]))
+            [avopfi.middleware :refer [wrap-basic-auth]]
+            [cats.core :as m]
+            [cats.monad.either :as either]))
 
 (defn home-page []
   (layout/render
@@ -46,21 +48,27 @@
   (let [oikeudet (get oikeudet type)]
     (map #(opiskeluoikeus->ui-map (:messages %) (:oikeus %)) oikeudet)))
 
-
 (defn get-oppilaitos-code-by-domain [domain]
   (let [mapping (db/get-mapping-by-domain {:domain domain})]
     (:code mapping)))
 
-(defn shibbo-vals->opiskeluoikeudet [shibbo-vals tyyppi]
-  (let [home-organization (shibbo-vals "home-organization")
-        oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
-        virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
-        virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)
-        validated-oikeudet (->> (validate virta-oikeudet virta-suoritukset oppilaitos-id tyyppi))
-        oikeudet {:valid (to-ui :valid validated-oikeudet)
-                  :invalid (to-ui :invalid validated-oikeudet)
-                  :oppilaitos_id oppilaitos-id}]
-    oikeudet))
+(defn validate-oikeudet [tyyppi virta-data]
+  (let [{oikeudet :oikeudet suoritukset :suoritukset oppilaitos-id :oppilaitos-id} virta-data
+        validated-oikeudet (validate oikeudet suoritukset oppilaitos-id tyyppi)]
+    (either/right
+      {:valid (to-ui :valid validated-oikeudet)
+       :invalid (to-ui :invalid validated-oikeudet)
+       :oppilaitos_id oppilaitos-id})))
+
+(defn get-virta-oikeudet [shibbo-vals]
+  (try
+     (let [home-organization (shibbo-vals "home-organization")
+           oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
+           virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
+           virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)]
+       (either/right {:oikeudet virta-oikeudet :suoritukset virta-suoritukset :oppilaitos-id oppilaitos-id}))
+     (catch Exception e
+       (either/left :virta_error))))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
   (if (:is-dev env)
@@ -70,6 +78,33 @@
          :oo (:opiskeluoikeudet-data session)})
     (not-found {})))
 
+
+(defn get-hash-from-arvo [kieli opiskeluoikeus]
+  (try
+    (either/right (arvo/generate-questionnaire-credentials! opiskeluoikeus, kieli))
+    (catch Exception either
+      (either/left :arvo_error))))
+
+(defn create-visitor-entry [opiskeluoikeus-id opiskeluoikeus arvo-hash]
+  (try
+    (db/create-visitor! {:taustatiedot {:opiskeluoikeus opiskeluoikeus-id
+                                        :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
+                                        :kunta (-> opiskeluoikeus :kunta :id)
+                                        :aloituspvm (-> opiskeluoikeus :aloituspvm)
+                                        :kieli (-> opiskeluoikeus :kieli)
+                                        :koulutus (-> opiskeluoikeus :koulutus :id)
+                                        :koulutusmuoto (-> opiskeluoikeus :koulutusmuoto)}
+                         :vastaajatunnus arvo-hash})
+    (either/right arvo-hash)
+    (catch Exception e
+      (either/left :general_error))))
+
+(defn create-vastaajatunnus [opiskeluoikeus-id opiskeluoikeus kieli]
+  (let [res (m/>>= (get-hash-from-arvo kieli opiskeluoikeus)
+                   (partial create-visitor-entry opiskeluoikeus-id opiskeluoikeus))]
+    res))
+
+
 (defn process-registration [{params :body-params session :session}]
   (let [current-srid (:opiskeluoikeus_id params)
         oppilaitos (:oppilaitos_id params)
@@ -77,36 +112,42 @@
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
         opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]
     (if opiskeluoikeus
-      (let [res (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos})]
-        (if (nil? res)
-          (let [arvo-hash
-                (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)]
-            (db/create-visitor! {:taustatiedot {:opiskeluoikeus current-srid
-                                                :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
-                                                :kunta (-> opiskeluoikeus :kunta :id)
-                                                :aloituspvm (-> opiskeluoikeus :aloituspvm)
-                                                :kieli (-> opiskeluoikeus :kieli)
-                                                :koulutus (-> opiskeluoikeus :koulutus :id)
-                                                :koulutusmuoto (-> opiskeluoikeus :koulutusmuoto)}
-                                 :vastaajatunnus arvo-hash})
-            (ok {:kysely_url (str
-                              (:arvo-answer-url env) arvo-hash "/" kieli)}))
-          ;; No obviously obvious status code when entity is duplicate,
-          ;; (mis)using 422 as some other application/frameworks here.
-          (unprocessable-entity
-           {:status 422 :detail "Entity already exists" :kysely_url
-            (str (:arvo-answer-url env) (:vastaajatunnus res) "/" kieli)})))
+      (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos})]
+        (ok {:kysely-url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry) "/" kieli)})
+        (let [res (create-vastaajatunnus current-srid opiskeluoikeus kieli)]
+          (if (either/right? res)
+            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)})
+            (not-found {:error (m/extract res)}))))
       (throw-unauthorized))))
 
+(defn validate-haka [request]
+  (if (not-nil? (:identity request))
+    (either/right(:identity request))
+    (either/left :haka_error)))
+
+(defn validate-virta-data[virta-data]
+  (if (and (not-nil? (:oikeudet virta-data))
+           (not-nil? (:suoritukset virta-data)))
+    (either/right virta-data)
+    (either/left :no_data_in_virta)))
+
+
+(defn get-opiskeluoikeudet [request]
+  (let [tyyppi (-> request :route-params :tyyppi keyword)]
+    (m/>>= (either/right request)
+           validate-haka
+           get-virta-oikeudet
+           validate-virta-data
+           (partial validate-oikeudet tyyppi))))
+
 (defn opiskeluoikeudet [request]
-  (let [shibbo-vals (:identity request)
-        tyyppi (-> request :route-params :tyyppi keyword)]
-      (let [session (:session request)
-            resp-data (shibbo-vals->opiskeluoikeudet shibbo-vals tyyppi)]
-        (-> (ok resp-data)
-            (assoc :session
-                   (assoc session :opiskeluoikeudet-data
-                                  (:valid resp-data)))))))
+  (let [session (:session request)
+        result (get-opiskeluoikeudet request)]
+    (if (either/right? result)
+      (-> (ok (m/extract result))
+          (assoc :session
+            (assoc session :opiskeluoikeudet-data (:valid (m/extract result)))))
+      (not-found {:error (m/extract result)}))))
 
 (defn get-visitors [request]
   (ok (db/get-visitors)))

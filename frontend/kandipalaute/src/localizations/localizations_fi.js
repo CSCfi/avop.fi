@@ -52,7 +52,10 @@ let localizations_fi = {
   errors: {
     title: 'Virhetilanne',
     general_error: 'Valitettavasti järjestelmän toiminnassa tapahtui virhe. Jos ongelma toistuu, ole hyvä ja ota yhteys ylläpitoon arvo@postit.csc.fi.',
-    haka_error: 'Haka ei palauttanut tarvittavia tietoja. Ota yhteyttä opintotoimistoosi'
+    haka_error: 'Valitettavasti Haka ei luovuttanut kirjautumisesi yhteydessä vaadittuja tietoja, ota yhteys oppilaitokseesi.',
+    virta_error: 'Virhe haettaessa tietojasi Virta-opintotietopalvelusta. ',
+    no_data_in_virta: 'Valitettavasti kirjautumistietosi eivät vastaa Virta-opintotietopalvelusta löydettäviä tietoja. Ota yhteys oppilaitokseesi.',
+    arvo_error: 'Valitettavasti palautekyselyyn siirtymisessä tapahtui virhe. Ota yhteys arvo@csc.fi.'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Opiskeluoikeutesi ei kuulu HAKA-kirjaumista vastaavaan korkeakouluun.',
