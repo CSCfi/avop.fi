@@ -53,10 +53,10 @@ let localizations_sv = {
   errors: {
     title: 'Ett fel',
     general_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
-    haka_error: 'HAKA returnerade inte behövlig information. Kontakta din studiebyrå.',
+    haka_error: 'Tyvärr returnerades inte i samband inloggningen via HAKA alla uppgifter som krävs för tjänsten, ta kontakt med din läroanstalt.',
     virta_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
-    no_data_in_virta: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.',
-    arvo_error: 'Ett fel har inträffat. Vänligen försök igen eller kontakta kundtjänsten (arvo@postit.csc.fi) om problemet kvarstår.'
+    no_data_in_virta: 'Tyvärr motsvarar dina uppgifter förmedlade via inloggningen inte med de uppgifter som finns i Virta-tjänsten, ta kontakt med din läroanstalt.',
+    arvo_error: 'Tyvärr inträffade ett fel vid förflyttningen till responsenkäten, ta kontakt med arvo@csc.fi'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Din studierätt tillhör inte den högskola som din HAKA-inloggning ger till känna.',
