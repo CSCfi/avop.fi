@@ -44,8 +44,7 @@ export default class Userprofile extends React.Component {
           cb(null, {valid_rights, invalid_rights, oppilaitos})
         })
         .catch(e => {
-          console.log("error handled: "+ JSON.stringify(e))
-          window.location = '/' + params.params.lang + '/' + (e.json.error)
+          window.location = '/' + params.params.lang + '/error/' + (e.json.error)
         })
     } else {
       cb(null, JSON.parse(data));

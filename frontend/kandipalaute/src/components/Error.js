@@ -1,28 +1,15 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 
-import LocalizedImage from './common/localizedimage/localizedimage';
+import LocalizedThemeImage from './common/localizedimage/localizedthemeimage';
 
 export default class Error extends React.Component {
-
   render() {
-    const status = this.props.params.status;
+    const status = this.props.params.status ? this.props.params.status : 'general_error';
     return (
       <div>
-        <section id="theme">
-          <div className="container">
-            <div className="row">
-
-              <div className="six columns">
-                <div className="u-full-width">
-                  <div id="logo">
-                    <LocalizedImage image="logo" />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <section>
+          <LocalizedThemeImage />
         </section>
 
         <section>
@@ -33,8 +20,9 @@ export default class Error extends React.Component {
             </div>
           </div>
         </section>
-
       </div>
+
     )
   }
 }
+
