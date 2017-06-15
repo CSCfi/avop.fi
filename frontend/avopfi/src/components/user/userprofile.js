@@ -30,25 +30,17 @@ export default class Userprofile extends React.Component {
       }
     }
 
-    if (!data) {
-      request('/api/opiskeluoikeudet/avop', {credentials: 'same-origin'})
-        .then(study_rights => {
-          console.log("Study rights: "+ JSON.stringify(study_rights))
-          const valid_rights = study_rights['valid'];
-          const invalid_rights = study_rights['invalid'];
-          const oppilaitos = study_rights['oppilaitos_id'];
+    request('/api/opiskeluoikeudet/avop', {credentials: 'same-origin'})
+      .then(study_rights => {
+        const valid_rights = study_rights['valid'];
+        const invalid_rights = study_rights['invalid'];
+        const oppilaitos = study_rights['oppilaitos_id'];
 
-          if (hasStorage) {
-            sessionStorage.setItem(key, JSON.stringify({valid_rights, invalid_rights, timestamp: new Date()}))
-          }
-          cb(null, {valid_rights, invalid_rights, oppilaitos})
+        cb(null, {valid_rights, invalid_rights, oppilaitos})
       })
       .catch(e => {
         window.location = '/' + params.params.lang + '/error/' + (e.json.error)
       })
-    } else {
-      cb(null, JSON.parse(data));
-    }
   }
 
   selectStudyRight(event) {
@@ -74,7 +66,7 @@ export default class Userprofile extends React.Component {
       },
       body: JSON.stringify(data)
     })
-    .then(registration => window.location = registration['kysely_url'])
+    .then(registration => window.location = registration['kysely-url'])
     .catch(e => {
       console.log("Virhe kyselyyn siirryttäessä: " + JSON.stringify(e))
       browserHistory.push(`/${this.props.params.lang}/error/${e.json.error}`)

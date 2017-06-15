@@ -111,14 +111,13 @@
         kieli (:kieli params)
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
         opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]
-    (log/info "OPISKELUOIKEUS: " current-srid "OPPILAITOS: " oppilaitos)
-    (log/info "VISITOR: " (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos}))
+    (log/info "Siirrytään kyselyyn. Opiskeluoikeus:" current-srid "Oppilaitos:" oppilaitos)
     (if opiskeluoikeus
       (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos})]
         (ok {:kysely-url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry) "/" kieli)})
         (let [res (create-vastaajatunnus current-srid opiskeluoikeus kieli)]
           (if (either/right? res)
-            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)})
+            (ok {:kysely-url (str (:arvo-answer-url env) (m/extract res) "/" kieli)})
             (not-found {:error (m/extract res)}))))
       (throw-unauthorized))))
 
