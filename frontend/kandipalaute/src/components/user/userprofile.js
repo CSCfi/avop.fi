@@ -67,10 +67,8 @@ export default class Userprofile extends React.Component {
       body: JSON.stringify(data)
     })
     .then(registration => {
-      console.log("Registration: " + JSON.stringify(registration));
       window.location = registration['kysely-url'] })
     .catch(e => {
-      console.log("Virhe kyselyyn siirryttäessä: " + JSON.stringify(e))
       browserHistory.push(`/${this.props.params.lang}/error/${e.json.error}`)
     });
   }

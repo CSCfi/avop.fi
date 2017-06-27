@@ -29,8 +29,8 @@ export default class Error extends React.Component {
         <section>
           <div className="container">
             <div className="row">
-              <Translate component="h1" content="errors.title"/>
-              <Translate component="p" content={"errors."+status}/>
+              <Translate component="h1" content='errors.title'/>
+              <Translate component="p" content={'errors.'+ status}/>
             </div>
           </div>
         </section>

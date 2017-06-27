@@ -5,7 +5,7 @@ import config from 'config';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
-let hakaLoginImage = require('../../images/haka_landscape_large.gif');
+let hakaLoginImage = require('../../images/Haka_login_vaaka_lg.jpg');
 
 export default class Content extends React.Component {
 
