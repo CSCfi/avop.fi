@@ -73,7 +73,6 @@
           results (validate no-loppupvm-fixture attainments-fixture "10065" :avop)]
       (is (-> results :valid first valid?)))))
 
-
 (deftest opiskeluoikeus-kandi
   (testing "Kandipalaute opiskeluoikeus is invalid if it doesn't have opintosuoritus for kandi"
     (let [results (validate kandi-opiskeluoikeus-fixture kandi-attainments-without-tutkinto-or-points "1234" :kandi)]

@@ -68,7 +68,7 @@
 
 (def kandi-attainments-fixture [{:opiskeluoikeusAvain "BAZ" :laji "2" :sisaltyvyys [] :laajuus {:opintopiste 100}}
                                 {:opiskeluoikeusAvain "BAZ" :laji "2" :sisaltyvyys [] :laajuus {:opintopiste 90}}
-                                {:opiskeluoikeusAvain "BAZ" :laji "1"}])
+                                {:opiskeluoikeusAvain "BAZ" :laji "1" :suoritusPvm {:year 2017 :month 1 :day 1}}])
 
 (def kandi-ll-attainments(conj kandi-attainments-fixture {:patevyys ["ll4"]}))
 

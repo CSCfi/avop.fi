@@ -156,7 +156,7 @@
 (defroutes api-routes
   (context
       "/api" []
-    (GET "/" [] (home-page))
+    (GET "/" [] (forbidden))
     (GET "/opiskeluoikeudet/:tyyppi" request
       (opiskeluoikeudet request))
     (POST "/rekisteroidy" request
