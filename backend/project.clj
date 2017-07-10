@@ -3,36 +3,32 @@
   :description "Avop.fi backend"
   :url "https://www.avop.fi"
 
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [selmer "1.0.0"]
-                 [markdown-clj "0.9.85"]
-                 [luminus/config "0.8"]
-                 [ring-middleware-format "0.7.0"]
-                 [metosin/ring-http-response "0.6.5"]
-                 [bouncer "1.0.0"]
-                 [org.clojure/tools.logging "0.3.1"]
-                 [org.clojure/tools.namespace "0.2.11"]
-                 [org.clojure/java.data "0.1.1"] 
-                 [com.taoensso/tower "3.0.2"]
-                 [compojure "1.4.0"]
-                 [org.clojure/core.match "0.3.0-alpha4"]
-                 [clojure.java-time "0.2.0"]
+  :dependencies [[buddy/buddy-auth "0.13.0"]
                  [clj-http "2.0.1"]
                  [clj-http-fake "1.0.2"]
-                 [slingshot "0.12.2"]
-                 [ring/ring-defaults "0.1.5"]
-                 [ring-ttl-session "0.3.0"]
-                 [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
-                 [mount "0.1.9"]
-                 [luminus-nrepl "0.1.2"]
-                 [migratus "0.8.13"]
-                 [conman "0.4.5"]
-                 [buddy/buddy-auth "0.13.0"]
-                 [org.postgresql/postgresql "9.4-1206-jdbc4"]
+                 [compojure "1.6.0"]
+                 [conman "0.6.4"]
+                 [clojure.java-time "0.2.0"]
+                 [funcool/cats "2.1.0"]
+                 [luminus/config "0.8"] ;cprop
                  [luminus-jetty "0.1.0"]
                  [luminus-log4j "0.1.2"]
-                 [funcool/cats "2.1.0"]]
-
+                 [luminus-nrepl "0.1.2"]
+                 [metosin/ring-http-response "0.6.5"]
+                 [mount "0.1.11"]
+                 [migratus "0.8.13"]
+                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/core.match "0.3.0-alpha4"]
+                 [org.clojure/tools.logging "0.4.0"]
+                 [org.clojure/tools.namespace "0.2.11"]
+                 [org.clojure/java.data "0.1.1"]
+                 [org.postgresql/postgresql "9.4-1206-jdbc4"]
+                 [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
+                 [ring/ring-defaults "0.1.5"]
+                 [ring-middleware-format "0.7.0"]
+                 [ring-ttl-session "0.3.0"]
+                 [selmer "1.10.7"]
+                 [slingshot "0.12.2"]]
 
   :min-lein-version "2.0.0"
 
@@ -78,7 +74,6 @@
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]
-                  :jvm-opts ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
                   ;;when :nrepl-port is set the application starts the nREPL server on load
                   :env {:dev        true
                         :port       3000

@@ -16,8 +16,7 @@
             PreparedStatement]))
 
 (def pool-spec
-  {:adapter    :postgresql
-   :init-size  1
+  {:init-size  1
    :min-idle   1
    :max-idle   4
    :max-active 32

@@ -85,9 +85,9 @@
     (catch Exception either
       (either/left :arvo_error))))
 
-(defn create-visitor-entry [opiskeluoikeus-id opiskeluoikeus arvo-hash]
+(defn create-visitor-entry [opiskeluoikeus arvo-hash]
   (try
-    (db/create-visitor! {:taustatiedot {:opiskeluoikeus opiskeluoikeus-id
+    (db/create-visitor! {:taustatiedot {:opiskeluoikeus (-> opiskeluoikeus :id)
                                         :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
                                         :kunta (-> opiskeluoikeus :kunta :id)
                                         :aloituspvm (-> opiskeluoikeus :aloituspvm)
@@ -99,9 +99,9 @@
     (catch Exception e
       (either/left :general_error))))
 
-(defn create-vastaajatunnus [opiskeluoikeus-id opiskeluoikeus kieli]
+(defn create-vastaajatunnus [opiskeluoikeus kieli]
   (let [res (m/>>= (get-hash-from-arvo kieli opiskeluoikeus)
-                   (partial create-visitor-entry opiskeluoikeus-id opiskeluoikeus))]
+                   (partial create-visitor-entry opiskeluoikeus))]
     res))
 
 
@@ -111,11 +111,11 @@
         kieli (:kieli params)
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
         opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]
-    (log/info "Siirrytään kyselyyn. Opiskeluoikeus:" current-srid "Oppilaitos:" oppilaitos)
+    (log/info "Siirrytään kyselyyn. Opiskeluoikeus:" (:id opiskeluoikeus) "Oppilaitos:" oppilaitos)
     (if opiskeluoikeus
-      (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id current-srid :oppilaitos_id oppilaitos})]
+      (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id (:id opiskeluoikeus) :oppilaitos_id oppilaitos})]
         (ok {:kysely-url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry) "/" kieli)})
-        (let [res (create-vastaajatunnus current-srid opiskeluoikeus kieli)]
+        (let [res (create-vastaajatunnus opiskeluoikeus kieli)]
           (if (either/right? res)
             (ok {:kysely-url (str (:arvo-answer-url env) (m/extract res) "/" kieli)})
             (not-found {:error (m/extract res)}))))
