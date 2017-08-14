@@ -1,7 +1,7 @@
 (ns avopfi.util
   (:require
     [java-time :refer [local-date]]
-    [clojure.tools.logging :as log]))
+    [cats.monad.either :as either]))
 
 (def not-nil? (complement nil?))
 
@@ -43,9 +43,17 @@
 (defn in? [coll elem]
   (some #(= elem %) coll))
 
-(defn retry [f cond args]
-  (when (seq args)
-    (let [res (f (first args))]
-      (if (cond res)
+(defmacro try-or [err-type & exprs]
+  `(try
+     (either/right (do ~@exprs))
+     (catch Exception ex#
+       (either/left {:type      ~err-type
+                     :exception ex#}))))
+
+(defn try-until [pred fs]
+  (when (seq fs)
+    (let [f (first fs)
+          res (f)]
+      (if (pred res)
         res
-        (retry f cond (rest args))))))
+        (try-until pred (rest fs))))))

@@ -61,14 +61,12 @@
        :oppilaitos_id oppilaitos-id})))
 
 (defn get-virta-oikeudet [shibbo-vals]
-  (try
+  (try-or :virta_error
      (let [home-organization (shibbo-vals "home-organization")
            oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
            virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
            virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)]
-       (either/right {:oikeudet virta-oikeudet :suoritukset virta-suoritukset :oppilaitos-id oppilaitos-id}))
-     (catch Exception e
-       (either/left :virta_error))))
+       {:oikeudet virta-oikeudet :suoritukset virta-suoritukset :oppilaitos-id oppilaitos-id})))
 
 (defn debug-status [{:keys [session headers identity] :as request}]
   (if (:is-dev env)
@@ -80,13 +78,11 @@
 
 
 (defn get-hash-from-arvo [kieli opiskeluoikeus]
-  (try
-    (either/right (arvo/generate-questionnaire-credentials! opiskeluoikeus, kieli))
-    (catch Exception either
-      (either/left :arvo_error))))
+  (try-or :arvo_error
+    (arvo/generate-questionnaire-credentials! opiskeluoikeus, kieli)))
 
 (defn create-visitor-entry [opiskeluoikeus arvo-hash]
-  (try
+  (try-or :general_error
     (db/create-visitor! {:taustatiedot {:opiskeluoikeus (-> opiskeluoikeus :id)
                                         :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
                                         :kunta (-> opiskeluoikeus :kunta :id)
@@ -95,14 +91,11 @@
                                         :koulutus (-> opiskeluoikeus :koulutus :id)
                                         :koulutusmuoto (-> opiskeluoikeus :koulutusmuoto)}
                          :vastaajatunnus arvo-hash})
-    (either/right arvo-hash)
-    (catch Exception e
-      (either/left :general_error))))
+    arvo-hash))
 
 (defn create-vastaajatunnus [opiskeluoikeus kieli]
-  (let [res (m/>>= (get-hash-from-arvo kieli opiskeluoikeus)
-                   (partial create-visitor-entry opiskeluoikeus))]
-    res))
+  (m/>>= (get-hash-from-arvo kieli opiskeluoikeus)
+         (partial create-visitor-entry opiskeluoikeus)))
 
 
 (defn process-registration [{params :body-params session :session}]
