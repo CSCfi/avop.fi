@@ -8,7 +8,8 @@ VALUES (:vastaajatunnus, :taustatiedot, now());
 -- :doc retrieve visitor for certan study right id
 SELECT * FROM visitors
 WHERE taustatiedot ->>'opiskeluoikeus' = :opiskeluoikeus_id
-      AND taustatiedot ->> 'oppilaitos' = :oppilaitos_id;
+  AND taustatiedot ->> 'oppilaitos' = :oppilaitos_id
+LIMIT 1;
 
 -- :name get-mapping-by-domain :? :1
 -- :doc get Haka to VIRTA organization mapping by domain

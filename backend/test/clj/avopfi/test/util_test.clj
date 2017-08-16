@@ -3,8 +3,8 @@
     [clojure.test :refer :all]
     [avopfi.util]))
 
-(deftest test-retry
+(deftest test-try-until
   (testing "Retry returns first answer filling the condition"
-    (let [args [{} {:first 1} {:second 2}]
-          res (retry identity seq args)]
+    (let [fs [#(identity {}) #(identity {:first 1}) #(identity {:second 2})]
+          res (try-until seq fs)]
       (is (contains? res :first)))))

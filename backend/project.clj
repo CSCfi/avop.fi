@@ -65,10 +65,8 @@
                                  [ring/ring-mock "0.3.0"]
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.1"]
-                                 [mvxcvi/puget "1.0.0"]
-                                 [midje "1.8.3"]]
-                  :plugins [[lein-midje "3.2"]
-                            [lein-test-out "0.3.1"]]
+                                 [mvxcvi/puget "1.0.0"]]
+                  :plugins [[test2junit "1.3.3"]]
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}

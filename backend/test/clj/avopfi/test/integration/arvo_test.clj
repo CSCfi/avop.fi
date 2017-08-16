@@ -6,7 +6,7 @@
     [avopfi.test.fixtures :refer [opiskeluoikeus-data-fixture]]
     [clj-http.fake :as fake]
     [java-time :refer [as local-date]]
-    [environ.core :refer [env]]
+    [config.core :refer [env]]
     [clj-http.client :as client]))
 
 (deftest cleanup
