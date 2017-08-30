@@ -20,7 +20,7 @@ module.exports = {
     publicPath: defaultSettings.publicPath,
     noInfo: false,
     proxy: {
-      '/api*': {
+      '/api/**': {
         target: 'http://localhost:3000',
         secure: false
       }
