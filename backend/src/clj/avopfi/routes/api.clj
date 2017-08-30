@@ -62,7 +62,7 @@
 
 (defn get-virta-oikeudet [shibbo-vals]
   (try-or :virta_error
-     (let [home-organization (shibbo-vals "home-organization")
+     (let [home-organization (:home-organization shibbo-vals)
            oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
            virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
            virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)]

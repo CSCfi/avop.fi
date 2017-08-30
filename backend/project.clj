@@ -3,7 +3,7 @@
   :description "Avop.fi backend"
   :url "https://www.avop.fi"
 
-  :dependencies [[buddy/buddy-auth "0.13.0"]
+  :dependencies [[haka-buddy "0.2.1"]
                  [clj-http "2.0.1"]
                  [clj-http-fake "1.0.2"]
                  [compojure "1.6.0"]

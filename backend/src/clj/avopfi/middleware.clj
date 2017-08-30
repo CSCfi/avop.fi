@@ -1,6 +1,5 @@
 (ns avopfi.middleware
   (:require [avopfi.layout :refer [*app-context* error-page]]
-            [avopfi.auth.backend :refer [shibbo-backend authz-backend]]
             [clojure.tools.logging :as log]
             [config.core :refer [env]]
             [ring-ttl-session.core :refer [ttl-memory-store]]
@@ -13,7 +12,9 @@
             [buddy.auth.accessrules :refer [restrict]]
             [buddy.auth :refer [authenticated?]]
             [clojure.string :as str]
-            [config.core :refer [env]])
+            [config.core :refer [env]]
+            [haka-buddy.backend :as backends]
+            [avopfi.util :refer [deprefixize]])
   (:import [javax.servlet ServletContext]
            [java.util Base64]))
 
@@ -96,23 +97,40 @@
           {:status 401
            :headers {"www-authenticate" "Basic realm=\"restricted\""}})))))
 
+(def user-ids #{"shib-learner-id" "shib-national-identification-number" "shib-unique-id"})
+(def home-org "shib-home-organization")
 
+(defn haka-login-valid? [shibbo-vals]
+  (let [ids-in-shibbo (clojure.set/intersection user-ids (set (keys shibbo-vals)))
+        has-id (not (empty? ids-in-shibbo))
+        has-org (contains? shibbo-vals "shib-home-organization")]
+    (and has-org has-id)))
+
+(def shibbo-backend (backends/shibbo-backend {:names (conj user-ids home-org)
+                                              :checkfn haka-login-valid?
+                                              :use-headers? true}))
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
 
+(def keywordize-haka (comp clojure.walk/keywordize-keys (partial deprefixize "shib-")))
+
+(defn parse-haka [handler]
+  (fn [req]
+    (handler (update-in req [:identity] keywordize-haka))))
+
 (defn wrap-haka [handler]
   (-> ((:middleware defaults) handler)
-      (wrap-authentication (shibbo-backend)
-                           (token-backend {:authfn authenticate}))
-      ))
+      parse-haka
+      (wrap-authentication shibbo-backend
+                           (token-backend {:authfn authenticate}))))
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
-      (wrap-authorization (authz-backend))
+      (wrap-authorization backends/authz-backend)
       wrap-formats
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
-            (assoc-in  [:session :store] (ttl-memory-store one-hour))))
+            (assoc-in [:session :store] (ttl-memory-store one-hour))))
       wrap-context
       wrap-internal-error))

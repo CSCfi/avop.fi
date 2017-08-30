@@ -109,20 +109,20 @@
 
 (defn get-from-virta-with [virta-fetcher oppilaitos user-data]
   (match [user-data]
-         [{"learner-id" lid}]
+         [{:learner-id lid}]
          (get-from-virta-by-oid lid virta-fetcher oppilaitos)
-         [{"national-identification-number" nin}]
+         [{:national-identification-number nin}]
          (get-from-virta-by-pid nin virta-fetcher oppilaitos)
-         [{"unique-id" uid}]
+         [{:unique-id uid}]
          (get-from-virta-by-pid (extract-hetu-from-shibbo uid) virta-fetcher oppilaitos)
          :else nil))
 
 (defn get-from-virta-with-retry [virta-fetcher user-data oppilaitos]
   (let [fetch-with #(get-from-virta-with virta-fetcher oppilaitos (select-keys user-data [%]))]
     (try-until seq
-      [#(fetch-with "learner-id")
-       #(fetch-with "national-identification-number")
-       #(fetch-with "unique-id")])))
+      [#(fetch-with :shib-learner-id)
+       #(fetch-with :national-identification-number)
+       #(fetch-with :unique-id)])))
 
 (defn get-virta-suoritukset [user-data oppilaitos]
   (get-from-virta-with-retry get-opintosuoritukset! user-data oppilaitos))

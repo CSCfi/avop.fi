@@ -43,6 +43,11 @@
 (defn in? [coll elem]
   (some #(= elem %) coll))
 
+(defn deprefixize [p m]
+  (into {}
+        (map #(vector
+               (clojure.string/replace (first %) p "") (second %)) m)))
+
 (defmacro try-or [err-type & exprs]
   `(try
      (either/right (do ~@exprs))
