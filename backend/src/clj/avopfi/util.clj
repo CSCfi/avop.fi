@@ -21,7 +21,6 @@
         b (to-local-date date_b)]
     (if (.isBefore a b) date_a date_b)))
 
-
 (defn in-future? [date-map]
   (if (nil? date-map)
     false
