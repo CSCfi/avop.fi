@@ -68,8 +68,8 @@ let localizations_en = {
     no_patevyys: 'You do not have requiered qualification recorded in the student registration system.',
     header: 'No rights to study found.',
     no_rights_contact_study_office: 'No rights to study found with your logging information. Please contact your study office for further information.',
-    some_rights_contact_study_office: ' %(rights_count)s rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information',
-    additional_invalid_rights: 'In addition, %(rights_count) rights to study found without requiered information to grant access to the graduate survey. Please contact your study office for further information'
+    some_rights_contact_study_office: ' %(rights_count)s rights to study found without required information to grant access to the graduate survey. Please contact your study office for further information',
+    additional_invalid_rights: 'In addition, %(rights_count) rights to study found without required information to grant access to the graduate survey. Please contact your study office for further information'
   }
 };
 

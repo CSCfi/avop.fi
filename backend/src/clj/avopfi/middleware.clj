@@ -116,6 +116,7 @@
 
 (defn parse-haka [handler]
   (fn [req]
+    (log/info "Parsing Haka attributes from request " req)
     (handler (update-in req [:identity] keywordize-haka))))
 
 (defn wrap-haka [handler]
