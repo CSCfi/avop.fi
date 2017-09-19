@@ -97,8 +97,8 @@
           {:status 401
            :headers {"www-authenticate" "Basic realm=\"restricted\""}})))))
 
-(def user-ids #{"shib-learner-id" "shib-national-identification-number" "shib-unique-id"})
-(def home-org "shib-home-organization")
+(def user-ids #{"learner-id" "national-identification-number" "unique-id"})
+(def home-org "home-organization")
 
 (defn haka-login-valid? [shibbo-vals]
   (let [ids-in-shibbo (clojure.set/intersection user-ids (set (keys shibbo-vals)))
@@ -112,11 +112,10 @@
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
 
-(def keywordize-haka (comp clojure.walk/keywordize-keys (partial deprefixize "shib-")))
 
 (defn parse-haka [handler]
   (fn [req]
-    (handler (update-in req [:identity] keywordize-haka))))
+    (handler (update-in req [:identity] clojure.walk/keywordize-keys))))
 
 (defn wrap-haka [handler]
   (-> ((:middleware defaults) handler)
