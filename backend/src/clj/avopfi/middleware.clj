@@ -108,7 +108,7 @@
 
 (def shibbo-backend (backends/shibbo-backend {:names (conj user-ids home-org)
                                               :checkfn haka-login-valid?
-                                              :use-headers? true}))
+                                              :use-headers? (:is-dev env)}))
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
 
@@ -116,7 +116,6 @@
 
 (defn parse-haka [handler]
   (fn [req]
-    (log/info "Parsing Haka attributes from request " req)
     (handler (update-in req [:identity] keywordize-haka))))
 
 (defn wrap-haka [handler]
