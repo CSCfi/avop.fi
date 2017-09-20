@@ -2,7 +2,7 @@
   (:require
     [config.core :refer [env]]
     [avopfi.consts :refer :all]
-    [buddy.sign.jws :as jws]
+    [buddy.sign.jwt :as jwt]
     [java-time :refer [as local-date]]
     [slingshot.slingshot :refer [try+ throw+]]
     [clojure.tools.logging :as log]
@@ -57,7 +57,7 @@
   [opiskeluoikeus-data kieli]
   (let [json-data (clean-opiskeluoikeus-data opiskeluoikeus-data)
         auth-header (str "Bearer " 
-                         (jws/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
+                         (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
     (log/info "Pyydetään vastaajatunnusta tiedoille: " json-data)
     (try+ 
      (let [resp (client/post
