@@ -14,7 +14,8 @@
             [clojure.string :as str]
             [config.core :refer [env]]
             [haka-buddy.backend :as backends]
-            [avopfi.util :refer [deprefixize]])
+            [avopfi.util :refer [deprefixize]]
+            [io.clj.logging :refer [with-logging-context]])
   (:import [javax.servlet ServletContext]
            [java.util Base64]))
 
@@ -117,8 +118,27 @@
   (fn [req]
     (handler (update-in req [:identity] clojure.walk/keywordize-keys))))
 
+(def chars (map char (concat (range 65 91) (range 97 123))))
+
+(defn generate-sessionid []
+  (let [chars (map char (concat (range 65 91) (range 97 123)))
+        id (apply str (take 8 (repeatedly #(rand-nth chars))))]
+    id))
+
+(defn attach-sessionid [handler]
+  (fn [req]
+    (handler
+      (if (nil? (get-in req [:session :sessionid]))
+        (let [user-agent (get-in req [:headers "user-agent"])
+              sessionid (generate-sessionid)]
+          (with-logging-context {:sessionid (format "[%s]" sessionid)}
+            (log/info  "Session started, user agent: " user-agent))
+          (assoc-in req [:session :sessionid] sessionid))
+        req))))
+
 (defn wrap-haka [handler]
   (-> ((:middleware defaults) handler)
+      attach-sessionid
       parse-haka
       (wrap-authentication shibbo-backend
                            (token-backend {:authfn authenticate}))))

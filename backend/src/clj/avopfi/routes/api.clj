@@ -17,7 +17,8 @@
             [clojure.walk :refer [stringify-keys]]
             [avopfi.middleware :refer [wrap-basic-auth]]
             [cats.core :as m]
-            [cats.monad.either :as either]))
+            [cats.monad.either :as either]
+            [io.clj.logging :refer [with-logging-context]]))
 
 (defn home-page []
   (layout/render
@@ -76,10 +77,12 @@
          :oo (:opiskeluoikeudet-data session)})
     (not-found {})))
 
+(defn jslog [{params :body-params}]
+  (log/error "JS Error:" (:message params)))
 
 (defn get-hash-from-arvo [kieli opiskeluoikeus]
   (try-or :arvo_error
-    (arvo/generate-questionnaire-credentials! opiskeluoikeus, kieli)))
+    (arvo/generate-questionnaire-credentials! opiskeluoikeus kieli)))
 
 (defn create-visitor-entry [opiskeluoikeus arvo-hash]
   (try-or :general_error
@@ -98,19 +101,23 @@
          (partial create-visitor-entry opiskeluoikeus)))
 
 
+;TODO: Split this into two parts, API and get-answer-url, add sessionid in API
 (defn process-registration [{params :body-params session :session}]
   (let [current-srid (:opiskeluoikeus_id params)
         oppilaitos (:oppilaitos_id params)
         kieli (:kieli params)
         opiskeluoikeudet-data (:opiskeluoikeudet-data session)
-        opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)]
+        opiskeluoikeus (some #(when (= current-srid (:id %)) %) opiskeluoikeudet-data)
+        sessionid (:sessionid session)]
     (log/info "Siirrytään kyselyyn. Opiskeluoikeus:" (:id opiskeluoikeus) "Oppilaitos:" oppilaitos)
     (if opiskeluoikeus
       (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id (:id opiskeluoikeus) :oppilaitos_id oppilaitos})]
-        (ok {:kysely_url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry) "/" kieli)})
+        (ok {:kysely_url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry) "/" kieli)
+             :sessionid sessionid})
         (let [res (create-vastaajatunnus opiskeluoikeus kieli)]
           (if (either/right? res)
-            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)})
+            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)
+                 :sessionid sessionid})
             (not-found {:error (m/extract res)}))))
       (throw-unauthorized))))
 
@@ -125,7 +132,6 @@
     (either/right virta-data)
     (either/left :no_data_in_virta)))
 
-
 (defn get-opiskeluoikeudet [request]
   (let [tyyppi (-> request :route-params :tyyppi keyword)]
     (m/>>= (either/right request)
@@ -138,10 +144,13 @@
   (let [session (:session request)
         result (get-opiskeluoikeudet request)]
     (if (either/right? result)
-      (-> (ok (m/extract result))
+      (-> (ok (assoc (m/extract result) :sessionid (:sessionid session)))
           (assoc :session
-            (assoc session :opiskeluoikeudet-data (:valid (m/extract result)))))
-      (not-found {:error (m/extract result)}))))
+            (-> session
+              (assoc :opiskeluoikeudet-data (:valid (m/extract result)))
+              (assoc :sessionid (:sessionid session)))))
+      (not-found {:error (m/extract result)
+                  :sessionid (:sessionid session)}))))
 
 (defn get-visitors [request]
   (ok (db/get-visitors)))
@@ -151,11 +160,16 @@
       "/api" []
     (GET "/" [] (forbidden))
     (GET "/opiskeluoikeudet/:tyyppi" request
-      (opiskeluoikeudet request))
+      (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
+        (opiskeluoikeudet request)))
     (POST "/rekisteroidy" request
-      (process-registration request))
+      (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
+        (process-registration request)))
     (GET "/status" request
-      (debug-status request)))
+      (debug-status request))
+    (POST "/log" request
+      (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
+        (jslog request))))
   (GET "/" [] (found "/api")))
 
 (defroutes vipunen-routes

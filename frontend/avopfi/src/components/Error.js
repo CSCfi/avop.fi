@@ -7,6 +7,8 @@ export default class Error extends React.Component {
 
   render() {
     const status = this.props.params.status ? this.props.params.status : 'general_error';
+    const sessionid = this.props.params.sessionid;
+    const showSessionId = sessionid && (status == 'general_error' || status == 'arvo_error');
 
     return (
       <div>
@@ -31,6 +33,9 @@ export default class Error extends React.Component {
             <div className="row">
               <Translate component="h1" content='errors.title'/>
               <Translate component="p" content={'errors.'+ status}/>
+              {showSessionId ?
+                <p><Translate component="text" content='errors.attach_code'/>: <strong>{sessionid}</strong></p> : ''
+              }
             </div>
           </div>
         </section>

@@ -4,6 +4,7 @@ import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import LocalizedImage from '../common/localizedimage/localizedimage'
 import request from '../../util/request'
+import {handleError} from '../../util/error.js'
 
 require('es6-promise').polyfill();
 require('array.prototype.find').shim();
@@ -35,11 +36,12 @@ export default class Userprofile extends React.Component {
         const valid_rights = study_rights['valid'];
         const invalid_rights = study_rights['invalid'];
         const oppilaitos = study_rights['oppilaitos_id'];
+        const sessionid = study_rights['sessionid'];
 
-        cb(null, {valid_rights, invalid_rights, oppilaitos})
+        cb(null, {valid_rights, invalid_rights, oppilaitos, sessionid})
       })
       .catch(e => {
-        window.location = '/' + params.params.lang + '/error/' + (e.json.error)
+        handleError(params.params.lang, e.json)
       })
   }
 
@@ -48,6 +50,16 @@ export default class Userprofile extends React.Component {
       selectedStudyRight: this.props.valid_rights
         .find(x => x.id === event.target.value)
     });
+  }
+
+  onError(e){
+    if(e.json){
+      handleError(this.props.params.lang, e.json)
+    } else {
+      handleError(this.props.params.lang, {
+        sessionid: this.props.sessionid,
+        exception: e})
+    }
   }
 
   onSubmit(event) {
@@ -66,10 +78,14 @@ export default class Userprofile extends React.Component {
       },
       body: JSON.stringify(data)
     })
-    .then(registration => window.location = registration['kysely_url'])
-    .catch(e => {
-      browserHistory.push(`/${this.props.params.lang}/error/${e.json.error}`)
-    });
+      .then(registration => {
+        if(registration['kysely_url']){
+          window.location = registration['kysely_url']
+        } else {
+          handleError(this.props.params.lang, registration)
+        }
+      })
+      .catch(e => this.onError(e));
   }
 
   static headerImages() {

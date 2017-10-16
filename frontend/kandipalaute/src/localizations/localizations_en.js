@@ -55,7 +55,8 @@ let localizations_en = {
     haka_error: 'Haka did not return required information when logging in. Please contact your higher education institution.',
     virta_error: 'There was an error when retrieving your information from tVirta higher education achievement register.',
     no_data_in_virta: 'Your logging information does not correspond with the information found from the Virta higher education achievement register. Please contact your higher education institution',
-    arvo_error: 'Unfortunately an error occured while accessing the survey. Please contact arvo@csc.fi.'
+    arvo_error: 'Unfortunately an error occured while accessing the survey. Please contact arvo@csc.fi.',
+    attach_code: 'Attach this error code to the message'
   },
   opiskeluoikeus_errors: {
     invalid_organization: 'Your right to study does not correspond to the HAKA home organisation.',

@@ -27,7 +27,7 @@ ReactDOM.render(
     <Route path="/:lang" component={Main}>
       <IndexRoute component={Home}/>
       <Route path="user" component={Userprofile}/>
-      <Route path="error/:status" component={Error}/>
+      <Route path="error/:status/:sessionid" component={Error}/>
       <Route path="*" component={Error}/>
     </Route>
   </Router>,
