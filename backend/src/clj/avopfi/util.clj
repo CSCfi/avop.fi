@@ -1,7 +1,8 @@
 (ns avopfi.util
   (:require
     [java-time :refer [local-date]]
-    [cats.monad.either :as either]))
+    [cats.monad.either :as either]
+    [clojure.tools.logging :as log]))
 
 (def not-nil? (complement nil?))
 
@@ -51,8 +52,8 @@
   `(try
      (either/right (do ~@exprs))
      (catch Exception ex#
-       (either/left {:type      ~err-type
-                     :exception ex#}))))
+       (log/error ~err-type ex#)
+       (either/left ~err-type))))
 
 (defn try-until [pred fs]
   (when (seq fs)

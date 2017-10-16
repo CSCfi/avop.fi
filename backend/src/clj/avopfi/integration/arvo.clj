@@ -4,7 +4,6 @@
     [avopfi.consts :refer :all]
     [buddy.sign.jwt :as jwt]
     [java-time :refer [as local-date]]
-    [slingshot.slingshot :refer [try+ throw+]]
     [clojure.tools.logging :as log]
     [clj-http.client :as client]
     [avopfi.util :refer [in?]]
@@ -59,22 +58,17 @@
         auth-header (str "Bearer " 
                          (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
     (log/info "Pyydetään vastaajatunnusta tiedoille: " json-data)
-    (try+ 
-     (let [resp (client/post
-                 (:arvo-api-url env)
-                 {
-                  :debug (:is-dev env)
-                  :form-params (assoc json-data :kieli kieli)
-                  :headers {:Authorization auth-header}
-                  :content-type :json
-                  :as :json
-                  :socket-timeout 2000
-                  :conn-timeout 1000})
-              hash (-> resp :body :tunnus)]       
-       (if (nil? hash) 
-         (throw+ resp) hash))
-     (catch [:status 403] {:keys [request-time headers body]}
-       (log/warn "403" request-time headers))
-     (catch Object _
-       (log/error (:throwable &throw-context) "unexpected error")
-       (throw+)))))
+    (let [resp (client/post
+                (:arvo-api-url env)
+                {
+                 :debug (:is-dev env)
+                 :form-params (assoc json-data :kieli kieli)
+                 :headers {:Authorization auth-header}
+                 :content-type :json
+                 :as :json
+                 :socket-timeout 2000
+                 :conn-timeout 1000})
+             hash (-> resp :body :tunnus)]
+      (if (nil? hash)
+        (throw resp) hash))))
+
