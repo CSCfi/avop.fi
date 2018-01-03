@@ -104,7 +104,10 @@
 (defn haka-login-valid? [shibbo-vals]
   (let [ids-in-shibbo (clojure.set/intersection user-ids (set (keys shibbo-vals)))
         has-id (not (empty? ids-in-shibbo))
-        has-org (contains? shibbo-vals home-org)]
+        has-org (contains? shibbo-vals home-org)
+        valid (and has-org has-id)]
+    (if (and has-org (not valid))
+      (log/info "Puutteelliset Haka-tiedot, organisaatio:" (get shibbo-vals home-org)))
     (and has-org has-id)))
 
 (def shibbo-backend (backends/shibbo-backend {:names (conj user-ids home-org)
