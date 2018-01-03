@@ -132,7 +132,7 @@
         (let [user-agent (get-in req [:headers "user-agent"])
               sessionid (generate-sessionid)]
           (with-logging-context {:sessionid (format "[%s]" sessionid)}
-            (log/info  "Session started, user agent: " user-agent))
+            (log/info  "Session started, user agent: " user-agent "organization:" (->> req :identity :home-organization)))
           (assoc-in req [:session :sessionid] sessionid))
         req))))
 
