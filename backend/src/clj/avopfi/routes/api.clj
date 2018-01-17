@@ -118,13 +118,49 @@
           (if (either/right? res)
             (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)
                  :sessionid sessionid})
-            (not-found {:error (m/extract res)}))))
+            (not-found {:error (m/extract res) :sessionid sessionid}))))
       (throw-unauthorized))))
+
+(defn get-rekry-hash [oppilaitos identity]
+  (try-or :arvo_error
+    (let [eppn (-> identity :eppn)
+          employeeNumber (-> identity :employeeNumber)
+          henkilonumero (or (:employeeNumber identity) (:eppn identity))
+          vanha-tunnus (or (when employeeNumber (db/get-visitor-by-employeenumber {:oppilaitos oppilaitos :employeenumber employeeNumber}))
+                           (when eppn (db/get-visitor-by-eppn {:oppilaitos oppilaitos :eppn eppn})))]
+      (or (:vastaajatunnus vanha-tunnus)
+        (arvo/generate-rekry-credentials! oppilaitos henkilonumero)))))
+
+(defn create-rekry-visitor [request oppilaitos tunnus]
+  (try-or :general_error
+    (db/create-visitor! {:taustatiedot {:employeeNumber (-> request :identity :employeeNumber)
+                                        :eppn (-> request :identity :eppn)
+                                        :oppilaitos oppilaitos}
+                         :vastaajatunnus tunnus})
+    tunnus))
 
 (defn validate-haka [request]
   (if (not-nil? (:identity request))
     (either/right(:identity request))
     (either/left :haka_error)))
+
+
+(defn validate-rekry-haka [request]
+  (if (or (-> request :identity :eppn) (-> request :identity :eppn))
+    (either/right (:identity request))
+    (either/left :haka_error)))
+
+(defn process-rekry [request]
+  (let [oppilaitos (get-oppilaitos-code-by-domain (get-in request [:identity :home-organization]))
+        sessionid (get-in request [:session :sessionid])
+        tunnus (m/>>= (either/right request)
+                      validate-rekry-haka
+                      (partial get-rekry-hash oppilaitos)
+                      (partial create-rekry-visitor request oppilaitos))]
+    (if (either/right? tunnus)
+      (ok {:kysely_url (str (:arvo-answer-url env) (m/extract tunnus))
+           :sessionid sessionid})
+      (not-found {:error (m/extract tunnus) :sessionid sessionid}))))
 
 (defn validate-virta-data[virta-data]
   (if (and (not-nil? (:oikeudet virta-data))
@@ -169,8 +205,15 @@
       (debug-status request))
     (POST "/log" request
       (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
-        (jslog request))))
-  (GET "/" [] (found "/api")))
+        (jslog request)))))
+
+(defroutes rekry-routes
+  (context
+    "/api" []
+    (POST "/rekry" request
+      (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
+        (process-rekry request)))))
+
 
 (defroutes vipunen-routes
   (context "/api/vipunen" []

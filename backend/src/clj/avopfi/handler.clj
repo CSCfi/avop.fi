@@ -1,7 +1,7 @@
 (ns avopfi.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [avopfi.layout :refer [error-page]]
-            [avopfi.routes.api :refer [api-routes vipunen-routes]]
+            [avopfi.routes.api :refer [api-routes vipunen-routes rekry-routes]]
             [avopfi.routes.public :refer [public-routes]]
             [avopfi.middleware :as middleware]
             [avopfi.db.migrations :as migrations]
@@ -35,7 +35,8 @@
 (defroutes haka-routes api-routes public-routes)
 
 (defroutes app-routes
-           (wrap-routes haka-routes middleware/wrap-haka)
+           (wrap-routes haka-routes middleware/wrap-palaute)
+           (wrap-routes rekry-routes middleware/wrap-rekry)
            (wrap-routes vipunen-routes middleware/wrap-basic-auth)
  (route/not-found
     (:body

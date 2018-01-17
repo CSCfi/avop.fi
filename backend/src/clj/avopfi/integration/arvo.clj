@@ -72,3 +72,19 @@
       (if (nil? hash)
         (throw resp) hash))))
 
+;TODO: refactor
+(defn generate-rekry-credentials! [oppilaitos henkilonumero]
+  (log/info "Pyydetään rekrykyselyn vastaajatunnus" oppilaitos henkilonumero)
+  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
+        resp (client/post (str (:arvo-api-url env) "/rekry")
+                          {:debug (:is-dev env)
+                           :form-params {:oppilaitos oppilaitos :henkilonumero henkilonumero :vuosi (as (local-date) :year)}
+                           :headers {:Authorization auth-header}
+                           :content-type :json
+                           :as :json
+                           :socket-timeout 2000
+                           :conn-timeout 1000})
+        hash (-> resp :body :tunnus)]
+    (if (nil? hash)
+      (throw resp) hash)))
+

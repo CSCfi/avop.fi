@@ -27,7 +27,7 @@
                  [ring/ring-defaults "0.1.5"]
                  [ring-middleware-format "0.7.0"]
                  [ring-ttl-session "0.3.0"]
-                 [selmer "1.10.7"]
+                 [selmer "1.11.1"]
                  [io.clj/logging "0.8.1"]]
 
   :min-lein-version "2.0.0"

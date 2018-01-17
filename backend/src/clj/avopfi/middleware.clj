@@ -15,7 +15,8 @@
             [config.core :refer [env]]
             [haka-buddy.backend :as backends]
             [avopfi.util :refer [deprefixize]]
-            [io.clj.logging :refer [with-logging-context]])
+            [io.clj.logging :refer [with-logging-context]]
+            [clojure.set :as set])
   (:import [javax.servlet ServletContext]
            [java.util Base64]))
 
@@ -73,7 +74,6 @@
   (restrict handler {:handler authenticated?
                      :on-error on-403}))
 
-
 (defn hae-tunnus [request]
   (when-let [auth-header (get-in request [:headers "authorization"])]
     (let [decoder (Base64/getMimeDecoder)
@@ -86,7 +86,6 @@
             (str/split #":"))
           (catch IllegalArgumentException _))))))
 
-
 (defn wrap-basic-auth [handler]
   (fn [request]
     (let [username (env :basic-auth-username)
@@ -98,21 +97,36 @@
           {:status 401
            :headers {"www-authenticate" "Basic realm=\"restricted\""}})))))
 
-(def user-ids #{"learner-id" "national-identification-number" "unique-id"})
+(def user-data #{"learner-id" "national-identification-number" "unique-id"})
 (def home-org "home-organization")
+(def org-data #{home-org})
+(def employee-data #{"employeeNumber" "eppn"})
 
-(defn haka-login-valid? [shibbo-vals]
-  (let [ids-in-shibbo (clojure.set/intersection user-ids (set (keys shibbo-vals)))
+(defn haka-login-valid? [shibbo-vals ids]
+  (let [ids-in-shibbo (clojure.set/intersection ids (set (keys shibbo-vals)))
         has-id (not (empty? ids-in-shibbo))
         has-org (contains? shibbo-vals home-org)
         valid (and has-org has-id)]
     (if (and has-org (not valid))
       (log/info "Puutteelliset Haka-tiedot, organisaatio:" (get shibbo-vals home-org)))
-    (and has-org has-id)))
+    valid))
 
-(def shibbo-backend (backends/shibbo-backend {:names (conj user-ids home-org)
-                                              :checkfn haka-login-valid?
-                                              :use-headers? (:is-dev env)}))
+(defn palaute-haka-valid? [shibbo-vals]
+  (haka-login-valid? shibbo-vals user-data))
+
+(defn rekry-haka-valid? [shibbo-vals]
+  (haka-login-valid? shibbo-vals employee-data))
+
+;(def shibbo-backend (backends/shibbo-backend {:names (set/union user-data org-data employee-data)
+;                                              :checkfn haka-login-valid?
+;                                              :use-headers? (:is-dev env)}))
+
+(defn shibbo-backend [checkfn]
+  (backends/shibbo-backend {:names (set/union user-data org-data employee-data)
+                            :checkfn checkfn
+                            :use-headers? (:is-dev env)}))
+
+
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
 
@@ -120,8 +134,6 @@
 (defn parse-haka [handler]
   (fn [req]
     (handler (update-in req [:identity] clojure.walk/keywordize-keys))))
-
-(def chars (map char (concat (range 65 91) (range 97 123))))
 
 (defn generate-sessionid []
   (let [chars (map char (concat (range 65 91) (range 97 123)))
@@ -139,12 +151,17 @@
           (assoc-in req [:session :sessionid] sessionid))
         req))))
 
-(defn wrap-haka [handler]
+(defn wrap-haka [handler checkfn]
   (-> ((:middleware defaults) handler)
       attach-sessionid
       parse-haka
-      (wrap-authentication shibbo-backend
+      (wrap-authentication (shibbo-backend checkfn)
                            (token-backend {:authfn authenticate}))))
+(defn wrap-palaute [handler]
+  (wrap-haka handler palaute-haka-valid?))
+
+(defn wrap-rekry [handler]
+  (wrap-haka handler rekry-haka-valid?))
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
