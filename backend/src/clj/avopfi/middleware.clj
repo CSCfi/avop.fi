@@ -100,13 +100,14 @@
 (def user-data #{"learner-id" "national-identification-number" "unique-id"})
 (def home-org "home-organization")
 (def org-data #{home-org})
-(def employee-data #{"employeeNumber" "eppn"})
+(def employee-data #{"employeenumber" "eppn"})
 
 (defn haka-login-valid? [shibbo-vals ids]
   (let [ids-in-shibbo (clojure.set/intersection ids (set (keys shibbo-vals)))
         has-id (not (empty? ids-in-shibbo))
         has-org (contains? shibbo-vals home-org)
-        valid (and has-org has-id)]
+        valid (and has-org has-id)
+        _ (log/info "CHECKING HAKA: REQUIRED" ids "FOUND" (set (keys shibbo-vals)))]
     (if (and has-org (not valid))
       (log/info "Puutteelliset Haka-tiedot, organisaatio:" (get shibbo-vals home-org)))
     valid))
@@ -117,15 +118,10 @@
 (defn rekry-haka-valid? [shibbo-vals]
   (haka-login-valid? shibbo-vals employee-data))
 
-;(def shibbo-backend (backends/shibbo-backend {:names (set/union user-data org-data employee-data)
-;                                              :checkfn haka-login-valid?
-;                                              :use-headers? (:is-dev env)}))
-
 (defn shibbo-backend [checkfn]
   (backends/shibbo-backend {:names (set/union user-data org-data employee-data)
                             :checkfn checkfn
                             :use-headers? (:is-dev env)}))
-
 
 (defn authenticate [request token]
   (if (= token "secret") "valid" nil))
@@ -162,6 +158,9 @@
 
 (defn wrap-rekry [handler]
   (wrap-haka handler rekry-haka-valid?))
+
+(defn wrap-common [handler]
+  (wrap-haka handler #(haka-login-valid? % #{home-org})))
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)

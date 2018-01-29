@@ -124,8 +124,8 @@
 (defn get-rekry-hash [oppilaitos identity]
   (try-or :arvo_error
     (let [eppn (-> identity :eppn)
-          employeeNumber (-> identity :employeeNumber)
-          henkilonumero (or (:employeeNumber identity) (:eppn identity))
+          employeeNumber (-> identity :employeenumber)
+          henkilonumero (or (:employeenumber identity) (:eppn identity))
           vanha-tunnus (or (when employeeNumber (db/get-visitor-by-employeenumber {:oppilaitos oppilaitos :employeenumber employeeNumber}))
                            (when eppn (db/get-visitor-by-eppn {:oppilaitos oppilaitos :eppn eppn})))]
       (or (:vastaajatunnus vanha-tunnus)
@@ -133,10 +133,13 @@
 
 (defn create-rekry-visitor [request oppilaitos tunnus]
   (try-or :general_error
-    (db/create-visitor! {:taustatiedot {:employeeNumber (-> request :identity :employeeNumber)
-                                        :eppn (-> request :identity :eppn)
-                                        :oppilaitos oppilaitos}
-                         :vastaajatunnus tunnus})
+    (let [employeeNumber (-> request :identity :employeenumber)
+          eppn (-> request identity :eppn)
+          taustatiedot (-> {:oppilaitos oppilaitos}
+                           (cond-> employeeNumber (assoc :employeenumber employeeNumber))
+                           (cond-> eppn (assoc :eppn eppn)))]
+      (db/create-visitor! {:taustatiedot taustatiedot
+                           :vastaajatunnus tunnus}))
     tunnus))
 
 (defn validate-haka [request]
@@ -146,7 +149,8 @@
 
 
 (defn validate-rekry-haka [request]
-  (if (or (-> request :identity :eppn) (-> request :identity :eppn))
+  (log/info "VALIDOIDAAN HAKA: " (:identity request))
+  (if (or (-> request :identity :employeenumber) (-> request :identity :eppn))
     (either/right (:identity request))
     (either/left :haka_error)))
 
@@ -202,7 +206,12 @@
       (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
         (process-registration request)))
     (GET "/status" request
-      (debug-status request))
+      (debug-status request))))
+
+
+(defroutes common-routes
+  (context
+    "/api" []
     (POST "/log" request
       (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
         (jslog request)))))

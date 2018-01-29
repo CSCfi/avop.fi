@@ -14,7 +14,7 @@ LIMIT 1;
 -- :name get-visitor-by-employeenumber :? :1
 SELECT * FROM visitors
 WHERE taustatiedot ->> 'oppilaitos' = :oppilaitos
-  AND taustatiedot ->> 'employeeNumber' = :employeeNumber
+  AND taustatiedot ->> 'employeenumber' = :employeenumber
 LIMIT 1;
 
 -- :name get-visitor-by-eppn :? :1
