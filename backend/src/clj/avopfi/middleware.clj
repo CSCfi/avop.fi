@@ -100,7 +100,7 @@
 (def user-data #{"learner-id" "national-identification-number" "unique-id"})
 (def home-org "home-organization")
 (def org-data #{home-org})
-(def employee-data #{"employeenumber" "eppn"})
+(def employee-data #{"employeeNumber" "eppn"})
 
 (defn haka-login-valid? [shibbo-vals ids]
   (let [ids-in-shibbo (clojure.set/intersection ids (set (keys shibbo-vals)))

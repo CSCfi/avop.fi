@@ -124,19 +124,19 @@
 (defn get-rekry-hash [oppilaitos identity]
   (try-or :arvo_error
     (let [eppn (-> identity :eppn)
-          employeeNumber (-> identity :employeenumber)
-          henkilonumero (or (:employeenumber identity) (:eppn identity))
-          vanha-tunnus (or (when employeeNumber (db/get-visitor-by-employeenumber {:oppilaitos oppilaitos :employeenumber employeeNumber}))
+          employeeNumber (-> identity :employeeNumber)
+          henkilonumero (or (:employeeNumber identity) (:eppn identity))
+          vanha-tunnus (or (when employeeNumber (db/get-visitor-by-employeenumber {:oppilaitos oppilaitos :employeeNumber employeeNumber}))
                            (when eppn (db/get-visitor-by-eppn {:oppilaitos oppilaitos :eppn eppn})))]
       (or (:vastaajatunnus vanha-tunnus)
         (arvo/generate-rekry-credentials! oppilaitos henkilonumero)))))
 
 (defn create-rekry-visitor [request oppilaitos tunnus]
   (try-or :general_error
-    (let [employeeNumber (-> request :identity :employeenumber)
-          eppn (-> request identity :eppn)
+    (let [employeeNumber (-> request :identity :employeeNumber)
+          eppn (-> request :identity :eppn)
           taustatiedot (-> {:oppilaitos oppilaitos}
-                           (cond-> employeeNumber (assoc :employeenumber employeeNumber))
+                           (cond-> employeeNumber (assoc :employeeNumber employeeNumber))
                            (cond-> eppn (assoc :eppn eppn)))]
       (db/create-visitor! {:taustatiedot taustatiedot
                            :vastaajatunnus tunnus}))
@@ -149,8 +149,7 @@
 
 
 (defn validate-rekry-haka [request]
-  (log/info "VALIDOIDAAN HAKA: " (:identity request))
-  (if (or (-> request :identity :employeenumber) (-> request :identity :eppn))
+  (if (or (-> request :identity :employeeNumber) (-> request :identity :eppn))
     (either/right (:identity request))
     (either/left :haka_error)))
 
