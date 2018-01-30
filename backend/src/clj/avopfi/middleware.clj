@@ -107,7 +107,7 @@
         has-id (not (empty? ids-in-shibbo))
         has-org (contains? shibbo-vals home-org)
         valid (and has-org has-id)
-        _ (log/info "CHECKING HAKA: REQUIRED" ids "FOUND" (set (keys shibbo-vals)))]
+        _ (log/info "Tarkistetaan Haka-kirjautuminen, vaaditut tiedot:" ids "löytyi:" (set (keys shibbo-vals)))]
     (if (and has-org (not valid))
       (log/info "Puutteelliset Haka-tiedot, organisaatio:" (get shibbo-vals home-org)))
     valid))
