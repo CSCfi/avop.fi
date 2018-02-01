@@ -13,5 +13,5 @@ vault.password
 profiles.clj
 .env
 .nrepl-port
-/backend/log
+/backend/logs
 /backend/*.log*

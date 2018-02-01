@@ -1,8 +1,9 @@
 (ns avopfi.integration.opintopolku
-  (:require 
-   [clojure.string :as str]
-   [config.core :refer [env]]
-   [clj-http.client :as client]))
+  (:require
+    [clojure.string :as str]
+    [config.core :refer [env]]
+    [clj-http.client :as client]
+    [clojure.tools.logging :as log]))
 
 (def rest-path "koodisto-service/rest/codeelement/latest/")
 
@@ -10,9 +11,13 @@
   (str (:opintopolku-base-url env) rest-path code-type "_" code))
 
 (defn get-code-data! [code code-type]
-  (:body (client/get
-          (build-url code code-type)
-          {:as :json :socket-timeout 2000 :conn-timeout 1000})))
+  (try
+    (:body (client/get
+            (build-url code code-type)
+            {:as :json :socket-timeout 2000 :conn-timeout 1000}))
+    (catch Exception e
+      (log/info "Koodin" code "Haku epäonnistui:" (.getMessage e)))))
+
 
 (defn get-oppilaitos-data [code]
   (get-code-data! code "oppilaitosnumero"))

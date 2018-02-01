@@ -29,9 +29,9 @@
   (let [{kunta-id :koulutuskunta :keys [luokittelu koulutuskoodi koulutuskieli]}
         (virta/select-active-timespan jaksot)
         kunta (op/extract-metadata (op/get-kunta-data kunta-id))
-        koulutus (op/extract-metadata (op/get-koulutus-data koulutuskoodi))
+        koulutus (arvo/get-koulutus-data koulutuskoodi)
         koulutustyyppi (virta/conclude-study-type tyyppi luokittelu)
-        oppilaitos (op/extract-metadata (op/get-oppilaitos-data myontaja))]
+        oppilaitos (arvo/get-oppilaitos-data myontaja)]
     {
      :id avain
      :aloituspvm alkuPvm

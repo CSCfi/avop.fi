@@ -8,7 +8,8 @@
     [clj-http.client :as client]
     [avopfi.util :refer [in?]]
     [clojure.core.match :refer [match]]
-    [avopfi.validator :refer [lisensiaatti? jakso-active?]]))
+    [avopfi.validator :refer [lisensiaatti? jakso-active?]]
+    [cheshire.core :as cheshire]))
 
 
 (defn sisaltyy-koodeihin [koodit koulutuskoodit]
@@ -59,7 +60,7 @@
                          (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
     (log/info "Pyydetään vastaajatunnusta tiedoille: " json-data)
     (let [resp (client/post
-                (:arvo-api-url env)
+                (str (:arvo-api-url env) "/luovastaajatunnus")
                 {
                  :debug (:is-dev env)
                  :form-params (assoc json-data :kieli kieli)
@@ -76,7 +77,7 @@
 (defn generate-rekry-credentials! [oppilaitos henkilonumero]
   (log/info "Pyydetään rekrykyselyn vastaajatunnus" oppilaitos henkilonumero)
   (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
-        resp (client/post (str (:arvo-api-url env) "/rekry")
+        resp (client/post (str (:arvo-api-url env) "/luovastaajatunnus/rekry")
                           {:debug (:is-dev env)
                            :form-params {:oppilaitos oppilaitos :henkilonumero henkilonumero :vuosi (as (local-date) :year)}
                            :headers {:Authorization auth-header}
@@ -87,4 +88,20 @@
         hash (-> resp :body :tunnus)]
     (if (nil? hash)
       (throw resp) hash)))
+
+(defn get-oppilaitos-data [oppilaitos]
+  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
+        resp (client/get (str (:arvo-api-url env) "/koodisto/oppilaitos/" oppilaitos)
+                         {:headers {:Authorization auth-header}})]
+       (if (nil? (:body resp))
+         (throw resp)
+         (cheshire/parse-string (:body resp)))))
+
+(defn get-koulutus-data [koulutuskoodi]
+  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
+        resp (client/get (str (:arvo-api-url env) "/koodisto/koulutus/" koulutuskoodi)
+                         {:headers {:Authorization auth-header}})]
+    (if (nil? (:body resp))
+      (throw resp)
+      (cheshire/parse-string (:body resp)))))
 
