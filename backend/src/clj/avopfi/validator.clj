@@ -73,7 +73,7 @@
         (->> virta-suoritukset
              (filter #(and
                        (= (:opiskeluoikeusAvain %) oo-avain)
-                       (= (:laji %) opintosuoritus-muu-laji)
+                       (in? [opintosuoritus-muu-laji opintosuoritus-muu-laji-3] (:laji %))
                        (empty? (:sisaltyvyys %))))
              (reduce #(+ %1 (float (-> %2 :laajuus :opintopiste))) 0))]
     (if (and (not-nil? oo-laajuus)
@@ -105,13 +105,13 @@
 
 
 (defn lehti-suoritus? [suoritus]
-  (and (= (:laji suoritus) "2") (empty? (:sisaltyvyys suoritus))))
+  (and (in? [opintosuoritus-muu-laji opintosuoritus-muu-laji-3] (:laji suoritus)) (empty? (:sisaltyvyys suoritus))))
 
 (defn has-160op [virta-suoritukset opiskeluoikeus]
   (let [lehti-suoritukset (->> virta-suoritukset
                                (filter lehti-suoritus?)
                                (filter #(= (:myontaja opiskeluoikeus) (:myontaja %))))
-        tutkinnot (->> virta-suoritukset (filter #(= "1" (:laji %))))
+        tutkinnot (->> virta-suoritukset (filter #(= opintosuoritus-tutkinto (:laji %))))
         tutkintoon-sisaltyvat (mapcat (partial sisaltyvyydet virta-suoritukset) tutkinnot)
         hyvaksyttavat (filter #(not(in? tutkintoon-sisaltyvat (:avain %))) lehti-suoritukset)
         yhteispisteet (->> hyvaksyttavat

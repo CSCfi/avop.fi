@@ -19,6 +19,7 @@
 ;; Refer to: https://goo.gl/EEnUxr
 (def opintosuoritus-tutkinto "1")
 (def opintosuoritus-muu-laji "2")
+(def opintosuoritus-muu-laji-3 "3")
 
 (def tutkinto-patevyys
   {"772101" "ll4"
