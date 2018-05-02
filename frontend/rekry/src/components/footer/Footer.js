@@ -30,7 +30,7 @@ let Footer = () =>
       </div>
       <div className="one-third column">
         <Translate component="div" content="footer.csc.description"/>
-        <span>arvo@postit.csc.fi</span>
+        <span>arvo@csc.fi</span>
       </div>
     </div>
 

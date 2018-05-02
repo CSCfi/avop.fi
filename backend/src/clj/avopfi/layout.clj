@@ -1,5 +1,6 @@
 (ns avopfi.layout
   (:require [selmer.parser :as parser]
+            [selmer.filters :as filters]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))

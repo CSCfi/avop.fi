@@ -1,5 +1,6 @@
 (ns avopfi.test.routes.api-test
-  (:require [config.core :refer [env]]
+  (:require
+    ;[config.core :refer [env]
             [avopfi.consts :refer :all]
             [clojure.test :refer :all]
             [avopfi.routes.api :refer :all]

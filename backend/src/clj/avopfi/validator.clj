@@ -67,8 +67,8 @@
       (>= (vals->pct pisteet (float laajuus)) vaaditut-pisteet)
       false)))
 
-(defn has-enough-opintosuoritus? [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain
-                                                     {oo-laajuus :opintopiste} :laajuus}]
+(defn has-enough-opintosuoritus? [virta-suoritukset {oo-tyyppi :tyyppi oo-avain :avain}
+                                                    {oo-laajuus :opintopiste} :laajuus]
   (let [pisteet
         (->> virta-suoritukset
              (filter #(and
