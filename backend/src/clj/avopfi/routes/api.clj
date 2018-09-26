@@ -227,3 +227,9 @@
   (context "/api/vipunen" []
     (GET "/" request
       (get-visitors request))))
+
+(defroutes export-routes
+  (context "/api/export/v1" []
+    (POST "/opiskeluoikeudet" request
+      (let [oppilaitokset (-> request :params :oppilaitokset)]
+        (ok (db/get-opiskeluoikeus {:oppilaitokset oppilaitokset}))))))
