@@ -30,3 +30,9 @@ WHERE domain = :domain;
 
 -- :name get-visitors :? :*
 SELECT * FROM visitors;
+
+-- :name get-opiskeluoikeus :? :*
+SELECT vastaajatunnus, taustatiedot->>'opiskeluoikeus' AS opiskeluoikeus
+FROM visitors
+WHERE taustatiedot ->>'opiskeluoikeus' IS NOT NULl
+AND taustatiedot->>'oppilaitos' IN (:v*:oppilaitokset);

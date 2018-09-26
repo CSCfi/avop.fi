@@ -10,7 +10,7 @@
                  [conman "0.6.4"]
                  [clojure.java-time "0.2.0"]
                  [funcool/cats "2.1.0"]
-                 [luminus/config "0.8"] ;cprop
+                 [luminus/config "0.8"]
                  [luminus-jetty "0.1.0"]
                  [luminus-log4j "0.1.2"]
                  [luminus-nrepl "0.1.2"]
