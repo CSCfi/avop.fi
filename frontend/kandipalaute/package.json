@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "clean": "rimraf dist/*",
-    "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/privacy.pdf ./dist",
+    "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/privacy_fi.pdf ./src/privacy_sv.pdf ./src/privacy_en.pdf ./dist",
     "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src",
     "posttest": "npm run lint",
@@ -49,7 +49,7 @@
     "karma-webpack": "^1.7.0",
     "minimist": "^1.2.0",
     "mocha": "^2.2.5",
-    "node-sass": "^3.4.2",
+    "node-sass": "3.13.1",
     "null-loader": "^0.1.1",
     "open": "0.0.5",
     "phantomjs-prebuilt": "^2.0.0",

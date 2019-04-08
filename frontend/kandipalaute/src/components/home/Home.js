@@ -2,6 +2,7 @@ require('./content.scss');
 
 import React from 'react';
 import config from 'config';
+import translate from 'counterpart';
 import Translate from 'react-translate-component';
 import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 import LocalizedImage from '../common/localizedimage/localizedimage';
@@ -12,12 +13,25 @@ export default class Content extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      locale: translate.getLocale()
+    };
   }
 
   extractCurrentDomain() {
     return window.location.protocol + '//' +
       window.location.hostname +
       ((window.location.port === '') ? '' : ':' + window.location.port);
+  }
+
+  componentDidMount() {
+    translate
+      .onLocaleChange(this.localeChanged.bind(this));
+  }
+
+  localeChanged(newLocale) {
+    this.setState({locale: newLocale});
   }
 
   render() {
@@ -56,7 +70,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <p><a href="./privacy.pdf"> <Translate component="span" content="content.kysely.privacy"/></a></p>
+                <p><a href={"./privacy_"+this.state.locale+".pdf"}> <Translate component="span" content="content.kysely.privacy"/></a></p>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
