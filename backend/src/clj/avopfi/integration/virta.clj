@@ -119,8 +119,8 @@
 
 (defn get-from-virta-with-retry [virta-fetcher user-data oppilaitos]
   (let [fetch-with #(get-from-virta-with virta-fetcher oppilaitos (select-keys user-data [%]))]
-    (try-until seq
-      [#(fetch-with :shib-learner-id)
+    (try-until not-empty
+      [#(fetch-with :learner-id)
        #(fetch-with :national-identification-number)
        #(fetch-with :unique-id)])))
 
