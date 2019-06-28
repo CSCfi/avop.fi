@@ -4,6 +4,8 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
+let unifi_logo = require('../../images/Unifi_logo_scaled.png');
+
 let Footer = () =>
   <footer className="container">
     <div className="row">
@@ -14,7 +16,7 @@ let Footer = () =>
     </div>
     <div className="row">
       <div className="one-third column unifi">
-        <LocalizedImage image="unifi_logo" />
+        <img className="img-unifi" src={unifi_logo} alt="Unifi"/>
       </div>
 
       <div className="one-third column okm">
