@@ -16,13 +16,14 @@
                  [luminus-nrepl "0.1.2"]
                  [metosin/ring-http-response "0.6.5"]
                  [mount "0.1.11"]
-                 [migratus "0.8.13"]
+                 [migratus "1.0.6"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/core.match "0.3.0-alpha4"]
                  [org.clojure/tools.logging "0.4.0"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [org.clojure/java.data "0.1.1"]
-                 [org.postgresql/postgresql "9.4-1206-jdbc4"]
+                 [org.clojure/java.jdbc "0.7.9"]
+                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [ring/ring-defaults "0.1.5"]
                  [ring-middleware-format "0.7.0"]
@@ -50,8 +51,9 @@
                    :all (constantly true)}
 
   :plugins [[lein-environ "1.0.1"]
-            [migratus-lein "0.2.6"]
-            [lein-uberwar "0.2.0"]]
+            [migratus-lein "0.7.2"]
+            [lein-uberwar "0.2.0"]
+            [lein-ancient "0.6.15"]]
   :profiles
   {:uberjar {:omit-source true
              :env {:production true}

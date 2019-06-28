@@ -43,12 +43,10 @@ export default class Content extends React.Component {
           <div className="container">
             <div className="row">
 
-              {/*<div className="six columns">*/}
-                <div id="haka-login">
-                  <Translate component="h4" content="content.login.header"/>
-                  <Translate component="p" content="content.login.description"/>
-                </div>
-              {/*</div>*/}
+              <div id="haka-login">
+                <Translate component="h4" content="content.login.header"/>
+                <Translate component="p" content="content.login.description"/>
+              </div>
 
               <div id="haka" className="centered" onClick={this.login}>
                 <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
@@ -70,7 +68,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <p><a href={"./privacy_"+this.state.locale+".pdf"}> <Translate component="span" content="content.kysely.privacy"/></a></p>
+                <p><a href={'./privacy_'+this.state.locale+'.pdf'}> <Translate component="span" content="content.kysely.privacy"/></a></p>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
