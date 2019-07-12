@@ -17,7 +17,11 @@ let localizations_fi = {
     tulokset: {
       header: 'Kyselyn tulokset',
       results1: 'Yliopiston henkilökunta voi tarkastella kyselyn tuloksia reaaliaikaisesti Arvo - opetushallinnon vaikuttavuustietopalvelun avulla. Katseluoikeudet (Arvo-katselija) voi anoa Opintopolun virkailijantyöpöydän kautta (Omat tiedot)',
-      results2: 'Kyselyn tuloksista johdettuja tilastoraportteja on avoimesti saatavilla opetushallinnon tilastopalvelu Vipusessa:'
+      results2: 'Annetuista vastauksista muodostettava sähköinen tutkimusaineisto arkistoidaan pysyvästi %(link)s, jossa aineistot ovat saatavilla myöhempään tutkimus-, opiskelu- ja opetuskäyttöön. Arkistointia varten aineistoa muokataan siten, ettei yksittäisen vastaajan tunnistaminen ole mahdollista (anonymisointi). Kyselyn tuloksista johdettuja tilastoraportteja tuodaan lisäksi avoimesti saataville opetushallinnon tilastopalvelu Vipuseen.',
+      link1: {
+        url: 'https://www.fsd.uta.fi/',
+        text: 'Yhteiskuntatieteelliseen tietoarkistoon'
+      }
     }
   },
   footer: {
