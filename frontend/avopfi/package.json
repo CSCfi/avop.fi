@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "clean": "rimraf dist/*",
-    "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/privacy.pdf ./dist",
+    "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/privacy.pdf ./src/privacy_fi.pdf ./src/privacy_sv.pdf ./src/privacy_en.pdf ./dist",
     "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src",
     "posttest": "npm run lint",
