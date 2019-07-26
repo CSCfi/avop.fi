@@ -8,7 +8,10 @@ let localizations_en = {
       about1: 'AVOP - Graduand feedback questionnaire asks graduating students to evaluate and provide feedback on their education. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire.',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are handled anonymously.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
-      privacy: 'More information in privacy policy.'
+      privacy: {
+        text: 'More information in privacy policy.',
+        link: './privacy_en.pdf'
+      }
     },
     login: {
       header: 'UAS student',

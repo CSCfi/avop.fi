@@ -1,5 +1,4 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import Translate from 'react-translate-component';
 import TranslateProperty from '../common/translateproperty';
 import LocalizedImage from '../common/localizedimage/localizedimage'
