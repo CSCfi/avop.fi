@@ -4,8 +4,6 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
-let arene_logo = require('../../images/arene.png');
-
 let Footer = () =>
   <footer className="container">
     <div className="row">
