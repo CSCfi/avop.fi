@@ -35,6 +35,7 @@ export default class Content extends React.Component {
   }
 
   render() {
+    const link = <a href={translate.translate('content.tulokset.link1.url')}>{translate.translate('content.tulokset.link1.text')}</a>;
     return (
       <div>
         <LocalizedThemeImage />
@@ -72,7 +73,7 @@ export default class Content extends React.Component {
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
-              <div className="u-full-width"><Translate component="p" content="content.tulokset.results2"/></div>
+              <div className="u-full-width"><Translate link={link} component="p" content="content.tulokset.results2"/></div>
               <div className="u-full-width">
                 <a href="https://vipunen.fi/" className="vipunen">
                   <LocalizedImage image="vipunen"/>
