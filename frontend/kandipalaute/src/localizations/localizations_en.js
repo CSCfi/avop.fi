@@ -17,7 +17,11 @@ let localizations_en = {
     tulokset: {
       header: 'The results',
       results1: 'The staff of the universities can review the real time survey results by using the Arvo - education management information service with appropriate user rights.',
-      results2: 'The statistics are freely available at the Vipunen statistics services of the educational administration.'
+      results2: 'The statistics are freely available at the Vipunen statistics services of the educational administration.',
+      link1: {
+        url: '',
+        text: ''
+      }
     }
   },
   footer: {

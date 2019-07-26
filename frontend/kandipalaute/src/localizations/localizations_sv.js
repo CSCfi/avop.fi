@@ -17,7 +17,11 @@ let localizations_sv = {
     tulokset: {
       header: 'Undersökningsresultaten',
       results1: 'Universitetets personal kan följa med enkätens resultat i realtid via utbildningsförvaltningens tjänst ”Arvo”. Ansökan om läsrättigheter (Arvo-katselija) kan anhållas via Opintopolku (virkailijan työpöytä, omat tiedot).',
-      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via utbildningsförvaltningens statistiktjänst Vipunen.'
+      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via utbildningsförvaltningens statistiktjänst Vipunen.',
+      link1: {
+        url: '',
+        text: ''
+      }
     }
   },
   footer: {
