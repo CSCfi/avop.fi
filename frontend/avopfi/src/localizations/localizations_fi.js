@@ -8,7 +8,10 @@ let localizations_fi = {
       about1: 'AVOP on Ammattikorkeakoulujen valmistumisvaiheen opiskelijapalautekysely, jossa opiskelija arvioi ja antaa palautetta toteutuneesta koulutuksesta. Kyselyn tuloksia hyödynnetään sekä paikallisesti korkeakoulun oman toiminnan kehittämisessä että valtakunnallisesti koulutuksen ohjauksessa ja rahoituksessa. Kyselyn täyttävät kaikki ammattikorkeakouluista valmistuvat tutkinto-opiskelijat.',
       about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi AVOP-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse AVOP-kyselyyn ja annettua palautetta käsitellään anonyymisti.',
       about3: 'AVOP-kyselymittaristo on syntynyt Ammattikorkeakoulujen rehtorineuvosto Arene ry:n, Suomen opiskelijakuntien SAMOK ry:n, Opiskelun ja koulutuksen tutkimussäätiön (OTUS) ja opetus- ja kulttuuriministeriön (OKM) yhteisenä hankkeena. Kyselymittariston käyttöönotosta ja sen kehittämisestä vastaa Arene ry.',
-      privacy: 'Lisätietoja tietosuojaselosteessa.'
+      privacy: {
+        text: 'Lisätietoja tietosuojaselosteessa.',
+        link: './privacy_fi.pdf'
+      }
     },
     login: {
       header: 'Ammattikorkeakouluopiskelija',

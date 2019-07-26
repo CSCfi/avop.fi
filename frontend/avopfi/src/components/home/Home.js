@@ -2,6 +2,7 @@ require('./content.scss');
 
 import React from 'react';
 import config from 'config';
+import translate from 'counterpart';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
@@ -11,6 +12,15 @@ export default class Content extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    translate
+      .onLocaleChange(this.localeChanged.bind(this));
+  }
+
+  localeChanged(newLocale) {
+    this.setState({locale: newLocale});
   }
 
   extractCurrentDomain() {
@@ -60,7 +70,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <p><a href="./privacy.pdf"> <Translate component="span" content="content.kysely.privacy" /></a></p>
+                <p><a href={translate.translate('content.kysely.privacy.link')}>{translate.translate('content.kysely.privacy.text')}</a></p>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
