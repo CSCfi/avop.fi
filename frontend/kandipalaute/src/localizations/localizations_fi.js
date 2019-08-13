@@ -8,7 +8,11 @@ let localizations_fi = {
       about1: 'Kandipalaute on yliopistojen valtakunnallinen opiskelijapalautekysely, jossa  selvitetään kandidaatin tutkinnon suorittaneiden opiskelijoiden tyytyväisyyttä yliopistoonsa ja kokemuksia opintojen sujumisesta. Kysely perustuu oppimista, opiskelua ja opetusta koskevaan tieteelliseen tutkimukseen, ja sen pohjalta kehitettyyn Helsingin yliopiston HowULearn-kyselyyn. Kyselyn tuloksia hyödynnetään yliopistojen koulutuksen kehittämisessä sekä valtakunnallisesti yliopistojen ohjauksessa. Kyselyn täyttävät kaikki alempaan korkeakoulututkintoon kuuluvat tai vastaavat opinnot suorittaneet yliopisto-opiskelijat.',
       about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi Kandipalaute-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse Kandipalaute-kyselyyn ja annettua palautetta käsitellään anonyymisti.',
       about3: 'Kandipalaute-kyselystä ja sen kehittämisestä vastaa Suomen yliopistot UNIFI ry.',
-      privacy: 'Lisätietoja tietosuojaselosteessa.'
+      privacy: {
+        text: 'Lisätietoa:  %(link1)s ja  %(link2)s.',
+        url1Text: 'tietosuojaseloste',
+        url2Text: 'kyselyn eettiset periaatteet'
+      }
     },
     login: {
       header: 'Yliopisto-opiskelija',

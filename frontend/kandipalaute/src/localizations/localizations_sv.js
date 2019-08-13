@@ -8,7 +8,11 @@ let localizations_sv = {
       about1: 'Kandidatrespons är universitetens riksomfattande undersökning, som utvärderar erfarenheter av hur studierna förlöpt och hur nöjd studerande är med sitt universitet. Enkäten grundar sig på vetenskaplig forskning om inlärning, studier och undervisning som hör till HowULearn-enkäten som utvecklas av Helsingfors universitet. Undersökningens resultat utnyttjas till att utveckla utbildningen och nationellt i styrning av universiteten. Enkäten besvaras av de universitetsstuderande som har avlagt en lägre högskoleexamen eller motsvarande.',
       about2: 'Med hjälp av studerandes HAKA-inloggning hittas personens information om studierätt från nationella VIRTA-studieregistret. Uppgifterna används som bakgrundsinformation för att skapa svarsidentifiering och gör de möjligt att ge respons i elektronisk form. Information som möjliggör personlig identifiering överförs inte vidare till själva Kandidatrespons-enkäten, utan materialet behandlas anonymt.',
       about3: 'Kandidatrespons-enkäten koordineras och utvecklas av Finlands universitet UNIFI rf.',
-      privacy: 'Utförligare information i registerbeskrivningen.'
+      privacy: {
+        text: 'Utförligare information i %(link1)s och %(link2)s.',
+        url1Text: 'registerbeskrivningen',
+        url2Text: 'etiska principer'
+      }
     },
     login: {
       header: 'Studerande vid universitet',

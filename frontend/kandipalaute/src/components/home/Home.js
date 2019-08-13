@@ -7,7 +7,7 @@ import Translate from 'react-translate-component';
 import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
-let hakaLoginImage = require('../../images/Haka_login_vaaka_lg.jpg');
+import hakaLoginImage from '../../images/Haka_login_vaaka_lg.jpg';
 
 export default class Content extends React.Component {
 
@@ -36,6 +36,8 @@ export default class Content extends React.Component {
 
   render() {
     const link = <a href={translate.translate('content.tulokset.link1.url')}>{translate.translate('content.tulokset.link1.text')}</a>;
+    const privacy_link1 = <a href={'./privacy_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url1Text')}</a>;
+    const privacy_link2 = <a href={'./ethical_principles_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url2Text')}</a>;
     return (
       <div>
         <LocalizedThemeImage />
@@ -55,7 +57,6 @@ export default class Content extends React.Component {
                 </a>
               </div>
 
-
             </div>
           </div>
         </section>
@@ -69,7 +70,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <p><a href={'./privacy_'+this.state.locale+'.pdf'}> <Translate component="span" content="content.kysely.privacy"/></a></p>
+                <Translate component="p" content="content.kysely.privacy.text" link1={privacy_link1} link2={privacy_link2}/>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>

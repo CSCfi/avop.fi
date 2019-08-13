@@ -8,7 +8,11 @@ let localizations_en = {
       about1: 'Kandipalaute - The Finnish Bachelor’s Graduate Survey is a national student feedback survey that examines students’ satisfaction with their university and studying experience. The survey is founded on HowULearn-questionnaire that was developed by the University of Helsinki based on prior research on academic teaching and learning. The findings are used by institutions to improve education and learning and nationally to inform performance-based monitoring and guidance. All graduating Bachelor degree students or students with corresponding studies from universities are requested to fill out the questionnaire.',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the questionnaire and all answers are handled confidentially and anonymized.',
       about3: 'The responsibility for development and implementation of the questionnaire lies with Universities Finland UNIFI.',
-      privacy: 'More information in privacy policy.'
+      privacy: {
+        text: 'More information in %(link1)s and %(link2)s.',
+        url1Text: 'Privacy policy',
+        url2Text: 'Ethical principles'
+      }
     },
     login: {
       header: 'University student',
