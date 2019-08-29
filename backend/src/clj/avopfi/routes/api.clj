@@ -18,7 +18,9 @@
             [avopfi.middleware :refer [wrap-basic-auth]]
             [cats.core :as m]
             [cats.monad.either :as either]
-            [io.clj.logging :refer [with-logging-context]]))
+            [io.clj.logging :refer [with-logging-context]]
+            [java-time :refer [as local-date]]))
+
 
 (defn home-page []
   (layout/render
@@ -126,8 +128,13 @@
     (let [eppn (-> identity :eppn)
           employeeNumber (-> identity :employeeNumber)
           henkilonumero (or (:employeeNumber identity) (:eppn identity))
-          vanha-tunnus (or (when employeeNumber (db/get-visitor-by-employeenumber {:oppilaitos oppilaitos :employeeNumber employeeNumber}))
-                           (when eppn (db/get-visitor-by-eppn {:oppilaitos oppilaitos :eppn eppn})))]
+          vuosi (as (local-date) :year)
+          vanha-tunnus (or (when employeeNumber (db/get-rekry-visitor {:oppilaitos oppilaitos
+                                                                       :employeeNumber employeeNumber
+                                                                       :vuosi vuosi}))
+                           (when eppn (db/get-rekry-visitor {:oppilaitos oppilaitos
+                                                             :eppn eppn
+                                                             :vuosi vuosi})))]
       (or (:vastaajatunnus vanha-tunnus)
         (arvo/generate-rekry-credentials! oppilaitos henkilonumero)))))
 
@@ -135,7 +142,8 @@
   (try-or :general_error
     (let [employeeNumber (-> request :identity :employeeNumber)
           eppn (-> request :identity :eppn)
-          taustatiedot (-> {:oppilaitos oppilaitos}
+          vuosi (as (local-date) :year)
+          taustatiedot (-> {:oppilaitos oppilaitos :vuosi vuosi}
                            (cond-> employeeNumber (assoc :employeeNumber employeeNumber))
                            (cond-> eppn (assoc :eppn eppn)))]
       (db/create-visitor! {:taustatiedot taustatiedot
