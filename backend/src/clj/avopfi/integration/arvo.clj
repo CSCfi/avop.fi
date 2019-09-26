@@ -76,31 +76,28 @@
 ;TODO: refactor
 (defn generate-rekry-credentials! [oppilaitos henkilonumero]
   (log/info "Pyydetään rekrykyselyn vastaajatunnus" oppilaitos henkilonumero)
-  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
-        resp (client/post (str (:arvo-api-url env) "/luovastaajatunnus/rekry")
+  (let [resp (client/post (str (:arvo-api-url env) "/luovastaajatunnus/rekry")
                           {:debug (:is-dev env)
                            :form-params {:oppilaitos oppilaitos :henkilonumero henkilonumero :vuosi (as (local-date) :year)}
-                           :headers {:Authorization auth-header}
                            :content-type :json
                            :as :json
                            :socket-timeout 2000
-                           :conn-timeout 1000})
+                           :conn-timeout 1000
+                           :basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]})
         hash (-> resp :body :tunnus)]
     (if (nil? hash)
       (throw resp) hash)))
 
 (defn get-oppilaitos-data [oppilaitos]
-  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
-        resp (client/get (str (:arvo-api-url env) "/koodisto/oppilaitos/" oppilaitos)
-                         {:headers {:Authorization auth-header}})]
+  (let [resp (client/get (str (:arvo-api-url env) "/koodisto/oppilaitos/" oppilaitos)
+                         {:basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]})]
        (if (nil? (:body resp))
          (throw resp)
          (cheshire/parse-string (:body resp)))))
 
 (defn get-koulutus-data [koulutuskoodi]
-  (let [auth-header (str "Bearer " (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))
-        resp (client/get (str (:arvo-api-url env) "/koodisto/koulutus/" koulutuskoodi)
-                         {:headers {:Authorization auth-header}})]
+  (let [resp (client/get (str (:arvo-api-url env) "/koodisto/koulutus/" koulutuskoodi)
+                         {:basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]})]
     (if (nil? (:body resp))
       (throw resp)
       (cheshire/parse-string (:body resp)))))
