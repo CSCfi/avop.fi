@@ -64,7 +64,7 @@
                 {
                  :debug (:is-dev env)
                  :form-params (assoc json-data :kieli kieli)
-                 :headers {:Authorization auth-header}
+                 :basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]
                  :content-type :json
                  :as :json
                  :socket-timeout 2000
