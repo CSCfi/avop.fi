@@ -114,11 +114,11 @@
     (log/info "Siirrytään kyselyyn. Opiskeluoikeus:" (:id opiskeluoikeus) "Oppilaitos:" oppilaitos)
     (if opiskeluoikeus
       (if-let [visitor-entry (db/get-visitor {:opiskeluoikeus_id (:id opiskeluoikeus) :oppilaitos_id oppilaitos})]
-        (ok {:kysely_url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry)) ;"/" kieli 
+        (ok {:kysely_url (str (:arvo-answer-url env) (:vastaajatunnus visitor-entry)) ;"/" kieli
              :sessionid sessionid})
         (let [res (create-vastaajatunnus opiskeluoikeus kieli)]
           (if (either/right? res)
-            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res) "/" kieli)
+            (ok {:kysely_url (str (:arvo-answer-url env) (m/extract res));  "/" kieli
                  :sessionid sessionid})
             (not-found {:error (m/extract res) :sessionid sessionid}))))
       (throw-unauthorized))))
