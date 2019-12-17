@@ -5,6 +5,7 @@
     [config.core :refer [env]]
     [clojure.string :refer [trim join]]
     [clojure.java.data :refer [from-java]]
+    [avopfi.integration.arvo :refer [get-kaikki-oidit]]
     [clojure.core.match :refer [match]]
     [clojure.tools.logging :as log]
     [java-time :refer [local-date]])
@@ -103,14 +104,19 @@
                       (.setOrganisaatio % oppilaitos))))
 
 (defn get-from-virta-by-oid [oid virta-fetcher oppilaitos]
-  (log/info "Haetaan Virrasta oppijanumerolla")
   (virta-fetcher #(do (.setKansallinenOppijanumero % oid)
-                      (.setOrganisaatio % oppilaitos))))
+                   (.setOrganisaatio % oppilaitos))))
+
+(defn get-from-virta-by-oids [oid virta-fetcher oppilaitos]
+  (log/info "Haetaan Virrasta oppijanumerolla")
+  (let [oids (get-kaikki-oidit oid)]
+    (try-until not-empty
+               (map #(fn [] (get-from-virta-by-oid % virta-fetcher oppilaitos)) oids))))
 
 (defn get-from-virta-with [virta-fetcher oppilaitos user-data]
   (match [user-data]
          [{:learner-id lid}]
-         (get-from-virta-by-oid lid virta-fetcher oppilaitos)
+         (get-from-virta-by-oids lid virta-fetcher oppilaitos)
          [{:national-identification-number nin}]
          (get-from-virta-by-pid nin virta-fetcher oppilaitos)
          [{:unique-id uid}]
