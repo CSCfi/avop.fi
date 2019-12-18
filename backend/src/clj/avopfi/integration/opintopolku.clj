@@ -14,7 +14,7 @@
   (try
     (:body (client/get
             (build-url code code-type)
-            {:as :json :socket-timeout 2000 :conn-timeout 1000}))
+            {:as :json :socket-timeout 2000 :conn-timeout 1000 :headers {"Caller-Id" "1.2.246.562.10.2013112012294919827487.arvo"}}))
     (catch Exception e
       (log/info "Koodin" code "Haku epäonnistui:" (.getMessage e)))))
 
