@@ -2,7 +2,8 @@
 -- :doc creates a new visitor record
 INSERT INTO visitors
 (vastaajatunnus, taustatiedot, login_time)
-VALUES (:vastaajatunnus, :taustatiedot, now());
+SELECT (:vastaajatunnus, :taustatiedot, now())
+WHERE NOT EXISTS (SELECT 1 FROM visitors WHERE vastaajatunnus = :vastaajatunnus);
 
 -- :name get-visitor :? :1
 -- :doc retrieve visitor for certain study right id
