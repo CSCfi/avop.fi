@@ -52,7 +52,7 @@
 
   :plugins [[lein-environ "1.0.1"]
             [migratus-lein "0.7.2"]
-            [lein-uberwar "0.2.0"]
+            [lein-uberwar "0.2.1"]
             [lein-ancient "0.6.15"]]
   :profiles
   {:uberjar {:omit-source true

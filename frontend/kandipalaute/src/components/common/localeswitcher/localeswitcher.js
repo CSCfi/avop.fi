@@ -1,7 +1,7 @@
-require('./localeswitcher.scss');
-
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
+import './localeswitcher.scss';
+
 
 export default class LocaleSwitcher extends React.Component {
   extractPathElement() {

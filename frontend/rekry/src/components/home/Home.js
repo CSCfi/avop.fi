@@ -1,17 +1,13 @@
-require('./content.scss');
-
 import React from 'react';
-import config from 'config';
+import config from '../../config/base';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
-let hakaLoginImage = require('../../images/Haka_login_vaaka_lg.jpg');
+import './content.scss';
+
+import hakaLoginImage from '../../images/Haka_login_vaaka_lg.jpg';
 
 export default class Content extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   extractCurrentDomain() {
     return window.location.protocol + '//' +
@@ -40,7 +36,7 @@ export default class Content extends React.Component {
                     <Translate component="h4" content="content.login.header"/>
                     <Translate component="p" content="content.login.description"/>
                     <div id="haka" onClick={this.login}>
-                      <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
+                      <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.match.params.lang)}>
                         <img src={hakaLoginImage} alt="haka-login"/>
                       </a>
                     </div>

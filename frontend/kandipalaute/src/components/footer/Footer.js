@@ -1,10 +1,8 @@
-require('./footer.scss');
-
 import React from 'react';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
-
-let unifi_logo = require('../../images/Unifi_logo_scaled.png');
+import './footer.scss';
+import unifi_logo from '../../images/Unifi_logo_scaled.png';
 
 let Footer = () =>
   <footer className="container">
