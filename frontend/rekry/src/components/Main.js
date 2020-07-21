@@ -26,12 +26,14 @@ class AppComponent extends React.Component {
   }
 
   setLocale() {
-    if (this.props.match.params.lang.indexOf('en') === 0 ) {
-      counterpart.setLocale('en');
-    } else if (this.props.match.params.lang.indexOf('sv') === 0 ) {
-      counterpart.setLocale('sv');
-    } else {
-      counterpart.setLocale('fi');
+    if (this.props.match.params.lang) {
+      if (this.props.match.params.lang.indexOf('en') === 0) {
+        counterpart.setLocale('en');
+      } else if (this.props.match.params.lang.indexOf('sv') === 0) {
+        counterpart.setLocale('sv');
+      } else {
+        counterpart.setLocale('fi');
+      }
     }
   }
 
@@ -45,9 +47,9 @@ class AppComponent extends React.Component {
         <Header {...this.props}/>
         <div>
           <Switch>
-            <Route exact path="/rekrykysely/:lang" component={Home} />
-            <Route path="/rekrykysely/:lang/user" component={Userprofile}/>
-            <Route path="/rekrykysely/:lang/error/:status" component={Error}/>
+            <Route exact path="/:lang" component={Home} />
+            <Route path="/:lang/user" component={Userprofile}/>
+            <Route path="/:lang/error/:status" component={Error}/>
             <Route component={Error}/>
           </Switch>
         </div>

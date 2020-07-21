@@ -17,14 +17,11 @@ if (browserLanguage.indexOf('en') === 0) {
 // Render the main component into the dom
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/rekrykysely">
       <Route path="/" exact>
-        <Redirect exact from="/" to={'/rekrykysely/' + browserLanguage}/>
+        <Redirect exact from="/" to={'/' + browserLanguage}/>
       </Route>
-      <Route path="/rekrykysely/" exact>
-        <Redirect exact from="/rekrykysely/" to={'/rekrykysely/' + browserLanguage}/>
-      </Route>
-      <Route path="/rekrykysely/:lang" component={Main}/>
+      <Route path="/:lang" component={Main}/>
     </BrowserRouter>,
   </React.StrictMode>,
   document.getElementById('root')

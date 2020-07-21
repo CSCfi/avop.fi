@@ -12,7 +12,7 @@ export default class LocaleSwitcher extends React.Component {
 
   render() {
     let path = this.extractPathElement();
-    let wp = lang => '/rekrykysely/' + lang + (path !== undefined ? path : '');
+    let wp = lang => '/' + lang + (path !== undefined ? path : '');
     return (
       <div id="languages">
         <Link className="language-selection" to={wp('fi')}>Suomeksi</Link>
