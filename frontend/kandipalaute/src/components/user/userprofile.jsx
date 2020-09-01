@@ -66,7 +66,8 @@ export default class Userprofile extends React.Component {
     let data = {
       opiskeluoikeus_id: this.state.selectedStudyRight.id,
       oppilaitos_id: this.props.oppilaitos,
-      kieli: this.props.params.lang
+      kieli: this.props.params.lang,
+      tyyppi: 'kandipalaute'
     };
     request('/api/rekisteroidy', {
       method: 'post',

@@ -23,6 +23,10 @@ LIMIT 1;
 -- :name get-mapping-by-domain :? :1
 -- :doc get Haka to VIRTA organization mapping by domain
 SELECT * FROM organization_mappings
+WHERE domain = :domain AND type = :type;
+
+-- :name get-mappings-for-rekry :? :*
+SELECT * FROM organization_mappings
 WHERE domain = :domain;
 
 -- :name get-visitors :? :*

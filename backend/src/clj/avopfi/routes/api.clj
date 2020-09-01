@@ -51,8 +51,8 @@
   (let [oikeudet (get oikeudet type)]
     (map #(opiskeluoikeus->ui-map (:messages %) (:oikeus %)) oikeudet)))
 
-(defn get-oppilaitos-code-by-domain [domain]
-  (let [mapping (db/get-mapping-by-domain {:domain domain})]
+(defn get-oppilaitos-code-by-domain [domain type]
+  (let [mapping (db/get-mapping-by-domain {:domain domain :type (name type)})]
     (:code mapping)))
 
 (defn validate-oikeudet [tyyppi virta-data]
@@ -63,10 +63,10 @@
        :invalid (to-ui :invalid validated-oikeudet)
        :oppilaitos_id oppilaitos-id})))
 
-(defn get-virta-oikeudet [shibbo-vals]
+(defn get-virta-oikeudet [type shibbo-vals]
   (try-or :virta_error
      (let [home-organization (:home-organization shibbo-vals)
-           oppilaitos-id (get-oppilaitos-code-by-domain home-organization)
+           oppilaitos-id (get-oppilaitos-code-by-domain home-organization type)
            virta-oikeudet (virta/get-virta-opiskeluoikeudet shibbo-vals oppilaitos-id)
            virta-suoritukset (virta/get-virta-suoritukset shibbo-vals oppilaitos-id)]
        {:oikeudet virta-oikeudet :suoritukset virta-suoritukset :oppilaitos-id oppilaitos-id})))
@@ -162,7 +162,7 @@
     (either/left :haka_error)))
 
 (defn process-rekry [request]
-  (let [oppilaitos (get-oppilaitos-code-by-domain (get-in request [:identity :home-organization]))
+  (let [oppilaitos (first (map :code (db/get-mappings-for-rekry {:domain (get-in request [:identity :home-organization])})))
         sessionid (get-in request [:session :sessionid])
         tunnus (m/>>= (either/right request)
                       validate-rekry-haka
@@ -183,7 +183,7 @@
   (let [tyyppi (-> request :route-params :tyyppi keyword)]
     (m/>>= (either/right request)
            validate-haka
-           get-virta-oikeudet
+           (partial get-virta-oikeudet tyyppi)
            validate-virta-data
            (partial validate-oikeudet tyyppi))))
 
