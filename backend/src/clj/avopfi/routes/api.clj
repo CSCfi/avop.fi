@@ -161,9 +161,8 @@
     (either/right (:identity request))
     (either/left :haka_error)))
 
-(defn process-rekry [request]
-  (let [oppilaitos (first (map :code (db/get-mappings-for-rekry {:domain (get-in request [:identity :home-organization])})))
-        sessionid (get-in request [:session :sessionid])
+(defn process-rekry-registration [request oppilaitos]
+  (let [sessionid (get-in request [:session :sessionid])
         tunnus (m/>>= (either/right request)
                       validate-rekry-haka
                       (partial get-rekry-hash oppilaitos)
@@ -172,6 +171,26 @@
       (ok {:kysely_url (str (:arvo-answer-url env) (m/extract tunnus))
            :sessionid sessionid})
       (not-found {:error (m/extract tunnus) :sessionid sessionid}))))
+
+(defn format-rekry-oppilaitos [oppilaitoskoodi]
+  (assoc (arvo/get-oppilaitos-data oppilaitoskoodi) :oppilaitoskoodi oppilaitoskoodi))
+
+(defn select-rekry-oppilaitos [request oppilaitoskoodit]
+  (let [sessionid (get-in request [:session :sessionid])
+        oppilaitokset (map format-rekry-oppilaitos oppilaitoskoodit)
+        result (m/>>= (either/right request)
+                      validate-haka)]
+    (if (either/right? result)
+      (ok {:oppilaitokset oppilaitokset :sessionid sessionid})
+      (not-found {:error (m/extract result)
+                  :sessionid sessionid}))))
+
+(defn process-rekry [request]
+  (let [oppilaitokset (map :code (db/get-mappings-for-rekry {:domain (get-in request [:identity :home-organization])}))]
+    (if (= 1 (count oppilaitokset))
+      (process-rekry-registration request (first oppilaitokset))
+      (select-rekry-oppilaitos request oppilaitokset))))
+
 
 (defn validate-virta-data[virta-data]
   (if (and (not-nil? (:oikeudet virta-data))
@@ -228,7 +247,11 @@
     "/api" []
     (POST "/rekry" request
       (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
-        (process-rekry request)))))
+        (process-rekry request)))
+    (POST "/rekry/valitse-oppilaitos" request
+      (with-logging-context {:sessionid (format "[%s]"(get-in request [:session :sessionid]))}
+        (let [oppilaitos (get-in request [:params :oppilaitos])]
+          (process-rekry-registration request oppilaitos))))))
 
 
 (defroutes vipunen-routes

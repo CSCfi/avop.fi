@@ -12,6 +12,9 @@ h4 {
   font-size: 20px;
 }
 
+button {
+  background-color: $theme-color;
+}
 
 @media (max-width: 750px) {
   font-size: 0.8em;

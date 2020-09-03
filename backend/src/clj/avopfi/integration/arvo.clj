@@ -92,8 +92,8 @@
   (let [resp (client/get (str (:arvo-api-url env) (format "/henkilo/kaikki-oidit/%s" oid))
                          {:basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]
                           :socket-timeout 2000
-                          :conn-timeout 1000
-                          })]
+                          :conn-timeout 1000})]
+
     (if (nil? (:body resp))
       (throw resp)
       (cheshire/parse-string (:body resp)))))

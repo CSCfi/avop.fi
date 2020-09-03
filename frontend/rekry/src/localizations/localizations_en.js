@@ -33,8 +33,8 @@ let localizations_en = {
     }
   },
   profiledata: {
-    header: 'Background information',
-    about: 'Information on education, university of applied sciences, municipality, start date of the right to study, language of learning and mode of education is used as survey background information. The collected personal information is not transferred to the feedback system.',
+    header: 'Welcome to answer the recruitment survey!',
+    about: 'Please select your organization:',
     about_yamk: 'Information on education, university of applied sciences, municipality, start date of the right to study and language of learning is used as survey background information. The collected personal information is not transferred to the feedback system.',
     education: 'Degree title',
     school: 'University of applied sciences',

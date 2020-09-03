@@ -12,7 +12,7 @@ require('array.prototype.find').shim();
 export default class Userprofile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedStudyRight: this.props.valid_rights[0]};
+    this.state = {selectedOppilaitos: this.props.oppilaitokset[0]};
   }
 
   static loadProps(params, cb) {
@@ -39,16 +39,49 @@ export default class Userprofile extends React.Component {
         'Content-Type': 'application/json'
       }})
       .then(registration => {
-        if(registration['kysely_url']){
-          window.location = registration['kysely_url']
-        } else {
-          handleError(this.props.params.lang, registration)
+        const kysely_url = registration['kysely_url'];
+        const oppilaitokset = registration['oppilaitokset'];
+        const sessionid = registration['sessionid'];
+
+        if(kysely_url){
+          window.location = kysely_url;
+        }
+        else if(registration['oppilaitokset']){
+          cb(null, {oppilaitokset, sessionid});
+        }
+        else {
+          handleError(this.props.params.lang, registration);
         }
       })
       .catch(e => {
         handleError(params.params.lang, e.json)});
   }
 
+  onSubmit(event) {
+    event.preventDefault();
+    let data = {
+      oppilaitos: this.state.selectedOppilaitos.oppilaitoskoodi,
+      kieli: this.props.params.lang,
+      tyyppi: 'rekry'
+    };
+    request('/api/rekry/valitse-oppilaitos', {
+      method: 'post',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(registration => {
+        if(registration['kysely_url']){
+          window.location = registration['kysely_url']
+        } else {
+          handleError(this.props.params.lang, registration)
+        }
+      })
+      .catch(e => this.onError(e));
+  }
 
   static headerImages() {
     return(
@@ -70,6 +103,13 @@ export default class Userprofile extends React.Component {
     )
   }
 
+  selectOppilaitos(event) {
+    this.setState({
+      selectedOppilaitos: this.props.oppilaitokset
+        .find(x => x.oppilaitoskoodi === event.target.value)
+    });
+  }
+
   render() {
     return (
       <div>
@@ -78,11 +118,33 @@ export default class Userprofile extends React.Component {
           <div className="container">
             <div className="row">
               <div className="u-full-width"><Translate component="h4" content="profiledata.header"/></div>
+              <div className="u-full-width"><Translate component="p" content="profiledata.about"/></div>
+              <form onSubmit={this.onSubmit.bind(this)}>
+                {(this.props.oppilaitokset.length > 1) ?
+                  <select onChange={this.selectOppilaitos.bind(this)}
+                          value={this.state.selectedOppilaitos.oppilaitoskoodi}>
+                    {
+                      this.props.oppilaitokset.map(oppilaitos =>
+                        <TranslateProperty component="option"
+                                           value={oppilaitos.oppilaitoskoodi}
+                                           data={oppilaitos}>
+                        </TranslateProperty>
+                      )
+                    }
+                  </select>
+                  : ''
+                }
+                <div className="u-full-width">
+                  <button type="submit">
+                    <Translate component="span" content="profiledata.submit"></Translate>
+                  </button>
+                </div>
+              </form>
+
             </div>
           </div>
         </section>
       </div>
     )
   }
-
 }
