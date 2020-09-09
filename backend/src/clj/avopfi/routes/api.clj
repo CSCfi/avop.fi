@@ -179,7 +179,7 @@
   (let [sessionid (get-in request [:session :sessionid])
         oppilaitokset (map format-rekry-oppilaitos oppilaitoskoodit)
         result (m/>>= (either/right request)
-                      validate-haka)]
+                      validate-rekry-haka)]
     (if (either/right? result)
       (ok {:oppilaitokset oppilaitokset :sessionid sessionid})
       (not-found {:error (m/extract result)
