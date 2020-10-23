@@ -64,6 +64,33 @@ export default class Userprofile extends React.Component {
     }
   }
 
+  onSubmit(event) {
+    event.preventDefault();
+    let data = {
+      opiskeluoikeus_id: this.state.selectedStudyRight.id,
+      oppilaitos_id: this.state.oppilaitos,
+      kieli: this.props.match.params.lang,
+      tyyppi: 'kandipalaute',
+    };
+    request('/api/rekisteroidy', {
+      method: 'post',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(registration => {
+        if(registration['kysely_url']){
+          window.location = registration['kysely_url']
+        } else {
+          handleError(this.props.match.params.lang, registration)
+        }
+      })
+      .catch(e => this.onError(e));
+  }
+
   render() {
     if (this.state.valid_rights.length === 0) {
       return(
