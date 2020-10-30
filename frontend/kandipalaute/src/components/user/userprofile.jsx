@@ -15,14 +15,14 @@ export default class Userprofile extends React.Component {
       oppilaitos: null,
       sessionid: null,
       selectedStudyRight: {},
+      isInitialised: false,
     }
   }
 
   async componentDidMount() {
     let hasStorage = 'sessionStorage' in window && window.sessionStorage;
     let key = 'opiskeluoikeudet';
-    let data = hasStorage ?
-      sessionStorage.getItem(key) : null;
+    let data = hasStorage ? sessionStorage.getItem(key) : null;
 
     if (hasStorage && data) {
       let now = new Date();
@@ -43,7 +43,9 @@ export default class Userprofile extends React.Component {
         selectedStudyRight: study_rights['valid'][0],
       });
     } catch(e) {
-      handleError(this.props.match.params.lang, e.json, this.history)
+      handleError(this.props.match.params.lang, e.json, this.history);
+    } finally {
+      this.setState({ isInitialised: true });
     }
   }
 
@@ -55,7 +57,7 @@ export default class Userprofile extends React.Component {
   }
 
   onError(e){
-    if(e.json){
+    if (e.json){
       handleError(this.props.match.params.lang, e.json, this.history)
     } else {
       handleError(this.props.match.params.lang, {
@@ -82,7 +84,7 @@ export default class Userprofile extends React.Component {
       body: JSON.stringify(data)
     })
       .then(registration => {
-        if(registration['kysely_url']){
+        if (registration['kysely_url']) {
           window.location = registration['kysely_url']
         } else {
           handleError(this.props.match.params.lang, registration)
@@ -92,6 +94,9 @@ export default class Userprofile extends React.Component {
   }
 
   render() {
+    if (!this.state.isInitialised) {
+      return null;
+    }
     if (this.state.valid_rights.length === 0) {
       return(
         <div>

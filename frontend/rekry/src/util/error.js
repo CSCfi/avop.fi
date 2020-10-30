@@ -24,5 +24,5 @@ export function handleError(lang, obj, history){
     jslog(sessionId, JSON.stringify(obj));
   }
 
-  history.push(`/rekrykysely/${lang}/error/${status}/${sessionId}`)
+  history.push(`/${lang}/error/${status}/${sessionId}`)
 }

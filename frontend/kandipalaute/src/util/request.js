@@ -1,12 +1,14 @@
 import fetch from 'isomorphic-fetch';
 
 function parseJSON(response) {
-  return new Promise((resolve) => response.json()
+  return new Promise((resolve, reject) => response.json()
     .then((json) => resolve({
       status: response.status,
       ok: response.ok,
       json
-    })));
+    })).catch(e => {
+      reject({ parseError: e.message });
+    }));
 }
 
 export default function request(url, options) {
@@ -23,8 +25,10 @@ export default function request(url, options) {
             status: response.status,
             json: response.json})
       })
-      .catch((error) => reject({
-        networkError: error.message
-      }));
+      .catch((error) => {
+        return reject({
+          json: error.parseError || error,
+        });
+      });
   });
 }

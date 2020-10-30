@@ -15,6 +15,7 @@ export default class Userprofile extends React.Component {
       oppilaitos: null,
       sessionid: null,
       selectedStudyRight: {},
+      isInitialised: false,
     }
   }
 
@@ -44,6 +45,8 @@ export default class Userprofile extends React.Component {
       });
     } catch(e) {
       handleError(this.props.match.params.lang, e.json, this.history)
+    } finally {
+      this.setState({ isInitialised: true });
     }
   }
 
@@ -112,6 +115,9 @@ export default class Userprofile extends React.Component {
   }
 
   render() {
+    if (!this.state.isInitialised) {
+      return null;
+    }
     if (this.state.valid_rights.length === 0) {
       return(
       <div>
