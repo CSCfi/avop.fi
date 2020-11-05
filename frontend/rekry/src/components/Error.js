@@ -6,9 +6,9 @@ import LocalizedImage from './common/localizedimage/localizedimage';
 export default class Error extends React.Component {
 
   render() {
-    const status = this.props.params.status ? this.props.params.status : 'general_error';
-    const sessionid = this.props.params.sessionid;
-    const showSessionId = sessionid && (status == 'general_error' || status == 'arvo_error');
+    const status = this.props.match.params.status ? this.props.match.params.status : 'general_error';
+    const sessionid = this.props.match.params.sessionid;
+    const showSessionId = sessionid && (status === 'general_error' || status === 'arvo_error');
 
     return (
       <div>

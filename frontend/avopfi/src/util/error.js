@@ -1,4 +1,3 @@
-import {browserHistory} from 'react-router';
 import request from './request'
 
 
@@ -16,7 +15,7 @@ function jslog(sessionId, err){
   })
 }
 
-export function handleError(lang, obj){
+export function handleError(lang, obj, history){
 
   const status = obj['error'] ? obj['error'] : 'general_error';
   const sessionId = obj['sessionid'] ? obj['sessionid'] : '';
@@ -25,5 +24,5 @@ export function handleError(lang, obj){
     jslog(sessionId, JSON.stringify(obj));
   }
 
-  browserHistory.push(`/${lang}/error/${status}/${sessionId}`)
+  history.push(`/${lang}/error/${status}/${sessionId}`)
 }

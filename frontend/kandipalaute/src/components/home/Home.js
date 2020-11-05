@@ -1,11 +1,11 @@
-require('./content.scss');
-
 import React from 'react';
-import config from 'config';
+import config from '../../config/base';
 import translate from 'counterpart';
 import Translate from 'react-translate-component';
 import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 import LocalizedImage from '../common/localizedimage/localizedimage';
+
+import './content.scss';
 
 import hakaLoginImage from '../../images/Haka_login_vaaka_lg.jpg';
 
@@ -52,7 +52,7 @@ export default class Content extends React.Component {
               </div>
 
               <div id="haka" className="centered" onClick={this.login}>
-                <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.params.lang)}>
+                <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.match.params.lang)}>
                   <img src={hakaLoginImage} alt="haka-login"/>
                 </a>
               </div>

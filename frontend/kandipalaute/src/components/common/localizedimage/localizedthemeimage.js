@@ -1,7 +1,7 @@
-require('./localizedthemeimage.scss');
-
 import React from 'react';
 import translate from 'counterpart';
+import './localizedthemeimage.scss'
+
 
 export default class LocalizedBackgroundImage extends React.Component {
 

@@ -5,20 +5,24 @@ import LocalizedThemeImage from '../common/localizedimage/localizedthemeimage';
 import request from '../../util/request'
 import {handleError} from '../../util/error.js'
 
-require('es6-promise').polyfill();
-require('array.prototype.find').shim();
-
 export default class Userprofile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedStudyRight: this.props.valid_rights[0]};
+    this.history = props.history
+    this.state = {
+      valid_rights: [],
+      invalid_rights: [],
+      oppilaitos: null,
+      sessionid: null,
+      selectedStudyRight: {},
+      isInitialised: false,
+    }
   }
 
-  static loadProps(params, cb) {
+  async componentDidMount() {
     let hasStorage = 'sessionStorage' in window && window.sessionStorage;
     let key = 'opiskeluoikeudet';
-    let data = hasStorage ?
-      sessionStorage.getItem(key) : null;
+    let data = hasStorage ? sessionStorage.getItem(key) : null;
 
     if (hasStorage && data) {
       let now = new Date();
@@ -29,35 +33,36 @@ export default class Userprofile extends React.Component {
         sessionStorage.removeItem(key);
       }
     }
-
-    request('/api/opiskeluoikeudet/kandi', {credentials: 'same-origin'})
-      .then(study_rights => {
-        const valid_rights = study_rights['valid'];
-        const invalid_rights = study_rights['invalid'];
-        const oppilaitos = study_rights['oppilaitos_id'];
-        const sessionid = study_rights['sessionid'];
-
-        cb(null, {valid_rights, invalid_rights, oppilaitos, sessionid})
-      })
-      .catch(e => {
-        handleError(params.params.lang, e.json)
-      })
+    try {
+      const study_rights = await request('/api/opiskeluoikeudet/kandi', {credentials: 'same-origin'});
+      this.setState({
+        valid_rights: study_rights['valid'],
+        invalid_rights: study_rights['invalid'],
+        oppilaitos: study_rights['oppilaitos_id'],
+        sessionid: study_rights['sessionid'],
+        selectedStudyRight: study_rights['valid'][0],
+      });
+    } catch(e) {
+      handleError(this.props.match.params.lang, e.json, this.history);
+    } finally {
+      this.setState({ isInitialised: true });
+    }
   }
 
   selectStudyRight(event) {
     this.setState({
-      selectedStudyRight: this.props.valid_rights
+      selectedStudyRight: this.state.valid_rights
         .find(x => x.id === event.target.value)
     });
   }
 
   onError(e){
-    if(e.json){
-      handleError(this.props.params.lang, e.json)
+    if (e.json){
+      handleError(this.props.match.params.lang, e.json, this.history)
     } else {
-      handleError(this.props.params.lang, {
-        sessionid: this.props.sessionid,
-        exception: e})
+      handleError(this.props.match.params.lang, {
+        sessionid: this.state.sessionid,
+        exception: e}, this.history)
     }
   }
 
@@ -65,9 +70,9 @@ export default class Userprofile extends React.Component {
     event.preventDefault();
     let data = {
       opiskeluoikeus_id: this.state.selectedStudyRight.id,
-      oppilaitos_id: this.props.oppilaitos,
-      kieli: this.props.params.lang,
-      tyyppi: 'kandipalaute'
+      oppilaitos_id: this.state.oppilaitos,
+      kieli: this.props.match.params.lang,
+      tyyppi: 'kandipalaute',
     };
     request('/api/rekisteroidy', {
       method: 'post',
@@ -78,18 +83,21 @@ export default class Userprofile extends React.Component {
       },
       body: JSON.stringify(data)
     })
-    .then(registration => {
-      if(registration['kysely_url']){
-        window.location = registration['kysely_url']
-      } else {
-        handleError(this.props.params.lang, registration)
-      }
-       })
-    .catch(e => this.onError(e));
+      .then(registration => {
+        if (registration['kysely_url']) {
+          window.location = registration['kysely_url']
+        } else {
+          handleError(this.props.match.params.lang, registration)
+        }
+      })
+      .catch(e => this.onError(e));
   }
 
   render() {
-    if (this.props.valid_rights.length === 0) {
+    if (!this.state.isInitialised) {
+      return null;
+    }
+    if (this.state.valid_rights.length === 0) {
       return(
         <div>
           <LocalizedThemeImage />
@@ -98,12 +106,12 @@ export default class Userprofile extends React.Component {
               <div className="row">
                 <div className="u-full-width"><Translate component="h4" content="opiskeluoikeus_errors.header"/></div>
 
-                {((this.props.invalid_rights.length > 0) ?
+                {((this.state.invalid_rights.length > 0) ?
                     <div>
-                      <Translate {...{rights_count: this.props.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
+                      <Translate {...{rights_count: this.state.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
 
-                      {this.props.invalid_rights.map(r =>
-                        <div> {r.koulutus.nimi[this.props.params.lang]} - <Translate component="text" content={'opiskeluoikeus_errors.'+r.virheet[0]}/></div>
+                      {this.state.invalid_rights.map(r =>
+                        <div> {r.koulutus.nimi[this.props.match.params.lang]} - <Translate component="text" content={'opiskeluoikeus_errors.'+r.virheet[0]}/></div>
                       )}
                     </div> :
                     <Translate component="p" content="opiskeluoikeus_errors.no_rights_contact_study_office" />
@@ -123,11 +131,11 @@ export default class Userprofile extends React.Component {
               <div className="u-full-width"><Translate component="p" content="profiledata.about"/></div>
 
               <form onSubmit={this.onSubmit.bind(this)}>
-                {(this.props.valid_rights.length > 1) ?
+                {(this.state.valid_rights.length > 1) ?
                   <select onChange={this.selectStudyRight.bind(this)}
                           value={this.state.selectedStudyRight.id}>
                     {
-                      this.props.valid_rights.map(sr =>
+                      this.state.valid_rights.map(sr =>
                         <TranslateProperty component="option"
                                            value={sr.id}
                                            data={sr.koulutus.nimi}>
@@ -141,19 +149,19 @@ export default class Userprofile extends React.Component {
                   <table>
                     <tbody>
                     <tr>
-                      <Translate component="td" content="profiledata.education"></Translate>
+                      <Translate component="td" content="profiledata.education"/>
                       <TranslateProperty component="td"
                                          data={this.state.selectedStudyRight.koulutus.nimi}>
                       </TranslateProperty>
                     </tr>
                     <tr>
-                      <Translate component="td" content="profiledata.school"></Translate>
+                      <Translate component="td" content="profiledata.school"/>
                       <TranslateProperty component="td"
                                          data={this.state.selectedStudyRight.oppilaitos.nimi}>
                       </TranslateProperty>
                     </tr>
                     <tr>
-                      <Translate component="td" content="profiledata.municipality"></Translate>
+                      <Translate component="td" content="profiledata.municipality"/>
                       <TranslateProperty component="td"
                                          data={this.state.selectedStudyRight.kunta.nimi}>
                       </TranslateProperty>
@@ -163,22 +171,22 @@ export default class Userprofile extends React.Component {
                       <td>{this.state.selectedStudyRight.aloituspvm.year}</td>
                     </tr>
                     <tr>
-                      <Translate component="td" content="profiledata.language"></Translate>
+                      <Translate component="td" content="profiledata.language"/>
                       <td>{this.state.selectedStudyRight.kieli}</td>
                     </tr>
 
                     </tbody>
                   </table>
                 </div>
-                <div className="u-full-width"><Translate component="p" content="profiledata.reminder"></Translate></div>
+                <div className="u-full-width"><Translate component="p" content="profiledata.reminder"/></div>
                 <div className="u-full-width">
                   <button type="submit">
-                    <Translate component="span" content="profiledata.submit"></Translate>
+                    <Translate component="span" content="profiledata.submit"/>
                   </button>
                 </div>
                 <div>
-                  {(this.props.invalid_rights.length > 0 && this.props.valid_rights === 0) ?
-                    <Translate {...{rights_count: this.props.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
+                  {(this.state.invalid_rights.length > 0 && this.state.valid_rights === 0) ?
+                    <Translate {...{rights_count: this.state.invalid_rights.length}} component="p" content="opiskeluoikeus_errors.some_rights_contact_study_office" />
                     : ''
                   }
                 </div>

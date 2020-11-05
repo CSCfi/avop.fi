@@ -1,19 +1,18 @@
-require('./localeswitcher.scss');
-
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
+
+import './localeswitcher.scss';
 
 export default class LocaleSwitcher extends React.Component {
   extractPathElement() {
     let matches = this.props.location.pathname
       .match(/^\/([a-z]+)\/(.*)\/(.*)$/);
-    console.log("MATCHES:" + matches)
     return matches ? '/' + matches[3] : '';
   }
 
   render() {
     let path = this.extractPathElement();
-    let wp = lang => '/rekrykysely/' + lang + (path !== undefined ? path : '');
+    let wp = lang => '/' + lang + (path !== undefined ? path : '');
     return (
       <div id="languages">
         <Link className="language-selection" to={wp('fi')}>Suomeksi</Link>
