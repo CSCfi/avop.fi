@@ -187,7 +187,7 @@
 
 (defn process-rekry [request]
   (let [oppilaitokset (map :code (db/get-mappings-for-rekry {:domain (get-in request [:identity :home-organization])}))]
-    (if (= 1 (count oppilaitokset))
+    (if (>= 1 (count oppilaitokset))
       (process-rekry-registration request (first oppilaitokset))
       (select-rekry-oppilaitos request oppilaitokset))))
 

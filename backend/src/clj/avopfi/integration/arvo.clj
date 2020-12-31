@@ -21,48 +21,36 @@
       (and tyyppi-ok koodit-ok)))
 
 
-(defn build-kyselykerran-nimi [opiskeluoikeus vuosi]
+(defn get-tarkenne [opiskeluoikeus]
   (let [aktiiviset-jaksot (:jakso opiskeluoikeus)
         koodit (map :koulutuskoodi aktiiviset-jaksot)
-        tyyppi (:opiskeluoikeustyyppi opiskeluoikeus)
-        kyselykerran-nimi (cond
-                            (vaatimukset {:tyypit [ylempi-korkeakoulututkinto]
-                                          :koodit laakis-koodit} tyyppi koodit) "AUTOMAATTI LAAKIS"
-                            (vaatimukset {:koodit ekonomi-koodit} tyyppi koodit) "AUTOMAATTI EKONOMIT"
-                            (vaatimukset {:koodit tek-koodit} tyyppi koodit) "AUTOMAATTI TEK"
-                            (vaatimukset {:tyypit [amk-alempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-AMK"
-                            (vaatimukset {:tyypit [amk-ylempi-tyyppi]} tyyppi koodit) "AUTOMAATTI AVOP-YAMK"
-                            (vaatimukset {:tyypit [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]} tyyppi koodit) "AUTOMAATTI KANDI")]
-    (if (nil? kyselykerran-nimi)
-      nil
-      (str kyselykerran-nimi " " vuosi))))
+        tyyppi (:opiskeluoikeustyyppi opiskeluoikeus)]
+    (cond
+      (vaatimukset {:tyypit [amk-alempi-tyyppi]} tyyppi koodit) {:kyselytyyppi "avop" :tarkenne "amk"}
+      (vaatimukset {:tyypit [amk-ylempi-tyyppi]} tyyppi koodit) {:kyselytyyppi "avop" :tarkenne "yamk"}
+      (vaatimukset {:tyypit [alempi-korkeakoulututkinto ylempi-korkeakoulututkinto]} tyyppi koodit) {:kyselytyyppi "kandipalaute"})))
 
-(defn clean-opiskeluoikeus-data [opiskeluoikeus]
-  {
-   :oppilaitos (-> opiskeluoikeus :oppilaitos :id)
-   :koulutus   (-> opiskeluoikeus :koulutus :id)
-   :kunta      (-> opiskeluoikeus :kunta :id)
-   :koulutusmuoto (condp = (:koulutusmuoto opiskeluoikeus)
-                    0 "paivaopiskelu"
-                    1 "monimuoto"
-                    nil)
-   :opiskeluoikeustyyppi (:opiskeluoikeustyyppi opiskeluoikeus)
-   :laajuus (:laajuus opiskeluoikeus)
-   :kyselykerran_nimi 
-   (build-kyselykerran-nimi opiskeluoikeus
-                            (as (local-date) :year))})
+
+(defn clean-opiskeluoikeus-data [opiskeluoikeus] ;TODO kyselytyyppi
+  (merge
+    (get-tarkenne opiskeluoikeus)
+    {:oppilaitoskoodi (-> opiskeluoikeus :oppilaitos :id)
+     :koulutus   (-> opiskeluoikeus :koulutus :id)
+     :kunta      (-> opiskeluoikeus :kunta :id)
+     :koulutusmuoto (condp = (:koulutusmuoto opiskeluoikeus)
+                      0 "paivaopiskelu"
+                      1 "monimuoto"
+                      nil)
+     :laajuus (:laajuus opiskeluoikeus)}))
 
 (defn generate-questionnaire-credentials!
   "Generate Arvo questionnaire credentials with given data"
   [opiskeluoikeus-data kieli]
-  (let [json-data (clean-opiskeluoikeus-data opiskeluoikeus-data)
-        auth-header (str "Bearer " 
-                         (jwt/sign {:caller "avopfi"} (:arvo-jwt-secret env)))]
+  (let [json-data (clean-opiskeluoikeus-data opiskeluoikeus-data)]
     (log/info "Pyydetään vastaajatunnusta tiedoille: " json-data)
     (let [resp (client/post
                 (str (:arvo-api-url env) "/luovastaajatunnus")
-                {
-                 :debug (:is-dev env)
+                {:debug (:is-dev env)
                  :form-params (assoc json-data :kieli kieli)
                  :basic-auth ["kyselyynohjaus" (:arvo-jwt-secret env)]
                  :content-type :json
