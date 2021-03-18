@@ -100,8 +100,12 @@
 
 (defn get-from-virta-by-pid [person-id virta-fetcher oppilaitos]
   (log/info "Haetaan Virrasta henkilötunnuksella")
-  (virta-fetcher #(do (.setHenkilotunnus % (trim person-id))
-                      (.setOrganisaatio % oppilaitos))))
+  (try
+    (virta-fetcher #(do (.setHenkilotunnus % (trim person-id))
+                        (.setOrganisaatio % oppilaitos)))
+    (catch com.sun.xml.internal.ws.fault.ServerSOAPFaultException e
+      (log/error (.getMessage e))))
+  )
 
 (defn get-from-virta-by-oid [oid virta-fetcher oppilaitos]
   (virta-fetcher #(do (.setKansallinenOppijanumero % oid)

@@ -1,4 +1,6 @@
 // Settings configured here will be merged into the final config object.
-export default {
+const config = {
   hakaLoginUrl: (currentDomain, lang) => `/Shibboleth.sso/Login?target=${currentDomain}/${lang}/user`
 }
+
+export default config;

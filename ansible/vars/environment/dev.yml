@@ -7,11 +7,11 @@ apache:
 postgresql_avop_database: avop
 postgresql_avop_user: avop
 postgresql_avop_password: avop
-opintopolku_base_url: "https://testi.virkailija.opintopolku.fi/"
+opintopolku_base_url: "https://virkailija.testiopintopolku.fi/"
 virta_url: "http://virtawstesti.csc.fi/luku/opiskelijatiedot.wsdl"
 virta_secret: "salaisuus"
-arvo_api_url: "http://avopsnap.csc.fi/api/public"
-arvo_answer_url: "http://avopvastaussnap.csc.fi/#/vastaus/"
+arvo_api_url: "https://avopsnap.csc.fi/api/public"
+arvo_answer_url: "https://avopvastaussnap.csc.fi/#/vastaus/"
 arvo_jwt_secret: "secret"
 is_dev: true
 basic_auth_username: "username"

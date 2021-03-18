@@ -54,9 +54,9 @@ $ # Note: use Tomcat in production
 $ java -Dis-dev="true" -Dvirta-tunnus="avopfi" \
     -Dvirta-jarjestelma="avopfi" -Dvirta-salaisuus="salaisuus" \
     -Dvirta-url="http://virtawstesti.csc.fi/luku/opiskelijatiedot.wsdl" \
-    -Dopintopolku-base-url="https://testi.virkailija.opintopolku.fi/" \
-    -Darvo-api-url=http://avoptest.csc.fi/api/ \
-    -Darvo-answer-url=http://avopvastaustest.csc.fi/ \
+    -Dopintopolku-base-url="https://virkailija.testiopintopolku.fi/" \
+    -Darvo-api-url=https://testarvo.csc.fi/api/ \
+    -Darvo-answer-url=https://testarvovastaus.csc.fi/ \
     -Ddatabase-url="jdbc:postgresql://192.168.99.100/avopfi?user=avopfi&password=avopfi" \
     -jar avopfi.jar
 ```

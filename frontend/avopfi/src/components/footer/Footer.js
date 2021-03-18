@@ -4,7 +4,7 @@ import LocalizedImage from '../common/localizedimage/localizedimage';
 import './footer.scss';
 
 
-let arene_logo = require('../../images/arene.png');
+import arene_logo from '../../images/arene.png';
 
 let Footer = () =>
   <footer className="container">
