@@ -17,7 +17,8 @@
     "react-scripts": "4.0.3",
     "react-skeleton-css": "^1.1.0",
     "react-translate-component": "^0.15.1",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "run-parallel": "1.1.10"
   },
   "scripts": {
     "start": "react-scripts start",

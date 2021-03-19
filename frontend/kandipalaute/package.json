@@ -9,7 +9,6 @@
     "counterpart": "^0.18.6",
     "isomorphic-fetch": "^2.2.1",
     "node-sass": "^4.14.1",
-    "queue-microtask": "github:brave-intl/queue-microtask#master",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-interpolate-component": "^0.12.0",
@@ -17,7 +16,8 @@
     "react-scripts": "4.0.3",
     "react-skeleton-css": "^1.1.0",
     "react-translate-component": "^0.15.1",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "run-parallel": "1.1.10"
   },
   "scripts": {
     "start": "react-scripts start",
