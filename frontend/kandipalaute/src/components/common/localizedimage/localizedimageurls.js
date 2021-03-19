@@ -16,7 +16,7 @@ import CSC_en from '../../../images/csc_logo-fi.png';
 import theme_en from '../../../images/theme-en.jpg';
 import vipunen_en from '../../../images/vipunen-en.png';
 
-const localisedImagesUrls = {
+export default {
   fi: {
     OKM_logo: OKM_logo_fi,
     logo: logo_fi,
@@ -39,5 +39,3 @@ const localisedImagesUrls = {
     vipunen: vipunen_en,
   }
 }
-
-export default localisedImagesUrls;

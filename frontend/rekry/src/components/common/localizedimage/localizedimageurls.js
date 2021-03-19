@@ -1,34 +1,20 @@
-import OKM_logo_fi from '../../../images/OKM_logo-fi.png';
-import logo from '../../../images/REKRY_rgb_1.png';
-import CSC_fi from '../../../images/csc_logo-fi.png';
-import vipunen_fi from '../../../images/vipunen-fi.png';
-
-import OKM_logo_sv from '../../../images/OKM_logo-sv.png';
-import vipunen_sv from '../../../images/vipunen-sv.png';
-
-import OKM_logo_en from '../../../images/OKM_logo-en.png';
-import CSC_en from '../../../images/csc_logo-en.png';
-import vipunen_en from '../../../images/vipunen-en.png';
-
-const localisedImagesUrls = {
+export default {
   fi: {
-    OKM_logo: OKM_logo_fi,
-    logo,
-    CSC: CSC_fi,
-    vipunen: vipunen_fi,
+    OKM_logo: require('../../../images/OKM_logo-fi.png'),
+    logo: require('../../../images/REKRY_rgb_1.png'),
+    CSC: require('../../../images/csc_logo-fi.png'),
+    vipunen: require('../../../images/vipunen-fi.png')
   },
   sv: {
-    OKM_logo: OKM_logo_sv,
-    logo,
-    CSC: CSC_en,
-    vipunen: vipunen_sv,
+    OKM_logo: require('../../../images/OKM_logo-sv.png'),
+    logo: require('../../../images/REKRY_rgb_1.png'),
+    CSC: require('../../../images/csc_logo-en.png'),
+    vipunen: require('../../../images/vipunen-sv.png')
   },
   en: {
-    OKM_logo: OKM_logo_en,
-    logo,
-    CSC: CSC_en,
-    vipunen: vipunen_en,
+    OKM_logo: require('../../../images/OKM_logo-en.png'),
+    logo: require('../../../images/REKRY_rgb_1.png'),
+    CSC: require('../../../images/csc_logo-en.png'),
+    vipunen: require('../../../images/vipunen-en.png')
   }
 }
-
-export default localisedImagesUrls;

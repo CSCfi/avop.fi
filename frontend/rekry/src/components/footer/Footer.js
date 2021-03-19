@@ -1,3 +1,4 @@
+import React from 'react';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
