@@ -17,7 +17,11 @@
     "react-skeleton-css": "^1.1.0",
     "react-translate-component": "^0.15.1",
     "web-vitals": "^1.1.1",
-    "run-parallel": "1.1.10"
+    "run-parallel": "1.1.10",
+    "lodash": "^4.17.21",
+    "y18n": "4.0.3",
+    "ua-parser-js": "^0.7.28",
+    "hosted-git-info": "2.8.9"
   },
   "scripts": {
     "start": "react-scripts start",
