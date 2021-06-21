@@ -9,9 +9,11 @@ let localizations_fi = {
       about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi Kandipalaute-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse Kandipalaute-kyselyyn ja annettua palautetta käsitellään anonyymisti.',
       about3: 'Kandipalaute-kyselystä ja sen kehittämisestä vastaa Suomen yliopistot UNIFI ry.',
       privacy: {
-        text: 'Lisätietoa:  %(link1)s ja  %(link2)s.',
+        text: 'Lisätietoa: %(link1)s, %(link2)s ja %(link3)s.',
         url1Text: 'tietosuojaseloste',
-        url2Text: 'kyselyn eettiset periaatteet'
+        url2Text: 'kyselyn eettiset periaatteet',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_FI.html',
+        accessibilityLinkText: 'saavutettavuusseloste'
       }
     },
     login: {

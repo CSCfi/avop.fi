@@ -9,9 +9,11 @@ let localizations_en = {
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the questionnaire and all answers are handled confidentially and anonymized.',
       about3: 'The responsibility for development and implementation of the questionnaire lies with Universities Finland UNIFI.',
       privacy: {
-        text: 'More information in %(link1)s and %(link2)s.',
+        text: 'More information in %(link1)s, %(link2)s and %(link3)s.',
         url1Text: 'Privacy policy',
-        url2Text: 'Ethical principles'
+        url2Text: 'Ethical principles',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_EN.html',
+        accessibilityLinkText: 'Accessibility statement'
       }
     },
     login: {

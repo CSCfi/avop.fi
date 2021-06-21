@@ -36,8 +36,9 @@ export default class Content extends React.Component {
 
   render() {
     const link = <a href={translate.translate('content.tulokset.link1.url')}>{translate.translate('content.tulokset.link1.text')}</a>;
-    const privacy_link1 = <a href={'./privacy_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url1Text')}</a>;
-    const privacy_link2 = <a href={'./ethical_principles_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url2Text')}</a>;
+    const privacyLink = <a href={'./privacy_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url1Text')}</a>;
+    const ethicalPrinciplesLink = <a href={'./ethical_principles_'+this.state.locale+'.pdf'}>{translate.translate('content.kysely.privacy.url2Text')}</a>;
+    const accessibilityLink = <a href={translate.translate('content.kysely.privacy.accessibilityLink')}>{translate.translate('content.kysely.privacy.accessibilityLinkText')}</a>;
     return (
       <div>
         <LocalizedThemeImage />
@@ -70,7 +71,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <Translate component="p" content="content.kysely.privacy.text" link1={privacy_link1} link2={privacy_link2}/>
+                <Translate component="p" content="content.kysely.privacy.text" link1={privacyLink} link2={ethicalPrinciplesLink} link3={accessibilityLink}/>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
