@@ -9,8 +9,11 @@ let localizations_en = {
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are handled anonymously.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
       privacy: {
-        text: 'More information in privacy policy.',
-        link: './privacy_en.pdf'
+        text: 'More information in %(link1)s and %(link2)s.',
+        privacyLink: './privacy_en.pdf',
+        privacyLinkText: 'Privacy policy',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_EN.html',
+        accessibilityLinkText: 'Accessibility statement',
       }
     },
     login: {
