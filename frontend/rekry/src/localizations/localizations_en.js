@@ -6,9 +6,15 @@ let localizations_en = {
     kysely: {
       information: 'Welcome to recruitment survey!',
       about1: 'This survey is a part of a data collection carried out by the Ministry of Education and Culture regarding recruitment. The purpose is to produce benchmark data on the most important resource of higher education institutions, namely human resources. The data is collected by higher education institutions and sent to the Ministry of Education and Culture.',
-      about2: 'The person is identified using Haka login to create a unique answer identifier and to make electronic feedback possible. The identifier is saved as a background information which is used to associate the data collected with this survey to other background variables (such as title, nationality at continental level, personnel group). Read more in the privacy policy (available at https://wiki.eduuni.fi/display/CscArvo/Privacy+policy). It will not be possible to identify individuals in the reporting and analysis of the survey results.',
+      about2: 'The person is identified using Haka login to create a unique answer identifier and to make electronic feedback possible. The identifier is saved as a background information which is used to associate the data collected with this survey to other background variables (such as title, nationality at continental level, personnel group). Read more in the privacy policy. It will not be possible to identify individuals in the reporting and analysis of the survey results.',
       about3: '',
-      privacy: 'More information in privacy policy.'
+      privacy: {
+        text: 'More information in %(link1)s and %(link2)s.',
+        privacyLink: 'https://wiki.eduuni.fi/display/CscArvo/Privacy+policy',
+        privacyLinkText: 'Privacy policy',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_EN.html',
+        accessibilityLinkText: 'Accessibility statement',
+      }
     },
     login: {
       header: 'Haka-login',

@@ -6,9 +6,15 @@ let localizations_sv = {
     kysely: {
       information: 'Välkomna att svara på rekryteringsenkäten',
       about1: 'Denna enkät är en del av undervisnings- och kulturministeriets datainsamling. Syftet med datainsamlingen är att generera kunskap om en viktig resurs vid högskolorna, dvs. personalen. Högskolorna samlar in informationen och skickar den vidare till undervisnings- och kulturministeriets datainsamling.',
-      about2: 'Med hjälp av HAKA-inloggning identifieras respondenten för att kunna skapa en unik svarskod. Detta möjliggör ifyllandet av enkäten. Uppgifter som identifierar respondenten ska sparas, och med hjälp av dessa uppgifter förenas enkätens data med vissa bakgrundsvariabler (t.ex. yrkesbeteckning, svarandens nationalitet enligt världsdel, personalgrupp). Se registerbeskrivningen för närmare information (finns på: https://wiki.eduuni.fi/display/CscArvo/Privacy+policy). Det går inte att urskilja enskilda personer i rapporteringen eller i analysen av informationen.',
+      about2: 'Med hjälp av HAKA-inloggning identifieras respondenten för att kunna skapa en unik svarskod. Detta möjliggör ifyllandet av enkäten. Uppgifter som identifierar respondenten ska sparas, och med hjälp av dessa uppgifter förenas enkätens data med vissa bakgrundsvariabler (t.ex. yrkesbeteckning, svarandens nationalitet enligt världsdel, personalgrupp). Se registerbeskrivningen för närmare information. Det går inte att urskilja enskilda personer i rapporteringen eller i analysen av informationen.',
       about3: 'Efter anställningsförhållandet är det inte möjligt att använda HAKA-inloggning. Då skickas en personlig länk till respondenten för att svara på enkäten.',
-      privacy: 'Mer information.'
+      privacy: {
+        text: 'Utförligare information i %(link1)s och %(link2)s.',
+        privacyLink: 'https://wiki.eduuni.fi/display/CscArvo/Privacy+policy',
+        privacyLinkText: 'registerbeskrivningen',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_SV.html',
+        accessibilityLinkText: 'tillgänglighetsutlåtande',
+      }
     },
     login: {
       header: 'Logga in',
