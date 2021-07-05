@@ -23,6 +23,7 @@ export default class LocalizedImage extends React.Component {
 
   render() {
     let img = imageUrls[this.state.locale][this.props.image];
-    return React.createElement('img', {src: img});
+    let alt = (this.props.alt !== undefined) ? translate.translate(this.props.alt) : null;
+    return React.createElement('img', {src: img, alt: alt});
   }
 }

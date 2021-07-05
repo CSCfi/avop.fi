@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
+import './index.css';
 import Main from './components/Main';
 import reportWebVitals from './reportWebVitals';
 

@@ -13,11 +13,11 @@ let Footer = () =>
     </div>
     <div className="row">
       <div className="one-third column okm">
-        <LocalizedImage image="OKM_logo" />
+        <LocalizedImage image="OKM_logo" alt="footer.okm.logo_alt" />
       </div>
 
       <div className="one-third column csc">
-        <LocalizedImage image="CSC" />
+        <LocalizedImage image="CSC" alt="footer.csc.logo_alt"/>
       </div>
     </div>
 

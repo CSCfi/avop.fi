@@ -1,6 +1,7 @@
 let localizations_sv = {
   header: {
-    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna'
+    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna',
+    header_alt: 'logo och text: svara och påverka'
   },
   content: {
     kysely: {
@@ -23,7 +24,8 @@ let localizations_sv = {
     tulokset: {
       header: 'Undersökningsresultaten',
       results1: 'Universitetets personal kan följa med enkätens resultat i realtid via utbildningsförvaltningens tjänst ”Arvo”. Ansökan om läsrättigheter (Arvo-katselija) kan anhållas via Opintopolku (virkailijan työpöytä, omat tiedot).',
-      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via utbildningsförvaltningens statistiktjänst Vipunen.',
+      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende ',
+      vipunen_link: 'via utbildningsförvaltningens statistiktjänst Vipunen.',
       link1: {
         url: '',
         text: ''
@@ -32,14 +34,17 @@ let localizations_sv = {
   },
   footer: {
     header: 'I samarbete med:',
-    arene: {
-      description: 'Finlands universitet UNIFI rf'
+    unifi: {
+      description: 'Finlands universitet UNIFI rf',
+      logo_alt: 'Unifi logo'
     },
-      okm: {
-      description: 'Undervisnings- och kulturministeriet'
+    okm: {
+      description: 'Undervisnings- och kulturministeriet',
+      logo_alt: 'Undervisnings- och kulturministeriet logo'
     },
     csc: {
-      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning'
+      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {

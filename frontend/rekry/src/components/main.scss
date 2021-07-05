@@ -11,6 +11,12 @@ body {
 
 a {
   text-decoration: none;
+  color: $theme-color;
+
+  &:hover {
+    color: $theme-color-hover;
+    text-decoration: underline;
+  }
 }
 
 .separator {

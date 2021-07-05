@@ -16,15 +16,15 @@ let Footer = () =>
     </div>
     <div className="row">
       <div className="one-third column arene">
-        <img className="img-arene" src={arene_logo} alt="Arene Ry"/>
+        <img className="img-arene" src={arene_logo} alt="Arene logo"/>
       </div>
 
       <div className="one-third column okm">
-        <LocalizedImage image="OKM_logo" />
+        <LocalizedImage image="OKM_logo" alt="footer.okm.logo_alt"/>
       </div>
 
       <div className="one-third column csc">
-        <LocalizedImage image="CSC" />
+        <LocalizedImage image="CSC" alt="footer.csc.logo_alt" />
       </div>
     </div>
 

@@ -1,11 +1,12 @@
 let localizations_en = {
   header: {
-    logotext: 'Polytechic graduand feedback questionnaire'
+    logotext: 'Polytechic graduand feedback questionnaire',
+    header_alt: 'AVOP logo'
   },
   content: {
     kysely: {
       information: 'About the questionnaire',
-      about1: 'AVOP - Graduand feedback questionnaire asks graduating students to evaluate and provide feedback on their education. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire.',
+      about1: 'AVOP feedback questionnaire asks graduating students to evaluate and provide feedback on their education. The findings are used locally by institutions to improve their institutional processes and practices and nationally to inform performance-based monitoring and funding. All graduating degree students from universities of applied sciences are requested to fill out the questionnaire.',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the AVOP-survey and your answers to the survey are handled anonymously.',
       about3: 'The questionnaire was developed in close cooperation with the Rectors\' Conference of Finnish Universities of Applied Sciences (ARENE), the Union of Students in Finnish Universities of Applied Sciences (SAMOK), Foundation for Research on Studying and Education (OTUS) and the Ministry for Education and Culture. The responsibility for development and implementation of the questionnaire lies with Arene.',
       privacy: {
@@ -23,19 +24,23 @@ let localizations_en = {
     tulokset: {
       header: 'The results',
       results1: 'The staff of the universities of applied sciences can review the real time survey results by using the Arvo - education management information service with appropriate user rights.',
-      results2: 'The statistics are freely available at the Vipunen statistics services of the educational administration.'
+      results2: 'The statistics are freely available at the ',
+      results_link: 'Vipunen statistics services of the educational administration.'
     }
   },
   footer: {
     header: 'In cooperation:',
     arene: {
-      description: 'Rectors’ Conference of Finnish Universities of Applied Sciences, Arene'
+      description: 'Rectors’ Conference of Finnish Universities of Applied Sciences, Arene',
+      logo_alt: 'Arene logo'
     },
     okm: {
-      description: 'Ministry of Education and Culture'
+      description: 'Ministry of Education and Culture',
+      logo_alt: 'Ministry of education and culture logo'
     },
     csc: {
-      description: 'Arvo - education management information service'
+      description: 'Arvo - education management information service',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {
@@ -76,6 +81,9 @@ let localizations_en = {
     no_rights_contact_study_office: 'No rights to study found with your logging information. Please contact your study office for further information.',
     some_rights_contact_study_office: ' %(rights_count)s rights to study found without required information to grant access to the graduate survey. Please contact your study office for further information.',
     additional_invalid_rights: 'In addition, %(rights_count)rights to study found without required information to grant access to the graduate survey. Please contact your study office for further information.'
+  },
+  images: {
+    logo_alt: 'AVOP logo'
   }
 };
 

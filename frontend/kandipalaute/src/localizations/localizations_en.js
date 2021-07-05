@@ -1,11 +1,12 @@
 let localizations_en = {
   header: {
-    logotext: 'The Finnish Bachelor’s Graduate Survey'
+    logotext: 'The Finnish Bachelor’s Graduate Survey',
+    header_alt: 'logo and text: take the survey, be heard!'
   },
   content: {
     kysely: {
       information: 'About the questionnaire',
-      about1: 'Kandipalaute - The Finnish Bachelor’s Graduate Survey is a national student feedback survey that examines students’ satisfaction with their university and studying experience. The survey is founded on HowULearn-questionnaire that was developed by the University of Helsinki based on prior research on academic teaching and learning. The findings are used by institutions to improve education and learning and nationally to inform performance-based monitoring and guidance. All graduating Bachelor degree students or students with corresponding studies from universities are requested to fill out the questionnaire.',
+      about1: 'The Finnish Bachelor’s Graduate Survey is a national student feedback survey that examines students’ satisfaction with their university and studying experience. The survey is founded on HowULearn-questionnaire that was developed by the University of Helsinki based on prior research on academic teaching and learning. The findings are used by institutions to improve education and learning and nationally to inform performance-based monitoring and guidance. All graduating Bachelor degree students or students with corresponding studies from universities are requested to fill out the questionnaire.',
       about2: 'Collected personal data is used to fetch information related to person’s study right from VIRTA - higher education achievement register as background information to create a respondent ID and enable the use of electronic graduate feedback questionnaire. The collected personal data is not transferred to the questionnaire and all answers are handled confidentially and anonymized.',
       about3: 'The responsibility for development and implementation of the questionnaire lies with Universities Finland UNIFI.',
       privacy: {
@@ -23,7 +24,8 @@ let localizations_en = {
     tulokset: {
       header: 'The results',
       results1: 'The staff of the universities can review the real time survey results by using the Arvo - education management information service with appropriate user rights.',
-      results2: 'The statistics are freely available at the Vipunen statistics services of the educational administration.',
+      results2: 'The statistics are freely available at the ',
+      vipunen_link: 'Vipunen statistics services of the educational administration.',
       link1: {
         url: '',
         text: ''
@@ -32,14 +34,17 @@ let localizations_en = {
   },
   footer: {
     header: 'In cooperation:',
-    arene: {
-      description: 'Universities Finland UNIFI'
+    unifi: {
+      description: 'Universities Finland UNIFI',
+      logo_alt: 'Unifi logo'
     },
     okm: {
-      description: 'Ministry of Education and Culture'
+      description: 'Ministry of Education and Culture',
+      logo_alt: 'Ministry of education and culture logo'
     },
     csc: {
-      description: 'Arvo - education management information service'
+      description: 'Arvo - education management information service',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {

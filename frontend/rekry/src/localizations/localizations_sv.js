@@ -1,6 +1,7 @@
 let localizations_sv = {
   header: {
-    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna'
+    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna',
+    header_alt: 'Logo'
   },
   content: {
     kysely: {
@@ -22,20 +23,20 @@ let localizations_sv = {
     },
     tulokset: {
       header: 'Enkätens resultat',
-      results1: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via utbildningsförvaltningens statistiktjänst Vipunen.',
-      results2: 'Tack för att du tar dig tid!'
+      results1: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende.',
+      results2: 'Tack för att du tar dig tid! ',
+      vipunen_link: 'via utbildningsförvaltningens statistiktjänst Vipunen. '
     }
   },
   footer: {
     header: 'I samarbete med:',
-    arene: {
-      description: 'Rådet för yrkeshögskolornas rektorer, Arene'
-    },
     okm: {
-      description: 'Undervisnings- och kulturministeriet'
+      description: 'Undervisnings- och kulturministeriet',
+      logo_alt: 'Undervisnings- och kulturministeriet logo'
     },
     csc: {
-      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning'
+      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {

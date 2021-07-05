@@ -1,6 +1,7 @@
 let localizations_fi = {
   header: {
-    logotext: 'Ammattikorkeakoulujen valmistumisvaiheen opiskelijapalaute'
+    logotext: 'Haka-kirjautuminen',
+    header_alt: 'Logo'
   },
   content: {
     kysely: {
@@ -22,17 +23,19 @@ let localizations_fi = {
     },
     tulokset: {
       header: 'Kyselyn tulokset',
-      results1: 'Kyselyn tuloksista johdettuja tilastoraportteja on myöhemmin avoimesti saatavilla opetushallinnon tilastopalvelu Vipusessa.',
-      results2: ''
+      results1: 'Kyselyn tuloksista johdettuja tilastoraportteja on avoimesti saatavilla ',
+      vipunen_link: 'opetushallinnon tilastopalvelu Vipusessa.'
     }
   },
   footer: {
     header: 'Yhteistyössä:',
     okm: {
-      description: 'Opetus- ja kulttuuriministeriö'
+      description: 'Opetus- ja kulttuuriministeriö',
+      logo_alt: 'Opetus- ja kulttuuriministeriön logo'
     },
     csc: {
-      description: 'Arvo - opetushallinnon vaikuttavuustietopalvelu'
+      description: 'Arvo - opetushallinnon vaikuttavuustietopalvelu',
+      logo_alt: 'CSC - Tieteen tietotekniikan keskuksen logo'
     }
   },
   profiledata: {
