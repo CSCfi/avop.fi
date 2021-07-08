@@ -53,14 +53,13 @@ export default class Content extends React.Component {
 
               <div id="haka" className="centered" onClick={this.login}>
                 <a href={config.hakaLoginUrl(this.extractCurrentDomain(), this.props.match.params.lang)}>
-                  <img src={hakaLoginImage} alt="haka-login"/>
+                  <img src={hakaLoginImage} alt="haka-login" tabIndex="0"/>
                 </a>
               </div>
 
             </div>
           </div>
         </section>
-
 
         <section id="main_content">
           <div className="container">

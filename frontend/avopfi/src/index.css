@@ -14,7 +14,7 @@ code {
 
 a.external:after {
   background: transparent url("images/external-link.svg") 0 0 no-repeat;
-  fill: #1eaedb;
+  fill: #027B99;
   background-size: 14px;
   content: "";
   display: inline-block;

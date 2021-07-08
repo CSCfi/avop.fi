@@ -11,10 +11,9 @@ import Home from "./home/Home";
 import Userprofile from "./user/userprofile";
 import Error from "./Error";
 
-import './main.scss';
 import 'react-skeleton-css/styles/skeleton.2.0.4.css';
 import 'react-skeleton-css/styles/normalize.3.0.2.css';
-
+import './main.scss';
 
 class AppComponent extends React.Component {
 
