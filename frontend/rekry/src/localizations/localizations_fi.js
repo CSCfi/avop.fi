@@ -6,9 +6,15 @@ let localizations_fi = {
     kysely: {
       information: 'Tervetuloa vastaamaan rekrytointikyselyyn!',
       about1: 'Tämä kysely on osa opetus- ja kulttuuriministeriön rekrytointitiedonkeruuta, jonka tarkoituksena on tuottaa vertailutietoa korkeakoulujen tärkeästä voimavarasta, henkilöstöstä.  Kyselyn vastaukset menevät korkeakoululle, joka yhdistää ne tarvittaviin taustatietoihin alla kuvatulla tavalla ja lähettää opetus- ja kulttuuriministeriölle.',
-      about2: 'HAKA-kirjautumisen avulla vastaaja tunnistetaan ja hänestä haetaan yksilöivä tunnistetieto vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Tunniste myös tallennetaan taustatiedoksi, jonka avulla kerätyt tiedot yhdistetään muuhun rekrytointitiedonkeruun aineistoon, esimerkiksi nimike, kansalaisuus maanosatasolla ja henkilöstöryhmä (kts. tarkemmin rekisteriseloste: https://wiki.eduuni.fi/display/CscArvo/Privacy+policy). Tietojen raportoinnissa ja analysoinnissa yksittäisiä henkilöitä ei ole tunnistettavissa.',
+      about2: 'HAKA-kirjautumisen avulla vastaaja tunnistetaan ja hänestä haetaan yksilöivä tunnistetieto vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Tunniste myös tallennetaan taustatiedoksi, jonka avulla kerätyt tiedot yhdistetään muuhun rekrytointitiedonkeruun aineistoon, esimerkiksi nimike, kansalaisuus maanosatasolla ja henkilöstöryhmä. Tietojen raportoinnissa ja analysoinnissa yksittäisiä henkilöitä ei ole tunnistettavissa.',
       about3: 'Työsuhteen päättymisen jälkeen Haka-kirjautuminen ei ole enää mahdollista. Tällöin organisaation Arvo-vastuuhenkilön on mahdollista luoda vastaajalle henkilökohtainen linkki kyselyyn vastaamista varten.',
-      privacy: 'Lisätietoja tietosuojaselosteessa.'
+      privacy: {
+        text: 'Lisätietoa: %(link1)s ja %(link2)s.',
+        privacyLink: 'https://wiki.eduuni.fi/display/CscArvo/Privacy+policy',
+        privacyLinkText: 'rekisteriseloste',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_FI.html',
+        accessibilityLinkText: 'saavutettavuusseloste',
+      }
     },
     login: {
       header: 'Haka-kirjautuminen',

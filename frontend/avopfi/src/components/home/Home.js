@@ -26,6 +26,8 @@ export default class Content extends React.Component {
   }
 
   render() {
+    const privacyLink = <a href={translate.translate('content.kysely.privacy.privacyLink')}>{translate.translate('content.kysely.privacy.privacyLinkText')}</a>;
+    const accessibilityLink = <a href={translate.translate('content.kysely.privacy.accessibilityLink')}>{translate.translate('content.kysely.privacy.accessibilityLinkText')}</a>;
     return (
       <div>
         <section id="theme">
@@ -66,7 +68,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
-                <p><a href={translate.translate('content.kysely.privacy.link')}>{translate.translate('content.kysely.privacy.text')}</a></p>
+                <Translate component="p" content="content.kysely.privacy.text" link1={privacyLink} link2={accessibilityLink}/>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>

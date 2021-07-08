@@ -1,5 +1,6 @@
 import React from 'react';
 import config from '../../config/base';
+import translate from 'counterpart';
 import Translate from 'react-translate-component';
 import LocalizedImage from '../common/localizedimage/localizedimage';
 
@@ -9,6 +10,15 @@ import hakaLoginImage from '../../images/Haka_login_vaaka_lg.jpg';
 
 export default class Content extends React.Component {
 
+  componentDidMount() {
+    translate
+      .onLocaleChange(this.localeChanged.bind(this));
+  }
+
+  localeChanged(newLocale) {
+    this.setState({locale: newLocale});
+  }
+
   extractCurrentDomain() {
     return window.location.protocol + '//' +
       window.location.hostname +
@@ -16,6 +26,8 @@ export default class Content extends React.Component {
   }
 
   render() {
+    const privacyLink = <a href={translate.translate('content.kysely.privacy.privacyLink')}>{translate.translate('content.kysely.privacy.privacyLinkText')}</a>;
+    const accessibilityLink = <a href={translate.translate('content.kysely.privacy.accessibilityLink')}>{translate.translate('content.kysely.privacy.accessibilityLinkText')}</a>;
     return (
       <div>
         <section id="theme">
@@ -56,6 +68,7 @@ export default class Content extends React.Component {
               <div className="u-full-width"><Translate component="p" content="content.kysely.about2"/></div>
               <div className="u-full-width">
                 <Translate component="p" content="content.kysely.about3"/>
+                <Translate component="p" content="content.kysely.privacy.text" link1={privacyLink} link2={accessibilityLink}/>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
               <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>

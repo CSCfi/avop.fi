@@ -9,8 +9,11 @@ let localizations_sv = {
       about2: 'Med hjälp av HAKA-identifieringen hämtas personens uppgifter gällande studierätten från VIRTA-datalager som bakgrundsinformation för att kunna skapa AVOP svarskoden och möjliggöra givande av respons elektroniskt. Uppgifter som skulle identifiera personen skickas inte vidare till AVOP-enkäten utan förfrågan är helt anonym.',
       about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.',
       privacy: {
-        text: 'Mer information.',
-        link: './privacy_sv.pdf'
+        text: 'Utförligare information i %(link1)s och %(link2)s.',
+        privacyLink: './privacy_sv.pdf',
+        privacyLinkText: 'registerbeskrivningen',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_SV.html',
+        accessibilityLinkText: 'tillgänglighetsutlåtande',
       }
     },
     login: {

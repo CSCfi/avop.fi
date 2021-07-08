@@ -9,9 +9,11 @@ let localizations_sv = {
       about2: 'Med hjälp av studerandes HAKA-inloggning hittas personens information om studierätt från nationella VIRTA-studieregistret. Uppgifterna används som bakgrundsinformation för att skapa svarsidentifiering och gör de möjligt att ge respons i elektronisk form. Information som möjliggör personlig identifiering överförs inte vidare till själva Kandidatrespons-enkäten, utan materialet behandlas anonymt.',
       about3: 'Kandidatrespons-enkäten koordineras och utvecklas av Finlands universitet UNIFI rf.',
       privacy: {
-        text: 'Utförligare information i %(link1)s och %(link2)s.',
+        text: 'Utförligare information i %(link1)s, %(link2)s och %(link3)s.',
         url1Text: 'registerbeskrivningen',
-        url2Text: 'etiska principer'
+        url2Text: 'etiska principer',
+        accessibilityLink: 'https://arvokyselyt.fi/documents/accessibility_statement_SV.html',
+        accessibilityLinkText: 'tillgänglighetsutlåtande'
       }
     },
     login: {
