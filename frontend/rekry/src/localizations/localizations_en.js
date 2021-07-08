@@ -1,6 +1,7 @@
 let localizations_en = {
   header: {
-    logotext: 'Haka-login'
+    logotext: 'Haka-login',
+    header_alt: 'Logo'
   },
   content: {
     kysely: {
@@ -22,20 +23,19 @@ let localizations_en = {
     },
     tulokset: {
       header: 'The results',
-      results1: 'The statistics are freely available at the Vipunen statistics services of the educational administration.',
-      results2: ''
+      results1: 'The statistics are freely available at the ',
+      vipunen_link: 'Vipunen statistics services of the educational administration.'
     }
   },
   footer: {
     header: 'In cooperation:',
-    arene: {
-      description: 'Rectors’ Conference of Finnish Universities of Applied Sciences, Arene'
-    },
     okm: {
-      description: 'Ministry of Education and Culture'
+      description: 'Ministry of Education and Culture',
+      logo_alt: 'Ministry of education and culture logo'
     },
     csc: {
-      description: 'Arvo - education management information service'
+      description: 'Arvo - education management information service',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {

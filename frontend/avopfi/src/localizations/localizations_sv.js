@@ -1,11 +1,12 @@
 let localizations_sv = {
   header: {
-    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna'
+    logotext: 'Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna',
+    header_alt: 'AVOP logo'
   },
   content: {
     kysely: {
       information: 'Enkäten i korthet',
-      about1: 'AVOP - Responsenkäten för yrkeshögskolestuderande i slutskedet av studierna är ett utvärderingssystem som ger studenten möjlighet att utvärdera och ge respons på sin utbildning. Utvärderingsresultaten används lokalt vid högskolorna med syfte att förbättra de egna processerna och att prägla uppföljningen och finansieringen av den nationella utbildningen. Alla utexaminerade yrkesehögskolestuderanden ombeds fylla i enkäten.',
+      about1: 'AVOP responsenkäten är ett utvärderingssystem som ger studenten möjlighet att utvärdera och ge respons på sin utbildning. Utvärderingsresultaten används lokalt vid högskolorna med syfte att förbättra de egna processerna och att prägla uppföljningen och finansieringen av den nationella utbildningen. Alla utexaminerade yrkesehögskolestuderanden ombeds fylla i enkäten.',
       about2: 'Med hjälp av HAKA-identifieringen hämtas personens uppgifter gällande studierätten från VIRTA-datalager som bakgrundsinformation för att kunna skapa AVOP svarskoden och möjliggöra givande av respons elektroniskt. Uppgifter som skulle identifiera personen skickas inte vidare till AVOP-enkäten utan förfrågan är helt anonym.',
       about3: 'Den elektroniska enkäten AVOP, utgör en del av den nationella ARVO-tjänsten (informationstjänst för hantering av utbildningsärenden), som gör det möjligt att på nationell nivå samla ihop förenlig data om effekterna av utbildning.',
       privacy: {
@@ -23,19 +24,23 @@ let localizations_sv = {
     tulokset: {
       header: 'Enkätens resultat',
       results1: 'Personalen vid yrkeshögskolorna kommer åt enkätens resultat i realtid via Arvo-tjänsten.',
-      results2: 'Statistiken som stått som bakgrund för enkätresultaten är fritt tillgängliga via utbildningsförvaltningens statistiktjänst Vipunen:'
+      results2: 'Statistiska rapporter av enkätens resultat finns till allmänt påseende via ',
+      results_link: 'utbildningsförvaltningens statistiktjänst Vipunen.'
     }
   },
   footer: {
     header: 'I samarbete med:',
     arene: {
-      description: 'Rådet för yrkeshögskolornas rektorer, Arene'
+      description: 'Rådet för yrkeshögskolornas rektorer, Arene',
+      logo_alt: 'Arene logo'
     },
     okm: {
-      description: 'Undervisnings- och kulturministeriet'
+      description: 'Undervisnings- och kulturministeriet',
+      logo_alt: 'Undervisnings- och kulturministeriet logo'
     },
     csc: {
-      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning'
+      description: 'Arvo - informationstjänst för effektivitetshantering i utbildningsförvaltning',
+      logo_alt: 'CSC logo'
     }
   },
   profiledata: {
@@ -76,6 +81,9 @@ let localizations_sv = {
     no_rights_contact_study_office: 'Med dina uppgifter hittades ingen studierätt. Kontakta din studiebyrå.',
     some_rights_contact_study_office: 'Med dina uppgifter hittades %(rights_count)s studierätter, men uppgifterna räcker inte till för ge respons. Kontakta din studiebyrå.',
     additional_invalid_rights: 'Dessutom hittades %(rights_count)s studierätter, men informationen räcker inte till för att kunna ge respons.'
+  },
+  images: {
+    logo_alt: "AVOP logo"
   }
 };
 

@@ -1,11 +1,12 @@
 let localizations_fi = {
   header: {
-    logotext: 'Yliopistojen valtakunnallinen opiskelijapalautekysely'
+    logotext: 'Yliopistojen valtakunnallinen opiskelijapalautekysely',
+    header_alt: 'Kyselyn logo ja teksti: Vastaa ja vaikuta'
   },
   content: {
     kysely: {
       information: 'Tietoa kyselystä',
-      about1: 'Kandipalaute on yliopistojen valtakunnallinen opiskelijapalautekysely, jossa  selvitetään kandidaatin tutkinnon suorittaneiden opiskelijoiden tyytyväisyyttä yliopistoonsa ja kokemuksia opintojen sujumisesta. Kysely perustuu oppimista, opiskelua ja opetusta koskevaan tieteelliseen tutkimukseen, ja sen pohjalta kehitettyyn Helsingin yliopiston HowULearn-kyselyyn. Kyselyn tuloksia hyödynnetään yliopistojen koulutuksen kehittämisessä sekä valtakunnallisesti yliopistojen ohjauksessa. Kyselyn täyttävät kaikki alempaan korkeakoulututkintoon kuuluvat tai vastaavat opinnot suorittaneet yliopisto-opiskelijat.',
+      about1: 'Kandipalaute on palautekysely, jossa selvitetään kandidaatin tutkinnon suorittaneiden opiskelijoiden tyytyväisyyttä yliopistoonsa ja kokemuksia opintojen sujumisesta. Kysely perustuu oppimista, opiskelua ja opetusta koskevaan tieteelliseen tutkimukseen, ja sen pohjalta kehitettyyn Helsingin yliopiston HowULearn-kyselyyn. Kyselyn tuloksia hyödynnetään yliopistojen koulutuksen kehittämisessä sekä valtakunnallisesti yliopistojen ohjauksessa. Kyselyn täyttävät kaikki alempaan korkeakoulututkintoon kuuluvat tai vastaavat opinnot suorittaneet yliopisto-opiskelijat.',
       about2: 'Opiskelijan HAKA-kirjautumisen avulla haetaan henkilön opiskeluoikeuteen liittyviä tietoja VIRTA-opintotietopalvelusta taustatiedoksi Kandipalaute-kyselyn vastaajatunnuksen luomiseksi ja sähköisen palautteen antamisen mahdollistamiseksi. Henkilön yksilöiviä tunnisteita ei välitetä eteenpäin itse Kandipalaute-kyselyyn ja annettua palautetta käsitellään anonyymisti.',
       about3: 'Kandipalaute-kyselystä ja sen kehittämisestä vastaa Suomen yliopistot UNIFI ry.',
       privacy: {
@@ -23,7 +24,8 @@ let localizations_fi = {
     tulokset: {
       header: 'Kyselyn tulokset',
       results1: 'Yliopiston henkilökunta voi tarkastella kyselyn tuloksia reaaliaikaisesti Arvo - opetushallinnon vaikuttavuustietopalvelun avulla. Katseluoikeudet (Arvo-katselija) voi anoa Opintopolun virkailijantyöpöydän kautta (Omat tiedot).',
-      results2: 'Annetuista vastauksista muodostettava sähköinen tutkimusaineisto arkistoidaan pysyvästi %(link)s, jossa aineistot ovat saatavilla myöhempään tutkimus-, opiskelu- ja opetuskäyttöön. Arkistointia varten aineistoa muokataan siten, ettei yksittäisen vastaajan tunnistaminen ole mahdollista (anonymisointi). Kyselyn tuloksista johdettuja tilastoraportteja tuodaan lisäksi avoimesti saataville opetushallinnon tilastopalvelu Vipuseen.',
+      results2: 'Annetuista vastauksista muodostettava sähköinen tutkimusaineisto arkistoidaan pysyvästi %(link)s, jossa aineistot ovat saatavilla myöhempään tutkimus-, opiskelu- ja opetuskäyttöön. Arkistointia varten aineistoa muokataan siten, ettei yksittäisen vastaajan tunnistaminen ole mahdollista (anonymisointi). Kyselyn tuloksista johdettuja tilastoraportteja on avoimesti saatavilla ',
+      vipunen_link: 'opetushallinnon tilastopalvelu Vipusessa.',
       link1: {
         url: 'https://www.fsd.uta.fi/',
         text: 'Yhteiskuntatieteelliseen tietoarkistoon'
@@ -32,14 +34,17 @@ let localizations_fi = {
   },
   footer: {
     header: 'Yhteistyössä:',
-    arene: {
-      description: 'Suomen Yliopistot UNIFI ry'
+    unifi: {
+      description: 'Suomen Yliopistot UNIFI ry',
+      logo_alt: 'Unifin logo'
     },
     okm: {
-      description: 'Opetus- ja kulttuuriministeriö'
+      description: 'Opetus- ja kulttuuriministeriö',
+      logo_alt: 'Opetus- ja kulttuuriministeriön logo'
     },
     csc: {
-      description: 'Arvo - opetushallinnon vaikuttavuustietopalvelu'
+      description: 'Arvo - opetushallinnon vaikuttavuustietopalvelu',
+      logo_alt: 'CSC - Tieteen tietotekniikan keskuksen logo'
     }
   },
   profiledata: {

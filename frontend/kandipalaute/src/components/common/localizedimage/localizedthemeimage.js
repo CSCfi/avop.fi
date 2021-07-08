@@ -2,7 +2,6 @@ import React from 'react';
 import translate from 'counterpart';
 import './localizedthemeimage.scss'
 
-
 export default class LocalizedBackgroundImage extends React.Component {
 
   constructor(props) {
@@ -23,7 +22,8 @@ export default class LocalizedBackgroundImage extends React.Component {
   }
 
   render() {
-    return React.createElement('div', {id: 'theme', className: this.state.locale});
+    let alt = (this.props.alt !== undefined) ? translate.translate(this.props.alt) : null;
+    return React.createElement('div', {id: 'theme', role: 'img', aria_label: alt, className: this.state.locale});
   }
 }
 

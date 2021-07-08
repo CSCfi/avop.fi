@@ -37,7 +37,7 @@ export default class Content extends React.Component {
               <div className="six columns">
                 <div className="u-full-width">
                   <div id="logo">
-                    <LocalizedImage image="logo" />
+                    <LocalizedImage image="logo" alt="header.header_alt" />
                   </div>
                 </div>
               </div>
@@ -71,14 +71,9 @@ export default class Content extends React.Component {
                 <Translate component="p" content="content.kysely.privacy.text" link1={privacyLink} link2={accessibilityLink}/>
               </div>
               <div className="u-full-width"><Translate component="h4" content="content.tulokset.header"/></div>
-              <div className="u-full-width"><Translate component="p" content="content.tulokset.results1"/></div>
-              <div className="u-full-width"><Translate component="p" content="content.tulokset.results2"/></div>
-              <div className="u-full-width">
-                <a href="https://vipunen.fi/" className="vipunen">
-                  <LocalizedImage image="vipunen"/>
-                </a>
-              </div>
-
+               <p><Translate component="span" content="content.tulokset.results1"/>
+                 <a className="external" href="https://vipunen.fi/"><Translate component="span" content="content.tulokset.vipunen_link"/></a>
+               </p>
             </div>
           </div>
         </section>
