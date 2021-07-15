@@ -1,4 +1,4 @@
-(ns avopfi.consts)
+(ns kyselyynohjaus.consts)
 
 ;; VIRTA opiskeluoikeustyyppi
 ;; Refer to: https://goo.gl/6mxppY

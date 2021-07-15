@@ -1,4 +1,4 @@
-(ns avopfi.util
+(ns kyselyynohjaus.util
   (:require
     [java-time :refer [local-date]]
     [cats.monad.either :as either]

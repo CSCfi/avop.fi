@@ -1,11 +1,11 @@
-(ns avopfi.integration.virta
+(ns kyselyynohjaus.integration.virta
   (:require
-    [avopfi.consts :refer :all]
-    [avopfi.util :refer :all]
+    [kyselyynohjaus.consts :refer :all]
+    [kyselyynohjaus.util :refer :all]
     [config.core :refer [env]]
     [clojure.string :refer [trim join]]
     [clojure.java.data :refer [from-java]]
-    [avopfi.integration.arvo :refer [get-kaikki-oidit]]
+    [kyselyynohjaus.integration.arvo :refer [get-kaikki-oidit]]
     [clojure.core.match :refer [match]]
     [clojure.tools.logging :as log]
     [java-time :refer [local-date]])

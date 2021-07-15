@@ -1,4 +1,4 @@
-(ns avopfi.integration.opintopolku
+(ns kyselyynohjaus.integration.opintopolku
   (:require
     [clojure.string :as str]
     [config.core :refer [env]]

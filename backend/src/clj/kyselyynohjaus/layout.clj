@@ -1,4 +1,4 @@
-(ns avopfi.layout
+(ns kyselyynohjaus.layout
   (:require [selmer.parser :as parser]
             [selmer.filters :as filters]
             [ring.util.http-response :refer [content-type ok]]

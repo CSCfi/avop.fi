@@ -1,4 +1,4 @@
-(ns avopfi.db.core
+(ns kyselyynohjaus.db.core
   (:require
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]

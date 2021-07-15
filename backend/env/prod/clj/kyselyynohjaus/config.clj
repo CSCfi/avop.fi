@@ -1,8 +1,8 @@
-(ns avopfi.config
+(ns kyselyynohjaus.config
   (:require [clojure.tools.logging :as log]))
 
 (def defaults
   {:init
    (fn []
-     (log/info "\n-=[avopfi started successfully]=-"))
+     (log/info "\n-=[kyselyynohjaus started successfully]=-"))
    :middleware identity})

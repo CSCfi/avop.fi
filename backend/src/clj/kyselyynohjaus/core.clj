@@ -1,8 +1,8 @@
-(ns avopfi.core
-  (:require [avopfi.handler :refer [app init destroy]]
+(ns kyselyynohjaus.core
+  (:require [kyselyynohjaus.handler :refer [app init destroy]]
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]
-            [avopfi.db.migrations :as migrations]
+            [kyselyynohjaus.db.migrations :as migrations]
             [config.core :refer [env]])
   (:gen-class))
 

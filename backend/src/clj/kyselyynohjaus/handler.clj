@@ -1,15 +1,15 @@
-(ns avopfi.handler
+(ns kyselyynohjaus.handler
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
-            [avopfi.layout :refer [error-page]]
-            [avopfi.routes.api :refer [api-routes vipunen-routes rekry-routes common-routes export-routes]]
-            [avopfi.routes.public :refer [public-routes]]
-            [avopfi.middleware :as middleware]
-            [avopfi.db.migrations :as migrations]
+            [kyselyynohjaus.layout :refer [error-page]]
+            [kyselyynohjaus.routes.api :refer [api-routes vipunen-routes rekry-routes common-routes export-routes]]
+            [kyselyynohjaus.routes.public :refer [public-routes]]
+            [kyselyynohjaus.middleware :as middleware]
+            [kyselyynohjaus.db.migrations :as migrations]
             [clojure.tools.logging :as log]
             [compojure.route :as route]
             [compojure.handler :as handler]
             [config.core :refer [env]]
-            [avopfi.config :refer [defaults]]
+            [kyselyynohjaus.config :refer [defaults]]
             [mount.core :as mount]
             [luminus.logger :as logger]))
 
@@ -27,7 +27,7 @@
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (log/info "avopfi is shutting down...")
+  (log/info "kyselyynohjaus is shutting down...")
   (doseq [component (:stopped (mount/stop))]
     (log/info component "stopped"))
   (log/info "shutdown complete!"))

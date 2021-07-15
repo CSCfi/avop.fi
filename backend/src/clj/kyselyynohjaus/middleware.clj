@@ -1,12 +1,12 @@
-(ns avopfi.middleware
-  (:require [avopfi.layout :refer [*app-context* error-page]]
+(ns kyselyynohjaus.middleware
+  (:require [kyselyynohjaus.layout :refer [*app-context* error-page]]
             [clojure.tools.logging :as log]
             [config.core :refer [env]]
             [ring-ttl-session.core :refer [ttl-memory-store]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]
-            [avopfi.config :refer [defaults]]            
+            [kyselyynohjaus.config :refer [defaults]]
             [buddy.auth.middleware :refer [wrap-authentication wrap-authorization]]
             [buddy.auth.backends.token :refer [token-backend]]
             [buddy.auth.accessrules :refer [restrict]]
@@ -14,7 +14,7 @@
             [clojure.string :as str]
             [config.core :refer [env]]
             [haka-buddy.backend :as backends]
-            [avopfi.util :refer [deprefixize]]
+            [kyselyynohjaus.util :refer [deprefixize]]
             [io.clj.logging :refer [with-logging-context]]
             [clojure.set :as set])
   (:import [javax.servlet ServletContext]

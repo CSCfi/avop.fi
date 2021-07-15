@@ -1,7 +1,7 @@
-(defproject avopfi "0.1.0-SNAPSHOT"
+(defproject kyselyynohjaus "0.1.0-SNAPSHOT"
 
-  :description "Avop.fi backend"
-  :url "https://www.avop.fi"
+  :description "Kyselyynohjaus backend"
+  :url ""
 
   :dependencies [[haka-buddy "0.2.1"]
                  [clj-http "2.0.1"]
@@ -39,12 +39,12 @@
   :javac-options ["-target" "1.8" "-source" "1.8"]
   :resource-paths ["resources"]
 
-  :main avopfi.core
+  :main kyselyynohjaus.core
   :migratus {:store :database}
-  :uberwar {:handler avopfi.handler/app
-            :init avopfi.handler/init
-            :destroy avopfi.handler/destroy
-            :name "avopfi.war"}
+  :uberwar {:handler kyselyynohjaus.handler/app
+            :init    kyselyynohjaus.handler/init
+            :destroy kyselyynohjaus.handler/destroy
+            :name    "kyselyynohjaus.war"}
 
   :test-selectors {:default (complement :integration)
                    :integration :integration
@@ -58,7 +58,7 @@
   {:uberjar {:omit-source true
              :env {:production true}
              :aot :all
-             :uberjar-name "avopfi.jar"
+             :uberjar-name "kyselyynohjaus.jar"
              :source-paths ["env/prod/clj"]
              :resource-paths ["env/prod/resources"]}
    :dev           [:project/dev :profiles/dev]

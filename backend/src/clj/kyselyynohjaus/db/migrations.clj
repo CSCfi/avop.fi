@@ -1,4 +1,4 @@
-(ns avopfi.db.migrations
+(ns kyselyynohjaus.db.migrations
   (:require
     [migratus.core :as migratus]
     [config.core :refer [env]]

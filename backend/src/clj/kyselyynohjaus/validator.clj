@@ -1,6 +1,6 @@
-(ns avopfi.validator
-  (:require [avopfi.util :refer :all]
-            [avopfi.consts :refer :all]
+(ns kyselyynohjaus.validator
+  (:require [kyselyynohjaus.util :refer :all]
+            [kyselyynohjaus.consts :refer :all]
             [clojure.core.match :refer [match]]
             [clojure.tools.logging :as log]))
 

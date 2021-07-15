@@ -1,7 +1,7 @@
 (ns avopfi.test.handler
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
-            [avopfi.handler :refer :all]))
+            [kyselyynohjaus.handler :refer :all]))
 
 (deftest test-app
   (testing "main route"

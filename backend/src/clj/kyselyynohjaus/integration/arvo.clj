@@ -1,14 +1,14 @@
-(ns avopfi.integration.arvo
+(ns kyselyynohjaus.integration.arvo
   (:require
     [config.core :refer [env]]
-    [avopfi.consts :refer :all]
+    [kyselyynohjaus.consts :refer :all]
     [buddy.sign.jwt :as jwt]
     [java-time :refer [as local-date]]
     [clojure.tools.logging :as log]
     [clj-http.client :as client]
-    [avopfi.util :refer [in?]]
+    [kyselyynohjaus.util :refer [in?]]
     [clojure.core.match :refer [match]]
-    [avopfi.validator :refer [lisensiaatti? jakso-active?]]
+    [kyselyynohjaus.validator :refer [lisensiaatti? jakso-active?]]
     [cheshire.core :as cheshire]))
 
 
