@@ -1,8 +1,0 @@
----
-- hosts: frontend
-  vars_files:
-    - vars/environment/{{ environment_id }}.yml
-  become: yes
-  become_user: root
-  roles:
-    - deploy-kandipalaute-frontend
