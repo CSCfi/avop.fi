@@ -17,3 +17,5 @@ profiles.clj
 /backend/logs
 /backend/*.log*
 /backend/kyselyynohjaus.env
+
+frontend/*/logs
