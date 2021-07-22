@@ -1,5 +1,3 @@
-ARG FRONTEND_NAME=avopfi
-ARG FRONTEND_PATH
 # Build frontend
 FROM node:14-alpine AS nodebuild
 ARG FRONTEND_NAME
