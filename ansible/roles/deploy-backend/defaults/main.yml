@@ -1,5 +1,0 @@
----
-# should be the same as in roles/backend/defaults
-avop_service_user: avop
-backend_tomcat_path: "/home/{{ avop_service_user }}/tomcat/current"
-backend_war_name: "avopfi.war"

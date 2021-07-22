@@ -1,5 +1,5 @@
 (ns user
-  (:require [avopfi.handler :refer [app init destroy]]
+  (:require [kyselyynohjaus.handler :refer [app init destroy]]
             [luminus.http-server :as http]
             [config.core :refer [env]]))
 

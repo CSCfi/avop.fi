@@ -1,10 +1,16 @@
-postgres:
-    image: postgres:9.4
+# Add custom env variables to kyselyynohjaus.env file in this folder. Format: DB__MIGRATION_USER=username = {:db {:migration-user username}}
+
+version: "3.9"
+services:
+  kyselyynohjaus:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-        - "5432:5432"
-    expose:
-        - "5432"
-    environment:
-        POSTGRES_USER: avopfi
-        POSTGRES_PASSWORD: avopfi
-        POSTGRES_DB: avopfi
+      - "3000:3000"
+    env_file:
+      - kyselyynohjaus.env
+    volumes:
+      - type: bind
+        target: /kyselyynohjaus/logs
+        source: logs

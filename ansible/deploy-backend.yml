@@ -1,6 +1,0 @@
----
-- hosts: backend
-  vars_files:
-    - vars/environment/{{ environment_id }}.yml
-  roles:
-    - deploy-backend

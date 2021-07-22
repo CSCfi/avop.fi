@@ -1,7 +1,0 @@
----
-- name: copy kandipalaute frontend dist
-  copy:
-    src: "../frontend/kandipalaute/dist"
-    dest: "/var/www/html/kandipalaute"
-    owner: apache
-    group: apache

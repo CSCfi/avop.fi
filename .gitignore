@@ -16,3 +16,6 @@ profiles.clj
 .nrepl-port
 /backend/logs
 /backend/*.log*
+/backend/kyselyynohjaus.env
+
+frontend/*/logs

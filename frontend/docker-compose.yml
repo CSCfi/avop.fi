@@ -1,0 +1,47 @@
+# Add custom env variables to avop.env file in this folder. Format: DB__MIGRATION_USER=username = {:db {:migration-user username}}
+
+version: "3.9"
+services:
+  avopfi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_NAME: avopfi
+    ports:
+      - "3001:8080"
+    environment:
+      - NGINX_PATH=
+    volumes:
+      - type: bind
+        target: /var/log/nginx
+        source: avopfi/logs
+  kandipalaute:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_NAME: kandipalaute
+    environment:
+      - NGINX_PATH=
+    ports:
+      - "3002:8080"
+    volumes:
+      - type: bind
+        target: /var/log/nginx
+        source: kandipalaute/logs
+  rekry:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_NAME: rekry
+        FRONTEND_PATH: rekrykysely/
+    environment:
+      - NGINX_PATH=rekrykysely
+    ports:
+      - "3003:8080"
+    volumes:
+      - type: bind
+        target: /var/log/nginx
+        source: rekry/logs
